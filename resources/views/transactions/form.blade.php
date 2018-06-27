@@ -68,21 +68,29 @@
             {{ Form::text('description', old('description', (isset($transaction)?$transaction->description:null)), ['class'=>'form-control']) }}
           </div>
         </div>
-        <div class="col-md-{{$account->is_credit_card?12:10}}">
+        <div class="col-md-2">
+          <div class="form-group">
+            {{ Form::label('is_credit', __('transactions.is_credit')) }}
+            <label class="switch">
+              {{ Form::checkbox('is_credit', 1, old('is_credit', (isset($transaction)?$transaction->value<0:false))) }}
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-md-{{$account->is_credit_card?10:8}}">
           <div class="form-group">
             {{ Form::label('value', __('transactions.value')) }}
-            {{ Form::number('value', old('value', (isset($transaction)?$transaction->value:null)), ['class'=>'form-control', 'step' => '0.01', 'style'=>'text-align:right;']) }}
+            {{ Form::number('value', old('value', (isset($transaction)?abs($transaction->value):null)), ['class'=>'form-control', 'step' => '0.01', 'style'=>'text-align:right;']) }}
           </div>
         </div>
         @if (!$account->is_credit_card)
           <div class="col-md-2">
             <div class="form-group">
               {{ Form::label('paid', __('transactions.paid')) }}
-              <div class="checkbox">
-                <labels>
-                  {{ Form::checkbox('paid', 1, old('paid', (isset($transaction)?$transaction->paid:false))) }}
-                </label>
-              </div>
+              <label class="switch">
+                {{ Form::checkbox('paid', 1, old('paid', (isset($transaction)?$transaction->paid:false))) }}
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
         @endif

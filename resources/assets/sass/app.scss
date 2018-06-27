@@ -7,8 +7,9 @@
 // Bootstrap
 @import "./bootstrap.min.css";
 @import "./tagsinput.css";
-
 @import "variables";
+@import "switch";
+
 nav.navbar{
   margin-bottom: 10px;
 }
@@ -73,4 +74,10 @@ body{
 
 .card {
   margin-bottom: 10px;
+}
+
+form { 
+  label{
+    display: block;
+  }
 }
