@@ -80,7 +80,7 @@
         <div class="col-md-{{$account->is_credit_card?10:8}}">
           <div class="form-group">
             {{ Form::label('value', __('transactions.value')) }}
-            {{ Form::number('value', old('value', (isset($transaction)?abs($transaction->value):null)), ['class'=>'form-control', 'step' => '0.01', 'style'=>'text-align:right;']) }}
+            {{ Form::number('value', old('value', (isset($transaction)?abs($transaction->value):null)), ['class'=>'form-control', 'step' => '0.01', 'style'=>'text-align:right;', 'min'=>'0.01']) }}
           </div>
         </div>
         @if (!$account->is_credit_card)

@@ -100,8 +100,9 @@ class AccountController extends Controller
               $monthValueAccountNotPaid[$creditCard->id][$i] = 0; 
               $invoice = $creditCard->invoices()->whereBetween('debit_date',[$dateInit[$i], $dateEnd[$i]])->first();
               if (isset($invoice)){
-                $monthValueAccount[$creditCard->id][$i] += $invoice->transactions()->where('value','>',0)->sum('value');
-                $monthValueAccountNotPaid[$creditCard->id][$i] += $invoice->transactions()->where('value','<',0)->sum('value');
+                $value = $invoice->transactions()->sum('value');
+                $monthValueAccount[$creditCard->id][$i] = $value < 0 ? $value : 0;
+                $monthValueAccountNotPaid[$creditCard->id][$i] = $value > 0 ? $value : 0;
               }
               $accountResult->invoices[] = $invoice;
             }
