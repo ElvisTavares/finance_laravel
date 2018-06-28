@@ -46,4 +46,6 @@ return array (
   'close' => 'Fechar',
   'ofx' => 'OFX',
   'csv' => 'CSV',
+  'description_max_100' => 'Descrição não pode ter mais que 100 caracteres',
+  'date_required' => 'Data é obrigatório',
 );
