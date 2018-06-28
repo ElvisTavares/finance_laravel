@@ -187,14 +187,6 @@ input[type=date] {
   margin-bottom: 3px;
 }
 
-.title-buttons {
-  text-align: right;
-}
-
-.title-buttons .btn {
-  width: calc(50% - 2px);
-}
-
 body {
   background-color: #f7f7f7;
 }

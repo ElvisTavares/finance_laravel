@@ -5,14 +5,22 @@
 @endsection
 
 @section('title-buttons')
-  <a class="btn btn-secondary" href="/accounts">
-    <i class="fa fa-arrow-left"></i> {{__('common.back')}}
-  </a>
-  @if (isset($account))
-    <a class="btn btn-primary" title="{{__('common.add')}}" href="/account/{{$account->id}}/transaction/create">
-      <i class="fa fa-plus"></i> {{__('common.add')}}
-    </a>
-  @endif
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 offset-md-{{isset($account)?4:8}}">
+        <a class="btn btn-secondary" href="/accounts">
+          <i class="fa fa-arrow-left"></i>
+        </a>
+      </div>
+      @if (isset($account))
+        <div class="col-md-4">
+          <a class="btn btn-primary" title="{{__('common.add')}}" href="/accounts/create">
+            <i class="fa fa-plus"></i>
+          </a>
+        </div>
+      @endif
+    </div>
+  </div>
 @endsection
 
 @section('content')

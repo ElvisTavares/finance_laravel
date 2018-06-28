@@ -9,12 +9,20 @@
   </div>
 @endsection
 @section('title-buttons')
-  <a class="btn btn-secondary" title="{{__('common.view_mode')}}" href="/accounts?view_mode={{$modeView=='table'?'card':'table'}}">
-    <i class="fas fa-exchange-alt"></i> {{__('common.view_mode')}}
-  </a>
-  <a class="btn btn-primary" title="{{__('common.add')}}" href="/accounts/create">
-    <i class="fa fa-plus"></i> {{__('common.add')}}
-  </a>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <a class="btn btn-secondary" title="{{__('common.view_mode')}}" href="/accounts?view_mode={{$modeView=='table'?'card':'table'}}">
+          <i class="fas fa-exchange-alt"></i>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a class="btn btn-primary" title="{{__('common.add')}}" href="/accounts/create">
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 @endsection
 @section('content')
   <div class="container">

@@ -6,6 +6,8 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Account;
 use App\Invoice;
+use App\SysConfig;
+use App\UserConfig;
 
 class InvoiceController extends Controller
 {
@@ -21,8 +23,23 @@ class InvoiceController extends Controller
 
 	public function index(Request $request)
   {
+    $user = \Auth::user();
+    $modeViewConfigId = config('constants.user_configs.mode_invoice_view');
+    $modeViewConfig = $user->configs()->where(['config_id'=>$modeViewConfigId])->first();
+    if (!isset($modeViewConfig)){
+      $modeViewConfig = new UserConfig;
+      $modeViewConfig->user()->associate(\Auth::user());
+      $modeViewConfig->config()->associate(SysConfig::find($modeViewConfigId));
+      $modeViewConfig->value = 'table';
+      $modeViewConfig->save();
+    }
+    if (isset($request->view_mode)){
+      $modeViewConfig->value = $request->view_mode;
+      $modeViewConfig->save();
+    }
+    $modeView = $modeViewConfig->value;
     $invoices = $request->account->invoices()->orderBy('debit_date')->get();
-    return view('invoices.index', ['account' => $request->account, 'invoices' => $invoices]);
+    return view('invoices.index', ['account' => $request->account, 'invoices' => $invoices, 'modeView' => $modeView]);
   }   
 
   /**
