@@ -5,9 +5,15 @@
 @endsection
 
 @section('title-buttons')
-  <a class="btn btn-secondary" href="/account/{{$account->id}}/transactions">
-    <i class="fa fa-arrow-left"></i>
-  </a>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 offset-md-8">
+        <a class="btn btn-secondary" href="/account/{{$account->id}}/transactions">
+          <i class="fa fa-arrow-left"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('content')
