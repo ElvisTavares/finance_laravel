@@ -23,7 +23,7 @@
         <div class="col-md-{{$account->is_credit_card?'6':'12'}}">
           <div class="form-group">
             {{ Form::label('date', __('common.date')) }}
-            {{ Form::input('dateTime-local', 'date', old('date', (isset($transaction)?$transaction->date:null)), ['class'=>'form-control']) }}
+            {{ Form::input('date', 'date', old('date', (isset($transaction)?$transaction->date:null)), ['class'=>'form-control']) }}
           </div>
         </div>
     @if (!$account->is_credit_card)

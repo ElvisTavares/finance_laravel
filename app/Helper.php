@@ -10,5 +10,5 @@ function formatDate($date){
 }
 
 function formatDateTime($date){
-  return date( __('config.date_time_format'),strtotime($date));
+  return date( __('config.date_format'),strtotime($date));
 }	

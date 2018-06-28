@@ -25,17 +25,17 @@
       </div>
       <div class="form-group">
         {{ Form::label('date_init', __('common.date_init')) }}
-        {{ Form::input('dateTime-local', 'date_init', old('date_init', ( isset($invoice) ? $invoice->date_init : null )), ['class'=>'form-control']) }}
+        {{ Form::input('date', 'date_init', old('date_init', ( isset($invoice) ? $invoice->date_init : null )), ['class'=>'form-control']) }}
       </div>
     </div>
     <div class="col-md-12">
       <div class="form-group">
         {{ Form::label('date_end', __('common.date_end')) }}
-        {{ Form::input('dateTime-local', 'date_end', old('date_end', ( isset($invoice) ? $invoice->date_end : null )), ['class'=>'form-control']) }}
+        {{ Form::input('date', 'date_end', old('date_end', ( isset($invoice) ? $invoice->date_end : null )), ['class'=>'form-control']) }}
       </div>
       <div class="form-group">
         {{ Form::label('debit_date', __('common.debit_date')) }}
-        {{ Form::input('dateTime-local', 'debit_date', old('debit_date', ( isset($invoice) ? $invoice->debit_date : null )), ['class'=>'form-control']) }}
+        {{ Form::input('date', 'debit_date', old('debit_date', ( isset($invoice) ? $invoice->debit_date : null )), ['class'=>'form-control']) }}
       </div>
       @include('shared.submit')
     </div>
