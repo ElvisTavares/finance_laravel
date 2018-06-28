@@ -163,7 +163,7 @@ class TransactionController extends Controller
       $transaction->account()->associate($request->account);
       $transaction->date = $request->date;
       $transaction->description =$request->description;
-      $transaction->value = $request->value*($request->is_debit?1:-1);
+      $transaction->value = $request->value*(isset($request->is_credit) && $request->is_credit?-1:1);
       $transaction->paid = isset($request->paid)?$request->paid:false;
       $transaction->invoice_id = $invoiceId;
       $transaction->save();
@@ -235,7 +235,7 @@ class TransactionController extends Controller
       }
       $request->transaction->date = $request->date;
       $request->transaction->description =$request->description;
-      $request->transaction->value = $request->value*($request->is_debit?1:-1);
+      $request->transaction->value = $request->value*(isset($request->is_credit) && $request->is_credit?-1:1);
       $request->transaction->paid = $paid;
       $request->transaction->invoice_id = $invoiceId;
       foreach($request->transaction->categories as $categoryTransaction){
