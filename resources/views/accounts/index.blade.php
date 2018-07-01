@@ -38,7 +38,6 @@
 @endsection
 @section('content')
   <div class="container">
-    <hr>
     <div class="row">
       <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.avg_max')}}</b>
