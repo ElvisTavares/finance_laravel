@@ -9,36 +9,64 @@
   </div>
 @endsection
 @section('title-buttons')
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 offset-md-4">
-        <a class="btn btn-secondary" title="{{__('common.view_mode')}}" href="/accounts?view_mode={{$modeView=='table'?'card':'table'}}">
-          <i class="fas fa-exchange-alt"></i>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a class="btn btn-primary" title="{{__('common.add')}}" href="/accounts/create">
-          <i class="fa fa-plus"></i>
-        </a>
-      </div>
-    </div>
-  </div>
+<?php
+  $links = [
+    (object) [
+      "url" => url("/"),
+      "colMd" => 4,
+      "colSm" => 4,
+      "btnClass" => backButton()->btnClass,
+      "iconClass" => backButton()->iconClass
+    ],
+    (object) [
+      "url" => url("/accounts?view_mode=".($modeView=="table"?"card":"table")),
+      "colMd" => 4,
+      "colSm" => 4,
+      "btnClass" => modeViewButton()->btnClass,
+      "iconClass" => modeViewButton()->iconClass
+    ],
+    (object) [
+      "url" => url("/accounts/create"),
+      "colMd" => 4,
+      "colSm" => 4,
+      "btnClass" => addButton()->btnClass,
+      "iconClass" => addButton()->iconClass
+    ]
+  ];
+?>
+@include('shared/titleButtons', ['links'=>$links])
 @endsection
 @section('content')
   <div class="container">
     <hr>
     <div class="row">
-      <div class="col-md-4 text-center">
+      <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.avg_max')}}</b>
-        {!!format_money($avgMax)!!}
+        {{__('common.money_type')}} {!!format_money($avgMax)!!}
       </div>
-      <div class="col-md-4 text-center">
+      <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.avg_min')}}</b>
-        {!!format_money($avgMin)!!}
+        {{__('common.money_type')}} {!!format_money($avgMin)!!}
       </div>
-      <div class="col-md-4 text-center">
+      <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.avg_avg')}}</b>
-        {!!format_money($avgAvg)!!}
+        {{__('common.money_type')}} {!!format_money($avgAvg)!!}
+      </div>
+    </div>
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
+        <b>{{__('accounts.totals_paid')}}</b>
+        {{__('common.money_type')}} {!!format_money($sumPaid[$actualMonth])!!}
+      </div>
+      <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
+        <b>{{__('accounts.totals_not_paid')}}</b>
+        {{__('common.money_type')}} {!!format_money($sumNotPaid[$actualMonth])!!}
+      </div>
+      <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
+        <b>{{__('accounts.totals')}}</b>
+        {{__('common.money_type')}} {!!format_money($sumNotPaid[$actualMonth]+$sumPaid[$actualMonth])!!}
       </div>
     </div>
     <hr>

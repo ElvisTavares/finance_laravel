@@ -49,4 +49,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Category');
     }
+
+    public function getOptionsAccounts(){
+        $selectAccounts = [];
+        $selectAccounts[-1] = __('common.select');
+        foreach($this->accounts()->get() as $account){
+            $selectAccounts[$account->id] = $account->id."/".$account->description;
+        }
+        return $selectAccounts;
+    }
 }

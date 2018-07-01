@@ -6,6 +6,8 @@ use App\Transaction;
 use App\Invoice;
 use App\Category;
 use App\CategoryTransaction;
+use App\SysConfig;
+use App\UserConfig;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -29,7 +31,8 @@ class TransactionController extends Controller
       $dateInit = Input::get('date_init');
       $dateEnd = Input::get('date_end');
       $description = Input::get('description');
-      return implode(['description='.$description, (isset($dateInit) && isset($dateEnd) ? 'date_init='.$dateInit.'&date_end='.$dateEnd : '')], '&');
+      $accountId = Input::get('account_id');
+      return "?".implode([(isset($accountId)?'account_id='.$accountId:'').(isset($description)?'description='.$description:''), (isset($dateInit) && isset($dateEnd) ? 'date_init='.$dateInit.'&date_end='.$dateEnd : '')], '&');
     }
 
     private function getEloquentTransactions($request){
@@ -48,7 +51,7 @@ class TransactionController extends Controller
         if (isset($request->account)){
           $transactions =  $request->account->transactions();
         } else {
-          $transactions = Transaction::whereIn('account_id', \Auth::user()->accounts->map(function ($account) {
+          $transactions = Transaction::whereIn('account_id',  \Auth::user()->accounts->map(function ($account) {
               return $account->id;
           }));
         }
@@ -69,9 +72,23 @@ class TransactionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+    {        
+      $modeViewConfigId = config('constants.user_configs.mode_transaction_view');
+      $modeViewConfig = \Auth::user()->configs()->where(['config_id'=>$modeViewConfigId])->first();
+      if (!isset($modeViewConfig)){
+        $modeViewConfig = new UserConfig;
+        $modeViewConfig->user()->associate(\Auth::user());
+        $modeViewConfig->config()->associate(SysConfig::find($modeViewConfigId));
+        $modeViewConfig->value = 'table';
+        $modeViewConfig->save();
+      }
+      if (isset($request->view_mode)){
+        $modeViewConfig->value = $request->view_mode;
+        $modeViewConfig->save();
+      }
+      $modeView = $modeViewConfig->value;
       $transactions = $this->getEloquentTransactions($request)->paginate(30)->appends(request()->input());
-      return view('transactions.index', ['account' => $request->account, 'transactions' => $transactions]);
+      return view('transactions.index', ['account' => $request->account, 'transactions' => $transactions, 'query' => $this->getQuery(), 'modeView'=>$modeView]);
     }
 
     /**
@@ -99,7 +116,15 @@ class TransactionController extends Controller
      */
     public function create(Request $request)
     {
-      return view('transactions.form', ['action'=>__('common.add'),'account' => $request->account]);
+      if (!isset($request->account)){
+        $accountId = $request->account_id;
+        if (!$accountId || !($account = \Auth::user()->accounts->where('id', $accountId)->first())){
+          return redirect('/accounts')->withErrors([__('accounts.not_your_account')]);
+        } else {
+          $request->account = $account;
+        }
+      }
+      return view('transactions.form', ['action'=>__('common.add'), 'account' => $request->account, 'query' => $this->getQuery()]);
     }
 
 
@@ -145,6 +170,14 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+      if (!isset($request->account)){
+        $accountId = $request->account_id;
+        if (!$accountId || !($account = \Auth::user()->accounts->where('id', $accountId)->first())){
+          return redirect('/accounts')->withErrors([__('accounts.not_your_account')]);
+        } else {
+          $request->account = $account;
+        }
+      }
       $this->valid($request);
       $invoiceId = null;
       if ($request->invoice_id==-1){
@@ -184,7 +217,7 @@ class TransactionController extends Controller
         $categoryTransaction->transaction()->associate($transaction->id);
         $categoryTransaction->save();
       }
-      return redirect('/account/'.$request->account->id.'/transactions?'. $this->getQuery());    
+      return redirect('/account/'.$request->account->id.'/transactions'. $this->getQuery());    
     }
 
     /**
@@ -206,7 +239,7 @@ class TransactionController extends Controller
      */
     public function edit(Request $request)
     {
-      return view('transactions.form', ['action'=>__('common.edit'),'account' => $request->account, 'transaction' => $request->transaction]);
+      return view('transactions.form', ['action'=>__('common.edit'),'account' => $request->account, 'transaction' => $request->transaction, 'query' => $this->getQuery()]);
     }
 
     /**
@@ -257,7 +290,7 @@ class TransactionController extends Controller
       }
       $request->transaction->save();
       $request->account->save();
-      return redirect('/account/'.$request->account->id.'/transactions?'.$this->getQuery());
+      return redirect('/account/'.$request->account->id.'/transactions'.$this->getQuery());
     }
 
     public function confirm(Request $request){
@@ -273,7 +306,7 @@ class TransactionController extends Controller
     public function destroy(Request $request)
     {
       $request->transaction->delete();
-      return redirect('/account/'.$request->account->id.'/transactions');
+      return redirect('/account/'.$request->account->id.'/transactions'.$this->getQuery());
     }
 
     public function getOfxAsXML($file) {
@@ -431,7 +464,7 @@ class TransactionController extends Controller
         }
         $transaction->save();
       }
-      return redirect('/account/'.$request->account->id.'/transactions?'.$this->getQuery());
+      return redirect('/account/'.$request->account->id.'/transactions'.$this->getQuery());
     }
 
     public function addCategories(Request $request){
@@ -456,6 +489,6 @@ class TransactionController extends Controller
         }
       }
 
-      return redirect((isset($request->account)?'/account/'.$request->account->id:'').'/transactions?'.$this->getQuery());
+      return redirect((isset($request->account)?'/account/'.$request->account->id:'').'/transactions'.$this->getQuery());
     }
 }

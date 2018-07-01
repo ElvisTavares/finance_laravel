@@ -5,15 +5,18 @@
 @endsection
 
 @section('title-buttons')
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 offset-md-8">
-				<a class="btn btn-secondary" href="/accounts">
-				  <i class="fa fa-arrow-left"></i>
-				</a>
-      </div>
-    </div>
-  </div>
+<?php
+  $links = [
+    (object) [
+      "url" => url("/accounts"),
+      "colMd" => 4,
+      "colMdOffset" => 8,
+      "btnClass" => $backButton->btnClass,
+      "iconClass" => $backButton->iconClass
+    ]
+  ];
+?>
+@include('shared/titleButtons', ['links'=>$links])
 @endsection
 
 @section('content')

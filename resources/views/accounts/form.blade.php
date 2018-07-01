@@ -5,18 +5,24 @@
 @endsection
 
 @section('title-buttons')
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 offset-md-8">
-        <a class="btn btn-secondary" href="/accounts">
-          <i class="fa fa-arrow-left"></i>
-        </a>
-      </div>
-    </div>
-  </div>
+<?php
+  $links = [
+    (object) [
+      "url" => url("/accounts"),
+      "colMd" => 4,
+      "colSm" => 4,
+      "colMdOffset" => 8,
+      "colSmOffset" => 8,
+      "btnClass" => backButton()->btnClass,
+      "iconClass" => backButton()->iconClass
+    ]
+  ];
+?>
+@include('shared/titleButtons', ['links'=>$links])
 @endsection
 
 @section('content')
+<div class="offset-md-7 col-md-5 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3">
   {{ Form::open(['url' => '/accounts'.(isset($account)?'/'.$account->id:''), 'method'=>(isset($account)?'PUT':'POST')]) }}
     <div class="form-group">
       {{ Form::label('description', __('common.description')) }}
@@ -25,11 +31,10 @@
     <?php if (!isset($account)) { ?>
       <div class="form-group">
         {{ Form::label('is_credit_card', __('accounts.is_credit_card')) }}
-        <div class="checkbox">
-          <label>
-            {{ Form::checkbox('is_credit_card', 1, old('is_credit_card', (isset($account)?$account->is_credit_card:false))) }}
-          </label>
-        </div>
+        <label class="switch">
+          {{ Form::checkbox('is_credit_card', 1, old('is_credit_card', (isset($account)?$account->is_credit_card:false))) }}
+          <span class="slider round"></span>
+        </label>
       </div>
     <?php } ?>
     <?php if (!isset($account) || (isset($account) && $account->is_credit_card)) { ?>
@@ -40,6 +45,7 @@
     <?php } ?>
     @include('shared.submit')
   {{ Form::close() }}
+</div>
 @endsection
 
 @section('script')

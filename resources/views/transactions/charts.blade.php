@@ -5,22 +5,29 @@
 @endsection
 
 @section('title-buttons')
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 offset-md-{{isset($account)?4:8}}">
-        <a class="btn btn-secondary" href="/accounts">
-          <i class="fa fa-arrow-left"></i>
-        </a>
-      </div>
-      @if (isset($account))
-        <div class="col-md-4">
-          <a class="btn btn-secondary" title="{{__('common.add')}}" href="/account/{{$account->id}}/transaction/create">
-            <i class="fa fa-plus"></i>
-          </a>
-        </div>
-      @endif
-    </div>
-  </div>
+<?php
+  $links = [
+    (object) [
+      "url" => url("/accounts"),
+      "colMd" => 4,
+      "btnClass" => backButton()->btnClass,
+      "iconClass" => backButton()->iconClass
+    ]
+  ];
+
+  if (isset($account)){
+    $links[0]->colMdOffset = 4;
+    array_push($links, (object) [
+      "url" => url("/account/".$account->id."/transaction/create"),
+      "colMd" => 4,
+      "btnClass" => addButton()->btnClass,
+      "iconClass" => addButton()->iconClass
+    ]);
+  } else {
+    $links[0]->colMdOffset = 8;
+  }
+?>
+@include('shared/titleButtons', ['links'=>$links])
 @endsection
 
 @section('content')

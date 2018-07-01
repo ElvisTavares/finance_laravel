@@ -1,3 +1,11 @@
 <div class="form-group">
-  {{ Form::button('<i class="fa fa-save"></i> '.__('common.submit'),['type'=>'submit', 'class'=>'btn btn-primary', 'style'=>'float:right;']) }}
+	<?php
+		if (!isset($text)){
+			$text = __('common.submit');
+		}
+		if (!isset($iconClass)){
+			$iconClass = "fa fa-save";
+		}
+	?>
+  {{ Form::button('<i class="'.$iconClass.'"></i> '.$text,['type'=>'submit', 'class'=>'btn btn-primary', 'style'=>'float:right;']) }}
 </div>

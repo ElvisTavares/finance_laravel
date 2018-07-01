@@ -5,25 +5,32 @@
 @endsection
 
 @section('title-buttons')
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <a class="btn btn-secondary" href="/accounts">
-        <i class="fa fa-arrow-left"></i>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a class="btn btn-secondary" title="{{__('common.view_mode')}}" href="/account/{{$account->id}}/invoices?view_mode={{$modeView=='table'?'card':'table'}}">
-        <i class="fas fa-exchange-alt"></i>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a class="btn btn-primary" title="{{__('common.add')}}" href="/account/{{$account->id}}/invoice/create">
-        <i class="fa fa-plus"></i>
-      </a>
-    </div>
-  </div>
-</div>
+<?php
+  $links = [
+    (object) [
+      "url" => url("/accounts"),
+      "colMd" => 4,
+      "colSm" => 4,
+      "btnClass" => backButton()->btnClass,
+      "iconClass" => backButton()->iconClass
+    ],
+    (object) [
+      "url" => url("/account/".$account->id."/invoices?view_mode=".($modeView=="table"?"card":"table")),
+      "colMd" => 4,
+      "colSm" => 4,
+      "btnClass" => modeViewButton()->btnClass,
+      "iconClass" => modeViewButton()->iconClass
+    ],
+    (object) [
+      "url" => url("/account/".$account->id."/invoice/create"),
+      "colMd" => 4,
+      "colSm" => 4,
+      "btnClass" => addButton()->btnClass,
+      "iconClass" => addButton()->iconClass
+    ]
+  ];
+?>
+@include('shared/titleButtons', ['links'=>$links])
 @endsection
 
 @section('content')
