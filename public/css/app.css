@@ -161,6 +161,14 @@ table.table th .btn {
   padding: 2px;
 }
 
+table.table td div.bootstrap-tagsinput,
+table.table th div.bootstrap-tagsinput {
+  background-color: transparent;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 .btn-facebook {
   background-color: #3b5998;
 }
