@@ -32,12 +32,9 @@
         <a class="btn btn-info" title="{{__('common.import')}} {{__('accounts.account')}}" href="#" data-toggle="modal" data-target="#model_account_{{$account->id}}">
           <i class="fa fa-upload"/></i> {{__('common.import')}}
         </a>
-        @if (!(isset($account->invoices) && isset($account->invoices[$actualMonth])))
-          <a class="btn btn-secondary" style="margin-right: 5px;" title="{{__('transactions.title')}}" href="/account/{{$account->id}}/transactions?date_init={{$dateInit[$actualMonth]}}&date_end={{$dateEnd[$actualMonth]}}">
-            <i class="fa fa-list"></i> {{__('transactions.title')}}
-          </a>
-        @endif
-
+        <a class="btn btn-secondary" style="margin-right: 5px;" title="{{__('transactions.title')}}" href="/account/{{$account->id}}/transactions?date_init={{$dateInit[$actualMonth]}}&date_end={{$dateEnd[$actualMonth]}}">
+          <i class="fa fa-list"></i> {{__('transactions.title')}}
+        </a>
         @if ($account->is_credit_card)
         <a class="btn btn-secondary" title="{{__('invoices.title')}} {{__('accounts.account')}}" href="/account/{{$account->id}}/invoices">
           <i class="fas fa-receipt"/></i> {{__('invoices.title')}}
