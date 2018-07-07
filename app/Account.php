@@ -27,13 +27,13 @@ class Account extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\Transaction')->where('account_id_transfer', '<>', $this->id);
+        return $this->hasMany('App\Transaction');
     }
 
 
     public function transactionsTransfer()
     {
-        return $this->hasMany('App\Transaction', 'account_id_transfer')->where('account_id', '<>', $this->id);
+        return $this->hasMany('App\Transaction', 'account_id_transfer');
     }
 
 
