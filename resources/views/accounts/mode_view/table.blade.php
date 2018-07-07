@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs">
-  @foreach ($years as $year)
+  @foreach ($period->years as $year)
     <li class="nav-item primary-color">
-      <a class="nav-link {{$actualYear==$year?'title':''}}" href="/accounts?year={{$year}}">{{$year}}</a>
+      <a class="nav-link {{$period->actualYear==$year?'title':''}}" href="/accounts?year={{$year}}">{{$year}}</a>
     </li>
   @endforeach
 </ul>
@@ -11,14 +11,14 @@
       <tr class="title">
         <th colspan="5">{{__('common.description')}}</th>
         @for ($i=0; $i<12; $i++)
-          <th colspan="2" class="{{$i==$actualMonth?'actual':''}}">
+          <th colspan="2" class="{{$i==$period->actualMonth?'actual':''}}">
             {{__('common.months.'.$i)}} ({{__('common.money_type')}})
           </th>
         @endfor
       </tr>
     </thead>
     <tbody>
-      @foreach($accounts as $account)
+      @foreach($accounts->result as $account)
         <tr>
           <th class="title" rowspan="3">
             {{$account->description}}
@@ -46,33 +46,33 @@
             </td>
           @endif
           @for($i=0; $i<12; $i++)
-            <td class="{{$i==$actualMonth?'actual':''}}" rowspan="3">
+            <td class="{{$i==$period->actualMonth?'actual':''}}" rowspan="3">
               @if (isset($account->invoices) && isset($account->invoices[$i]))
                 <a class="btn btn-secondary" title="{{__('transactions.title')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$account->invoices[$i]->id}}">
                   <i class="fa fa-list"></i>
                 </a>
               @else
-                <a class="btn btn-secondary" title="{{__('transactions.title')}}" href="/account/{{$account->id}}/transactions?date_init={{$dateInit[$i]}}&date_end={{$dateEnd[$i]}}">
+                <a class="btn btn-secondary" title="{{__('transactions.title')}}" href="/account/{{$account->id}}/transactions?date_init={{$period->dateInit[$i]}}&date_end={{$period->dateEnd[$i]}}">
                   <i class="fa fa-list"></i>
                 </a>
               @endif
             </td>
-            <td class="{{$i==$actualMonth?'actual':''}} text-right" title="{{__('accounts.totals_paid')}}">
-              {!!format_money($monthValueAccount[$account->id][$i])!!}
+            <td class="{{$i==$period->actualMonth?'actual':''}} text-right" title="{{__('accounts.totals_paid')}}">
+              {!!format_money($accounts->monthValueAccount[$account->id][$i])!!}
             </td>
           @endfor
         </tr>
         <tr>
           @for($i=0; $i<12; $i++)
-            <td class="{{$i==$actualMonth?'actual':''}} text-right" title="{{__('accounts.totals_not_paid')}}">
-              {!!format_money($monthValueAccountNotPaid[$account->id][$i])!!}
+            <td class="{{$i==$period->actualMonth?'actual':''}} text-right" title="{{__('accounts.totals_not_paid')}}">
+              {!!format_money($accounts->monthValueAccountNotPaid[$account->id][$i])!!}
             </td>
           @endfor
         </tr>
         <tr>
           @for($i=0; $i<12; $i++)
-            <td class="{{$i==$actualMonth?'actual':''}} text-right" style="font-weight: bold;" title="{{__('accounts.totals')}}">
-              {!!format_money($monthValueAccount[$account->id][$i]+$monthValueAccountNotPaid[$account->id][$i])!!}
+            <td class="{{$i==$period->actualMonth?'actual':''}} text-right" style="font-weight: bold;" title="{{__('accounts.totals')}}">
+              {!!format_money($accounts->monthValueAccount[$account->id][$i]+$accounts->monthValueAccountNotPaid[$account->id][$i])!!}
             </td>
           @endfor
         </tr>
@@ -84,8 +84,8 @@
           {{__('accounts.totals_paid')}}:
         </th>
         @for($i=0; $i<12; $i++)
-          <th class="{{$i==$actualMonth?'actual':''}} text-right" colspan="2">
-            {!!format_money($sumPaid[$i])!!}
+          <th class="{{$i==$period->actualMonth?'actual':''}} text-right" colspan="2">
+            {!!format_money($calcResult->sumPaid[$i])!!}
           </th>
         @endfor
       </tr>
@@ -94,8 +94,8 @@
           {{__('accounts.totals_not_paid')}}:
         </th>
         @for($i=0; $i<12; $i++)
-          <th class="{{$i==$actualMonth?'actual':''}} text-right" colspan="2">
-            {!!format_money($sumNotPaid[$i])!!}
+          <th class="{{$i==$period->actualMonth?'actual':''}} text-right" colspan="2">
+            {!!format_money($calcResult->sumNotPaid[$i])!!}
           </th>
         @endfor
       </tr>
@@ -104,8 +104,8 @@
           {{__('accounts.totals')}}:
         </th>
         @for($i=0; $i<12; $i++)
-          <th class="{{$i==$actualMonth?'actual':''}} text-right" colspan="2">
-            {!!format_money($sumNotPaid[$i]+$sumPaid[$i])!!}
+          <th class="{{$i==$period->actualMonth?'actual':''}} text-right" colspan="2">
+            {!!format_money($calcResult->sumNotPaid[$i]+$calcResult->sumPaid[$i])!!}
           </th>
         @endfor
       </tr>

@@ -27,13 +27,13 @@ class Account extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\Transaction');
+        return $this->hasMany('App\Transaction')->where('account_id_transfer', '<>', $this->id);
     }
 
 
     public function transactionsTransfer()
     {
-        return $this->hasMany('App\Transaction', 'account_id_transfer');
+        return $this->hasMany('App\Transaction', 'account_id_transfer')->where('account_id', '<>', $this->id);
     }
 
 
@@ -59,11 +59,11 @@ class Account extends Model
         return $selectInvoices;
     }
 
-    public function getTotalPaid($maxDate){
-        return $this->transactions()->where('paid', true)->where('date','<=',$maxDate)->sum('value'); 
+    public function getTotal($maxDate, $paid = false){
+        return $this->transactions()->where('paid', $paid)->where('date','<=',$maxDate)->sum('value'); 
     }
 
-    public function getTotalNotPaid($maxDate){
-        return $this->transactions()->where('paid', false)->where('date','<=',$maxDate)->sum('value'); 
+    public function getTotalTransfer($maxDate, $paid = false){
+        return $this->transactionsTransfer()->where('paid', $paid)->where('date','<=',$maxDate)->sum('value');
     }
 }

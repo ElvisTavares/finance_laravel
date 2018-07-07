@@ -20,7 +20,155 @@ class AccountController extends Controller
     {
         $this->middleware('auth');
     }
+
+    private function getModeView(Request $request){
+      $modeViewConfigId = config('constants.user_configs.mode_account_view');
+      $modeViewConfig = \Auth::user()->configs()->where(['config_id'=>$modeViewConfigId])->first();
+      if (!isset($modeViewConfig)){
+        $modeViewConfig = new UserConfig;
+        $modeViewConfig->user()->associate(\Auth::user());
+        $modeViewConfig->config()->associate(SysConfig::find($modeViewConfigId));
+        $modeViewConfig->value = 'table';
+        $modeViewConfig->save();
+      }
+      if (isset($request->view_mode)){
+        $modeViewConfig->value = $request->view_mode;
+        $modeViewConfig->save();
+      }
+      return $modeViewConfig->value;
+    }
+
+    private function getPeriod(Request $request, $modeView){
+      $years = [];
+      $actualYear = date('Y');
+      $actualMonth = date('n')-1;
+      if ($modeView == 'table'){
+        $actualYear = isset($request->year)?$request->year:date('Y');
+        $yearDiff = (date('Y')-$actualYear);
+        $j = 10-$yearDiff;
+        if ($j<=0){
+          $j=1;
+        }
+        for ($i=$actualYear-$j; $i<=$actualYear; $i++){
+          $years[] = $i;
+        }
+        if ($actualYear<date('Y')){
+          for ($i=$actualYear+1; $i<=date('Y'); $i++){
+            $years[] = $i;
+          }
+        }
+      } else {
+        $actualYear = date('Y');
+        $actualMonth = date('n');
+        $years[] = $actualYear;
+      }
+      $dateInit = [];
+      $dateEnd = [];
+      for($i=0; $i<12; $i++) {
+        $dateInit[$i] = date("Y-m-d", strtotime(date($actualYear.'-'.($i+1).'-1')));
+        $dateEnd[$i] = date('Y-m-t', strtotime($dateInit[$i]));
+      }
+
+      $result = new \stdClass;
+      $result->years = $years;
+      $result->actualYear = $actualYear;
+      $result->actualMonth = $actualMonth;
+      $result->dateInit = $dateInit;
+      $result->dateEnd = $dateEnd;
+      return $result;
+    }
+
+    private function getAccountsResult($period){
+      $accounts = \Auth::user()->accounts()->where('is_credit_card', false)->get();
+      $accountsResult = [];
+      $monthValueAccount = [];
+      $monthValueAccountNotPaid = [];
+      foreach($accounts as $account){
+        $accountResult = new \stdClass;
+        $accountResult->is_credit_card = false;
+        $accountResult->id = $account->id;
+        $accountResult->description = $account->description;
+        $monthValueAccount[$account->id] = [];
+        $monthValueAccountNotPaid[$account->id] = [];
+        $accountResult->invoices = [];
+        for($i=0; $i<12; $i++) {
+          $dateEnd = $period->dateEnd[$i];
+          $monthValueAccountNotPaid[$account->id][$i] = $account->getTotal($dateEnd) + -1 * $account->getTotalTransfer($dateEnd);
+          $monthValueAccount[$account->id][$i] = $account->getTotal($dateEnd, true) + -1 * $account->getTotalTransfer($dateEnd, true);
+        }
+        $accountsResult[] = $accountResult;
+        foreach($account->creditCards() as $creditCard){
+          $accountResult = new \stdClass;
+          $accountResult->is_credit_card = true;
+          $accountResult->id = $creditCard->id;
+          $accountResult->description = $creditCard->description;
+          $monthValueAccount[$creditCard->id] = [];
+          $monthValueAccountNotPaid[$creditCard->id] = [];
+          $accountResult->invoices = [];
+          for($i=0; $i<12; $i++) {
+            $dateInit = $period->dateInit[$i];
+            $dateEnd = $period->dateEnd[$i];
+            $monthValueAccount[$creditCard->id][$i] = 0;
+            $monthValueAccountNotPaid[$creditCard->id][$i] = 0; 
+            $invoice = $creditCard->invoices()->whereBetween('debit_date',[$dateInit, $dateEnd])->first();
+            if (isset($invoice)){
+              $value = $invoice->transactions()->sum('value');
+              $monthValueAccount[$creditCard->id][$i] = $value < 0 ? $value : 0;
+              $monthValueAccountNotPaid[$creditCard->id][$i] = $value > 0 ? $value : 0;
+            }
+            $accountResult->invoices[] = $invoice;
+          }
+          $accountsResult[] = $accountResult;
+        }
+      }
+
+      $result = new \stdClass;
+      $result->result = $accountsResult;
+      $result->monthValueAccount = $monthValueAccount;
+      $result->monthValueAccountNotPaid = $monthValueAccountNotPaid;
+      return $result;
+    }
     
+    private function getCalcResult($accountResult){
+      $sumPaid = [];
+      $sumNotPaid = [];
+      for($i=0; $i<12; $i++) {
+        $sumPaid[$i] = 0;
+        $sumNotPaid[$i] = 0;
+        foreach ($accountResult->result as $account) {
+          $sumPaid[$i] += $accountResult->monthValueAccount[$account->id][$i];
+          $sumNotPaid[$i] += $accountResult->monthValueAccountNotPaid[$account->id][$i];
+        }
+      }
+      $result = new \stdClass;
+      $result->sumPaid = $sumPaid;
+      $result->sumNotPaid = $sumNotPaid;
+      return $result;
+    }
+
+    private function getAvg(){
+      //$period->actualMonth = date('n')-1;
+      $avgMax = Transaction::whereIn('account_id', \Auth::user()->getAccoutsId())->where('value', '>', 0);
+      $avgMaxDivision = count($avgMax->get());
+      if ($avgMaxDivision==0)
+      {
+        $avgMaxDivision = 1;
+      }
+      $avgMax = $avgMax->sum('value') / $avgMaxDivision;
+      $avgMin = Transaction::whereIn('account_id', \Auth::user()->getAccoutsId())->where('value', '<', 0);
+      $avgMinDivision = count($avgMin->get());
+      if ($avgMinDivision==0)
+      {
+        $avgMinDivision = 1;
+      }
+      $avgMin = $avgMin->sum('value') / $avgMinDivision;
+      $result = new \stdClass;
+      $result->avgMax = $avgMax;
+      $result->avgMin = $avgMin;
+      $result->avgAvg = $avgMax+$avgMin;
+      return $result;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,118 +176,12 @@ class AccountController extends Controller
      */
     public function index(Request $request)
     {
-        $user = \Auth::user();
-        $modeViewConfigId = config('constants.user_configs.mode_account_view');
-        $modeViewConfig = $user->configs()->where(['config_id'=>$modeViewConfigId])->first();
-        if (!isset($modeViewConfig)){
-          $modeViewConfig = new UserConfig;
-          $modeViewConfig->user()->associate(\Auth::user());
-          $modeViewConfig->config()->associate(SysConfig::find($modeViewConfigId));
-          $modeViewConfig->value = 'table';
-          $modeViewConfig->save();
-        }
-        if (isset($request->view_mode)){
-          $modeViewConfig->value = $request->view_mode;
-          $modeViewConfig->save();
-        }
-        $modeView = $modeViewConfig->value;
-        $years = [];
-        if ($modeView == 'table'){
-          $actualYear = isset($request->year)?$request->year:date('Y');
-          $yearDiff = (date('Y')-$actualYear);
-          $j = 10-$yearDiff;
-          if ($j<=0){
-            $j=1;
-          }
-          for ($i=$actualYear-$j; $i<=$actualYear; $i++){
-            $years[] = $i;
-          }
-          if ($actualYear<date('Y')){
-            for ($i=$actualYear+1; $i<=date('Y'); $i++){
-              $years[] = $i;
-            }
-          }
-        } else {
-          $actualYear = date('Y');
-          $actualMonth = date('n');
-          $years[] = $actualYear;
-        }
-        $dateInit = [];
-        $dateEnd = [];
-        for($i=0; $i<12; $i++) {
-          $dateInit[$i] = date("Y-m-d", strtotime(date($actualYear.'-'.($i+1).'-1')));
-          $dateEnd[$i] = date('Y-m-t', strtotime($dateInit[$i]));
-        }
-        $accounts = $user->accounts()->where('is_credit_card',false)->paginate(10);
-        $accountsResult = [];
-        $monthValueAccount = [];
-        $monthValueAccountNotPaid = [];
-        foreach($accounts as $account){
-          $accountResult = new \stdClass;
-          $accountResult->is_credit_card = false;
-          $accountResult->id = $account->id;
-          $accountResult->description = $account->description;
-          $monthValueAccount[$account->id] = [];
-          $monthValueAccountNotPaid[$account->id] = [];
-          $accountResult->invoices = [];
-          for($i=0; $i<12; $i++) {
-            $monthValueAccountNotPaid[$account->id][$i] = $account->transactions()->where('paid', false)->where('date','<=',$dateEnd[$i])->sum('value') + -1 * $account->transactionsTransfer()->where('paid', false)->where('date','<=',$dateEnd[$i])->sum('value');
-            $monthValueAccount[$account->id][$i] = $account->transactions()->where('paid', true)->where('date','<=',$dateEnd[$i] )->sum('value') + -1 * $account->transactionsTransfer()->where('paid', true)->where('date','<=',$dateEnd[$i])->sum('value');
-          }
-          $accountsResult[] = $accountResult;
-          foreach($account->creditCards() as $creditCard){
-            $accountResult = new \stdClass;
-            $accountResult->is_credit_card = true;
-            $accountResult->id = $creditCard->id;
-            $accountResult->description = $creditCard->description;
-            $monthValueAccount[$creditCard->id] = [];
-            $monthValueAccountNotPaid[$creditCard->id] = [];
-            $accountResult->invoices = [];
-            for($i=0; $i<12; $i++) {
-              $monthValueAccount[$creditCard->id][$i] = 0;
-              $monthValueAccountNotPaid[$creditCard->id][$i] = 0; 
-              $invoice = $creditCard->invoices()->whereBetween('debit_date',[$dateInit[$i], $dateEnd[$i]])->first();
-              if (isset($invoice)){
-                $value = $invoice->transactions()->sum('value');
-                $monthValueAccount[$creditCard->id][$i] = $value < 0 ? $value : 0;
-                $monthValueAccountNotPaid[$creditCard->id][$i] = $value > 0 ? $value : 0;
-              }
-              $accountResult->invoices[] = $invoice;
-            }
-            $accountsResult[] = $accountResult;
-          }
-        } 
-        $sumPaid = [];
-        $sumNotPaid = [];
-        for($i=0; $i<12; $i++) {
-          $sumPaid[$i] = 0;
-          $sumNotPaid[$i] = 0;
-          foreach ($accountsResult as $account) {
-            $sumPaid[$i] += $monthValueAccount[$account->id][$i];
-            $sumNotPaid[$i] += $monthValueAccountNotPaid[$account->id][$i];
-          }
-        }
-        $actualMonth = date('n')-1;
-        $avgMax = Transaction::whereIn('account_id', \Auth::user()->accounts->map(function ($account) {
-          return $account->id;
-        }))->where('value', '>', 0);
-        $avgMaxDivision = count($avgMax->get());
-        if ($avgMaxDivision==0)
-        {
-          $avgMaxDivision = 1;
-        }
-        $avgMax = $avgMax->sum('value') / $avgMaxDivision;
-        $avgMin = Transaction::whereIn('account_id', \Auth::user()->accounts->map(function ($account) {
-          return $account->id;
-        }))->where('value', '<', 0);
-        $avgMinDivision = count($avgMin->get());
-        if ($avgMinDivision==0)
-        {
-          $avgMinDivision = 1;
-        }
-        $avgMin = $avgMin->sum('value') / $avgMinDivision;
-        
-        return view('accounts.index', ['accounts' => $accountsResult, 'years'=>$years, 'actualYear'=>$actualYear, 'actualMonth'=>$actualMonth, 'dateInit'=>$dateInit, 'dateEnd'=>$dateEnd, 'monthValueAccount'=>$monthValueAccount, 'monthValueAccountNotPaid'=>$monthValueAccountNotPaid, 'sumPaid'=>$sumPaid, 'sumNotPaid'=>$sumNotPaid, 'modeView' => $modeView, 'avgMax' => $avgMax, 'avgMin'=>$avgMin,'avgAvg'=>$avgMax+$avgMin]);
+        $modeView = $this->getModeView($request);
+        $period = $this->getPeriod($request, $modeView);
+        $accountsResult = $this->getAccountsResult($period);
+        $calcResult = $this->getCalcResult($accountsResult);
+        $avg = $this->getAvg();
+        return view('accounts.index', ['accounts' => $accountsResult, 'period' => $period, 'calcResult' => $calcResult, 'avg' => $avg, 'modeView' => $modeView]);
     }
 
     private function getOptionsPreferDebitAccount(){

@@ -40,6 +40,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Account');
     }
 
+    public function getAccoutsId(){
+        return $this->accounts->map(function ($account) {
+            return $account->id;
+        });
+    }
+
     public function configs()
     {
         return $this->hasMany('App\UserConfig');

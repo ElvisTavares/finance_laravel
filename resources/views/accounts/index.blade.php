@@ -41,15 +41,15 @@
     <div class="row">
       <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.avg_max')}}</b>
-        {{__('common.money_type')}} {!!format_money($avgMax)!!}
+        {{__('common.money_type')}} {!!format_money($avg->avgMax)!!}
       </div>
       <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.avg_min')}}</b>
-        {{__('common.money_type')}} {!!format_money($avgMin)!!}
+        {{__('common.money_type')}} {!!format_money($avg->avgMin)!!}
       </div>
       <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.avg_avg')}}</b>
-        {{__('common.money_type')}} {!!format_money($avgAvg)!!}
+        {{__('common.money_type')}} {!!format_money($avg->avgAvg)!!}
       </div>
     </div>
     <hr>
@@ -57,15 +57,15 @@
     <div class="row">
       <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.totals_paid')}}</b>
-        {{__('common.money_type')}} {!!format_money($sumPaid[$actualMonth])!!}
+        {{__('common.money_type')}} {!!format_money($calcResult->sumPaid[$period->actualMonth])!!}
       </div>
       <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.totals_not_paid')}}</b>
-        {{__('common.money_type')}} {!!format_money($sumNotPaid[$actualMonth])!!}
+        {{__('common.money_type')}} {!!format_money($calcResult->sumNotPaid[$period->actualMonth])!!}
       </div>
       <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
         <b>{{__('accounts.totals')}}</b>
-        {{__('common.money_type')}} {!!format_money($sumNotPaid[$actualMonth]+$sumPaid[$actualMonth])!!}
+        {{__('common.money_type')}} {!!format_money($calcResult->sumNotPaid[$period->actualMonth]+$calcResult->sumPaid[$period->actualMonth])!!}
       </div>
     </div>
     <hr>
@@ -73,7 +73,7 @@
 
   @include('accounts/mode_view/'.$modeView)
 
-  @foreach($accounts as $account)
+  @foreach($accounts->result as $account)
     @include('accounts/import', ['isAccount'=>true, 'id'=>$account->id])
   @endforeach
 @endsection
