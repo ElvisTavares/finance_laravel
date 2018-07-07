@@ -25,4 +25,8 @@ class Invoice extends Model
     {
         return $this->hasMany('App\Transaction','invoice_id');
     }
+
+    public function getTotal(){
+        return $this->transactions()->sum('value');
+    }
 }

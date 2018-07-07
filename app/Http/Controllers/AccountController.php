@@ -83,8 +83,8 @@ class AccountController extends Controller
           $monthValueAccountNotPaid[$account->id] = [];
           $accountResult->invoices = [];
           for($i=0; $i<12; $i++) {
-            $monthValueAccountNotPaid[$account->id][$i] = $account->transactions()->where('paid', false)->where('date','<=',$dateEnd[$i])->sum('value'); 
-            $monthValueAccount[$account->id][$i] = $account->transactions()->where('paid', true)->where('date','<=',$dateEnd[$i] )->sum('value');
+            $monthValueAccountNotPaid[$account->id][$i] = $account->transactions()->where('paid', false)->where('date','<=',$dateEnd[$i])->sum('value') + -1 * $account->transactionsTransfer()->where('paid', false)->where('date','<=',$dateEnd[$i])->sum('value');
+            $monthValueAccount[$account->id][$i] = $account->transactions()->where('paid', true)->where('date','<=',$dateEnd[$i] )->sum('value') + -1 * $account->transactionsTransfer()->where('paid', true)->where('date','<=',$dateEnd[$i])->sum('value');
           }
           $accountsResult[] = $accountResult;
           foreach($account->creditCards() as $creditCard){

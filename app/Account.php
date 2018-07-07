@@ -30,6 +30,13 @@ class Account extends Model
         return $this->hasMany('App\Transaction');
     }
 
+
+    public function transactionsTransfer()
+    {
+        return $this->hasMany('App\Transaction', 'account_id_transfer');
+    }
+
+
     public function creditCards()
     {
         return Account::where('prefer_debit_account_id',$this->id)->get();
@@ -50,5 +57,13 @@ class Account extends Model
             $selectInvoices[$invoice->id] = $invoice->id."/".$invoice->description;
         }
         return $selectInvoices;
+    }
+
+    public function getTotalPaid($maxDate){
+        return $this->transactions()->where('paid', true)->where('date','<=',$maxDate)->sum('value'); 
+    }
+
+    public function getTotalNotPaid($maxDate){
+        return $this->transactions()->where('paid', false)->where('date','<=',$maxDate)->sum('value'); 
     }
 }

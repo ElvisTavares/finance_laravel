@@ -116,15 +116,8 @@ class TransactionController extends Controller
      */
     public function create(Request $request)
     {
-      if (!isset($request->account)){
-        $accountId = $request->account_id;
-        if (!$accountId || !($account = \Auth::user()->accounts->where('id', $accountId)->first())){
-          return redirect('/accounts')->withErrors([__('accounts.not_your_account')]);
-        } else {
-          $request->account = $account;
-        }
-      }
-      return view('transactions.form', ['action'=>__('common.add'), 'account' => $request->account, 'query' => $this->getQuery()]);
+      $accounts = \Auth::user()->accounts;
+      return view('transactions.form', ['action'=>__('common.add'), 'account' => $request->account, 'query' => $this->getQuery(), 'accounts' => $accounts->where('id', '<>', $request->account->id) ]);
     }
 
 
@@ -170,14 +163,6 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-      if (!isset($request->account)){
-        $accountId = $request->account_id;
-        if (!$accountId || !($account = \Auth::user()->accounts->where('id', $accountId)->first())){
-          return redirect('/accounts')->withErrors([__('accounts.not_your_account')]);
-        } else {
-          $request->account = $account;
-        }
-      }
       $this->valid($request);
       $invoiceId = null;
       if ($request->invoice_id==-1){
@@ -197,6 +182,9 @@ class TransactionController extends Controller
       $transaction->date = $request->date;
       $transaction->description =$request->description;
       $transaction->value = $request->value*(isset($request->is_credit) && $request->is_credit?-1:1);
+      if (isset($request->is_transfer) && $request->is_transfer){
+        $transaction->account_id_transfer = $request->account_id_transfer;
+      }
       $transaction->paid = isset($request->paid)?$request->paid:false;
       $transaction->invoice_id = $invoiceId;
       $transaction->save();
@@ -239,7 +227,8 @@ class TransactionController extends Controller
      */
     public function edit(Request $request)
     {
-      return view('transactions.form', ['action'=>__('common.edit'),'account' => $request->account, 'transaction' => $request->transaction, 'query' => $this->getQuery()]);
+      $accounts = \Auth::user()->accounts;
+      return view('transactions.form', ['action'=>__('common.edit'),'account' => $request->account, 'transaction' => $request->transaction, 'query' => $this->getQuery(), 'accounts' => $accounts ]);
     }
 
     /**
@@ -270,6 +259,9 @@ class TransactionController extends Controller
       $request->transaction->description =$request->description;
       $request->transaction->value = $request->value*(isset($request->is_credit) && $request->is_credit?-1:1);
       $request->transaction->paid = $paid;
+      if (isset($request->is_transfer) && $request->is_transfer){
+        $request->transaction->account_id_transfer = $request->account_id_transfer;
+      }
       $request->transaction->invoice_id = $invoiceId;
       foreach($request->transaction->categories as $categoryTransaction){
         $categoryTransaction->delete();

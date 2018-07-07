@@ -75,6 +75,17 @@ if (isset($account)){
         {{ Form::text('description', old('description', (isset($transaction)?$transaction->description:null)), ['class'=>'form-control']) }}
       </div>
       <div class="form-group">
+        {{ Form::label('is_transfer', __('transactions.is_transfer')) }}
+        <label class="switch">
+          {{ Form::checkbox('is_transfer', 1, old('is_transfer', isset($transaction) && isset($transaction->account_id_transfer))) }}
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class="form-group" id="transfer_account">
+        {{ Form::label('description', __('common.description')) }}
+        {{ Form::select('account_id_transfer',$accounts->pluck('description', 'id'), isset($transaction) && isset($transaction->account_id_transfer) ? $transaction->account_id_transfer : null, [ 'class' => 'form-control']) }}
+      </div>
+      <div class="form-group" id="is_credit_div">
         {{ Form::label('is_credit', __('transactions.is_credit')) }}
         <label class="switch">
           {{ Form::checkbox('is_credit', 1, old('is_credit', (isset($transaction)?$transaction->value<0:false))) }}
