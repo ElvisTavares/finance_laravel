@@ -6,19 +6,19 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6"><b>{{__('accounts.totals_paid')}}:</b></div>
-            <div class="col-md-6">{{__('common.money_type')}} {!!format_money($accounts->monthValueAccount[$account->id][$period->actualMonth-1])!!}</div>
+            <div class="col-md-6">{{__('common.money_type')}} {!!format_money($accounts->monthValueAccount[$account->id][$period->actualMonth])!!}</div>
           </div>
         </div>
         <div class="container">
           <div class="row">
             <div class="col-md-6"><b>{{__('accounts.totals_not_paid')}}:</b></div>
-            <div class="col-md-6">{{__('common.money_type')}} {!!format_money($accounts->monthValueAccountNotPaid[$account->id][$period->actualMonth-1])!!}</div>
+            <div class="col-md-6">{{__('common.money_type')}} {!!format_money($accounts->monthValueAccountNotPaid[$account->id][$period->actualMonth])!!}</div>
           </div>
         </div>
         <div class="container">
           <div class="row">
             <div class="col-md-6"><b>{{__('accounts.totals')}}:</b></div>
-            <div class="col-md-6">{{__('common.money_type')}} {!!format_money($accounts->monthValueAccount[$account->id][$period->actualMonth-1]+$accounts->monthValueAccountNotPaid[$account->id][$period->actualMonth-1])!!}</div>
+            <div class="col-md-6">{{__('common.money_type')}} {!!format_money($accounts->monthValueAccount[$account->id][$period->actualMonth]+$accounts->monthValueAccountNotPaid[$account->id][$period->actualMonth])!!}</div>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@
         <a class="btn btn-info" title="{{__('common.import')}} {{__('accounts.account')}}" href="#" data-toggle="modal" data-target="#model_account_{{$account->id}}">
           <i class="fa fa-upload"/></i> {{__('common.import')}}
         </a>
-        <a class="btn btn-secondary" style="margin-right: 5px;" title="{{__('transactions.title')}}" href="/account/{{$account->id}}/transactions?date_init={{$period->dateInit[$period->actualMonth-1]}}&date_end={{$period->dateEnd[$period->actualMonth-1]}}">
+        <a class="btn btn-secondary" style="margin-right: 5px;" title="{{__('transactions.title')}}" href="/account/{{$account->id}}/transactions?date_init={{$period->dateInit[$period->actualMonth]}}&date_end={{$period->dateEnd[$period->actualMonth]}}">
           <i class="fa fa-list"></i> {{__('transactions.title')}}
         </a>
         @if ($account->is_credit_card)
