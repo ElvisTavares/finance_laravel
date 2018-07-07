@@ -58,8 +58,6 @@ class AccountController extends Controller
           }
         }
       } else {
-        $actualYear = date('Y');
-        $actualMonth = date('n');
         $years[] = $actualYear;
       }
       $dateInit = [];
