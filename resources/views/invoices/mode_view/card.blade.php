@@ -32,6 +32,9 @@
         <a class="btn btn-danger" title="{{__('common.remove')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/confirm">
           <i class="fa fa-trash"/></i> {{__('common.remove')}}
         </a>
+        <a class="btn btn-secondary" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$invoice->id}}">
+          <i class="fa fa-list"/></i> {{__('transactions.title')}}
+        </a>
       </div>
     </div>
   </div>

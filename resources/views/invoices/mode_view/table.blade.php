@@ -6,7 +6,7 @@
       <th>{{__('invoices.date_init')}}</th>
       <th>{{__('invoices.date_end')}}</th>
       <th>{{__('invoices.debit_date')}}</th>
-      <th colspan="3">{{__('common.actions')}}</th>
+      <th colspan="4">{{__('common.actions')}}</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +30,11 @@
         <td>
           <a class="btn btn-danger" title="{{__('common.remove')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/confirm">
             <i class="fa fa-trash"/></i> {{__('common.remove')}}
+          </a>
+        </td>
+        <td>
+          <a class="btn btn-secondary" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$invoice->id}}">
+            <i class="fa fa-list"/></i> {{__('transactions.title')}}
           </a>
         </td>
       </tr>
