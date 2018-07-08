@@ -48,4 +48,6 @@ return array (
   'csv' => 'CSV',
   'description_max_100' => 'Descrição não pode ter mais que 100 caracteres',
   'date_required' => 'Data é obrigatório',
+  'filter_by_date' => 'Filtrar por data',
+  'filter_by_invoice' => 'Filtrar por fatura',
 );

@@ -11,5 +11,6 @@ return array (
   'title' => 'transactions',
   'transaction' => 'transaction',
   'value' => 'Value',
-  'is_credit' => 'Is credit?'
+  'is_credit' => 'Is credit?',
+  'is_transfer' => 'Is a transfer?',
 );

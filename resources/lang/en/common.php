@@ -48,4 +48,6 @@ return array (
   'ofx' => 'OFX',
   'date_required' => 'Date is required',
   'description_max_100' => 'Description can not be longer than 100 characters',
+  'filter_by_date' => 'Filter by date',
+  'filter_by_invoice' => 'Filter by invoice',
 );

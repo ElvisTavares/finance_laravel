@@ -11,5 +11,6 @@ return array (
   'times' => 'vezes.',
   'charts' => 'Gráficos',
   'transaction' => 'Transação',
-  'is_credit' => 'É uma despesa?'
+  'is_credit' => 'É uma despesa?',
+  'is_transfer' => 'É uma transferência?',
 );
