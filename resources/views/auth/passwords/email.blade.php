@@ -5,13 +5,12 @@
 @endsection
 
 @section('content')
-<form role="form" method="POST" action="{{ url('/password/email') }}">
-  {!! csrf_field() !!}
+<div class="offset-md-7 col-md-5 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3">
+  <form role="form" method="POST" action="{{ url('/password/email') }}">
+    {!! csrf_field() !!}
 
-  <div class="form-group row">
-    <label class="col-lg-4 col-form-label text-lg-right">{{__('login.email')}}</label>
-
-    <div class="col-lg-6">
+    <div class="form-group">
+      <label>{{__('login.email')}}</label>
       <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}">
 
       @if ($errors->has('email'))
@@ -20,14 +19,8 @@
         </div>
       @endif
     </div>
-  </div>
-
-  <div class="form-group row">
-    <div class="col-lg-6 offset-lg-4">
-      <button type="submit" class="btn btn-primary">
-        {{__('login.send_email_reset')}}
-      </button>
-    </div>
-  </div>
-</form>
+    
+    @include('shared/submit', ['text'=>__('login.send_email_reset'), 'iconClass'=>'fas fa-sign-in-alt'])
+  </form>
+</div>
 @endsection
