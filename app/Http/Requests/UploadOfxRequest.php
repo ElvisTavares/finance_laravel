@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UploadOfxRequest extends FormRequest
@@ -17,7 +18,7 @@ class UploadOfxRequest extends FormRequest
        * something likethis if u are checking
        * authentication
        */
-      return \Auth::check();
+      return Auth::check();
 
       /* Or something more granular like this: 
        * return auth()->user()->can('udpate-profile')

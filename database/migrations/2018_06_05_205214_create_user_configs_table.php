@@ -16,9 +16,9 @@ class CreateUserConfigsTable extends Migration
         Schema::create('user_configs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('config_id')->unsigned();
-            $table->foreign('config_id')->references('id')->on('configs');
+            $table->foreign('config_id')->references('id')->on('configs')->onDelete('cascade');
             $table->text('value')->nullable();
             $table->unique(['user_id', 'config_id']);
             $table->timestamps();

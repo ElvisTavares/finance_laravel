@@ -1,27 +1,23 @@
 @extends('layouts.app')
 
 @section('title')
-  {{__('invoices.confirm_destroy')}}
+  {{__('invoices.confirm-destroy')}}
 @endsection
 
 @section('title-buttons')
-<?php
-  $links = [
-    (object) [
-      "url" => "/account/".$account->id."/invoices",
-      "colMd" => 4,
-      "colMdOffset" => 8,
-      "btnClass" => backButton()->btnClass,
-      "iconClass" => backButton()->iconClass
-    ]
-  ];
-?>
+    @php
+    $links = [
+        new LinkResponsive("/account/".$account->id."/invoices", 'btn btn-back', 'fa fa-arrow-left', __('common.back'))
+    ];
+    @endphp
 @include('shared/titleButtons', ['links'=>$links])
 @endsection
 
 @section('content')
- {{ Form::open(['url' => '/account/'.$account->id.'/invoice/'.$invoice->id, 'method'=>'DELETE']) }}
-    {{__('invoices.confirmation_text', ['id'=>$invoice->id, 'description'=>$invoice->description])}}
-    @include('shared.submit')
-  {{ Form::close() }} 
+    <div class="{{ config('constants.classes.confirm') }}">
+        {{ Form::open(['url' => '/account/'.$account->id.'/invoice/'.$invoice->id, 'method'=>'DELETE']) }}
+        {{__('invoices.confirmation-text', ['id'=>$invoice->id, 'description'=>$invoice->description])}}
+        @include('shared.submit')
+        {{ Form::close() }}
+    </div>
 @endsection

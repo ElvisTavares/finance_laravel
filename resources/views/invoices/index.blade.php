@@ -5,37 +5,22 @@
 @endsection
 
 @section('title-buttons')
-<?php
-  $links = [
-    (object) [
-      "url" => url("/accounts"),
-      "colMd" => 4,
-      "colSm" => 4,
-      "btnClass" => backButton()->btnClass,
-      "iconClass" => backButton()->iconClass
-    ],
-    (object) [
-      "url" => url("/account/".$account->id."/invoices?view_mode=".($modeView=="table"?"card":"table")),
-      "colMd" => 4,
-      "colSm" => 4,
-      "btnClass" => modeViewButton()->btnClass,
-      "iconClass" => modeViewButton()->iconClass
-    ],
-    (object) [
-      "url" => url("/account/".$account->id."/invoice/create"),
-      "colMd" => 4,
-      "colSm" => 4,
-      "btnClass" => addButton()->btnClass,
-      "iconClass" => addButton()->iconClass
-    ]
-  ];
-?>
+    @php
+        $nextViewMode = ($viewMode == "table" ? "card" : "table");
+        $urlViewMode = url("/account/".$account->id."/invoices?view_mode=".$nextViewMode);
+        $urlAdd = url("/account/".$account->id."/invoice/create");
+        $links = [
+            new LinkResponsive(url("/accounts"), 'btn btn-back', 'fa fa-arrow-left', __('common.back')),
+            new LinkResponsive($urlViewMode, 'btn btn-change', 'fas fa-exchange-alt', __('common.'.$nextViewMode)),
+            new LinkResponsive($urlAdd, 'btn btn-add', 'fa fa-plus', __('common.add'))
+        ];
+    @endphp
 @include('shared/titleButtons', ['links'=>$links])
 @endsection
 
 @section('content')
-@include('invoices/mode_view/'.$modeView)
+@include('invoices/mode_view/'.$viewMode)
 @foreach($invoices as $invoice)
-  @include('accounts/import', ['isAccount'=>false, 'accountId'=>$account->id,'id'=>$invoice->id])
+  @include('invoices/import', ['account'=>$account->id, 'id'=>$invoice->id])
 @endforeach
 @endsection

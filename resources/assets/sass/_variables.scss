@@ -1,2 +1,54 @@
-$negative-color: #bf0606;
-$positive-color: #0e4a0e;
+$default-margin: 15px;
+
+$green: #29a585;
+$green-text: white;
+$green-littlest: #42f48c;
+$green-little: #31c69f;
+$green-strong: #26a282;
+$green-strongest: #218c70;
+
+$gray: #212529;
+$gray-text: black;
+$gray-littlest: #f7f7f7;
+$gray-little: #dedede;
+$gray-strong: #26a282;
+$gray-strongest: #218c70;
+
+$red: #bf0606;
+$red-text: white;
+$red-little: #c95353;
+
+$negative-color: $red;
+$positive-color: $green;
+
+$add-color: $green-littlest;
+$add-color-text: $green-text;
+$add-color-hover: $green-little;
+
+$back-color: rgb(99, 99, 99);
+$back-color-text: white;
+$back-color-hover: rgb(49, 49, 49);
+
+$change-color: $green-little;
+$change-color-text: $green-text;
+$change-color-hover: $green;
+
+$edit-color: #ffd455;
+$edit-color-text: white;
+$edit-color-hover: #fdbe00;
+
+$import-color: $green-little;
+$import-color-text: $green-text;
+$import-color-hover: $green;
+
+$list-color: $green-strong;
+$list-color-text: $green-text;
+$list-color-hover: $green-strongest;
+
+$remove-color: $red-little;
+$remove-color-text: $red-text;
+$remove-color-hover: $red;
+
+$toogle-color: $green-text;
+$toogle-color-text: $green-strong;
+$toogle-color-hover: $green-strongest;

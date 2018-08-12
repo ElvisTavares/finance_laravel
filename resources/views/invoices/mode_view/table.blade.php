@@ -3,9 +3,9 @@
     <tr class="active">
       <th>{{__('common.id')}}</th>
       <th>{{__('common.description')}}</th>
-      <th>{{__('invoices.date_init')}}</th>
-      <th>{{__('invoices.date_end')}}</th>
-      <th>{{__('invoices.debit_date')}}</th>
+      <th>{{__('invoices.date-init')}}</th>
+      <th>{{__('invoices.date-end')}}</th>
+      <th>{{__('invoices.debit-date')}}</th>
       <th colspan="4">{{__('common.actions')}}</th>
     </tr>
   </thead>
@@ -18,23 +18,23 @@
         <td>{{formatDate($invoice->date_end)}}</td>
         <td>{{formatDate($invoice->debit_date)}}</td>
         <td>
-          <a class="btn btn-info" title="{{__('common.import')}} {{__('accounts.account')}}" href="#" data-toggle="modal" data-target="#model_account_{{$invoice->id}}">
-            <i class="fa fa-upload"/></i> {{__('common.import')}}
+          <a class="btn btn-import" title="{{__('common.import')}} {{__('accounts.account')}}" href="#" data-toggle="modal" data-target="#model_account_{{$invoice->id}}">
+            <i class="fa fa-upload"></i>
           </a>
         </td>
         <td>
-           <a class="btn btn-warning" title="{{__('common.edit')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/edit">
-            <i class="fa fa-edit"/></i> {{__('common.edit')}}
+           <a class="btn btn-edit" title="{{__('common.edit')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/edit">
+            <i class="fa fa-edit"></i>
           </a>
         </td>
         <td>
-          <a class="btn btn-danger" title="{{__('common.remove')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/confirm">
-            <i class="fa fa-trash"/></i> {{__('common.remove')}}
+          <a class="btn btn-remove" title="{{__('common.remove')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/confirm">
+            <i class="fa fa-trash"></i>
           </a>
         </td>
         <td>
-          <a class="btn btn-secondary" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$invoice->id}}">
-            <i class="fa fa-list"/></i> {{__('transactions.title')}}
+          <a class="btn btn-list" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$invoice->id}}">
+            <i class="fa fa-list"></i>
           </a>
         </td>
       </tr>

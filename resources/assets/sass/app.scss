@@ -1,81 +1,84 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 //Font awesome
 @import url("https://use.fontawesome.com/releases/v5.0.13/css/all.css");
+//Bootstrap
+@import "~bootstrap/scss/bootstrap";
 
-// Bootstrap
-@import "./bootstrap.min.css";
-@import "./tagsinput.css";
 @import "variables";
+@import "body";
+@import "nav";
+@import "table";
+@import "buttons";
 @import "switch";
+@import "tagsinput";
 
-nav.navbar{
-  margin-bottom: 10px;
+.default-padding {
+  padding: 15px;
 }
 
-table.table{
-  td{
-  	padding: 2px !important;
-    vertical-align: middle;
-    text-align: center;
-    &.actual{
-      background-color:lightgray;
-    }
-  }
+.default-margin-bottom{
+  margin-bottom: $default-margin;
+}
+.default-margin-top{
+   margin-top: $default-margin;
+ }
 
-  th.actual{
-    background-color:lightgray !important;
-  }
-
-  td, th{
-    .btn{
-      padding: 2px;
-    }
-    div.bootstrap-tagsinput {
-      background-color: transparent;
-      border: none;
-      box-shadow: none;
-    }
+.fixed-bottom-inside{
+  & > *{
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    width: calc(100% - 30px);
   }
 }
 
-.btn-facebook{
-  background-color: #3b5998;
-  &:hover{
-    background-color: rgb(50, 76, 130);
-  }
+.line-bottom {
+  border-bottom: 1px solid $gray-little;
 }
 
-font{
-  &.negative{
+.container-fluid .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.form-control {
+  border-radius: 50px;
+}
+font {
+  &.negative {
     color: $negative-color;
   }
-  &.positive{
+  &.positive {
     color: $positive-color;
   }
 }
 
-input[type=date]{
+h2{
+  i{
+    color: $change-color;
+  }
+}
+
+input[type=date] {
   padding-right: 3px;
 }
-
-.btn{
-  padding: 7px;
-  width: 100%;
-  margin-bottom: 3px;
+input[type=file]{
+  margin-bottom: $default-margin;
 }
-
-body{
-  background-color:#f7f7f7;
-}
-
 .card {
   margin-bottom: 10px;
 }
 
-form { 
-  label{
+form {
+  label {
     display: block;
+  }
+}
+
+a {
+  color: $change-color;
+  &:hover{
+    color: $change-color-hover;
   }
 }

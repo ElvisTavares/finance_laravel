@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Account;
-use App\SysConfig;
 use App\UserConfig;
 use App\Transaction;
 
@@ -19,179 +20,202 @@ class AccountController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('account', ['except' => ['index', 'create', 'store']]);
     }
 
-    private function getModeView(Request $request){
-      $modeViewConfigId = config('constants.user_configs.mode_account_view');
-      $modeViewConfig = \Auth::user()->configs()->where(['config_id'=>$modeViewConfigId])->first();
-      if (!isset($modeViewConfig)){
-        $modeViewConfig = new UserConfig;
-        $modeViewConfig->user()->associate(\Auth::user());
-        $modeViewConfig->config()->associate(SysConfig::find($modeViewConfigId));
-        $modeViewConfig->value = 'table';
-        $modeViewConfig->save();
-      }
-      if (isset($request->view_mode)){
-        $modeViewConfig->value = $request->view_mode;
-        $modeViewConfig->save();
-      }
-      return $modeViewConfig->value;
+    /**
+     * Get mode view of accounts
+     * @param string $viewMode [card, table]
+     * @return string
+     */
+    private function modeView($viewMode)
+    {
+        $viewModeConfig = UserConfig::accountsModeView(Auth::user()->id);
+        if (isset($viewMode)) {
+            $viewModeConfig->value = $viewMode;
+            $viewModeConfig->save();
+        }
+        return $viewModeConfig->value ?: 'table';
     }
 
-    private function getPeriod(Request $request, $modeView){
-      $years = [];
-      $actualYear = date('Y');
-      $actualMonth = date('n')-1;
-      if ($modeView == 'table'){
-        $actualYear = isset($request->year)?$request->year:date('Y');
-        $yearDiff = (date('Y')-$actualYear);
-        $j = 10-$yearDiff;
-        if ($j<=0){
-          $j=1;
+    /**
+     * @param integer $actualYear
+     * @return array
+     */
+    private function yearsList($actualYear)
+    {
+        $years = [];
+        $systemYear = date('Y');
+        $yearDiff = ($systemYear - $actualYear);
+        $minYear = 10 - $yearDiff;
+        if ($minYear <= 0) {
+            $minYear = 1;
         }
-        for ($i=$actualYear-$j; $i<=$actualYear; $i++){
-          $years[] = $i;
+        for ($year = $actualYear - $minYear; $year <= $actualYear; $year++) {
+            $years[] = $year;
         }
-        if ($actualYear<date('Y')){
-          for ($i=$actualYear+1; $i<=date('Y'); $i++){
-            $years[] = $i;
-          }
-        }
-      } else {
-        $years[] = $actualYear;
-      }
-      $dateInit = [];
-      $dateEnd = [];
-      for($i=0; $i<12; $i++) {
-        $dateInit[$i] = date("Y-m-d", strtotime(date($actualYear.'-'.($i+1).'-1')));
-        $dateEnd[$i] = date('Y-m-t', strtotime($dateInit[$i]));
-      }
-
-      $result = new \stdClass;
-      $result->years = $years;
-      $result->actualYear = $actualYear;
-      $result->actualMonth = $actualMonth;
-      $result->dateInit = $dateInit;
-      $result->dateEnd = $dateEnd;
-      return $result;
-    }
-
-    private function getAccountsResult($period){
-      $accounts = \Auth::user()->accounts()->where('is_credit_card', false)->get();
-      $accountsResult = [];
-      $monthValueAccount = [];
-      $monthValueAccountNotPaid = [];
-      foreach($accounts as $account){
-        $accountResult = new \stdClass;
-        $accountResult->is_credit_card = false;
-        $accountResult->id = $account->id;
-        $accountResult->description = $account->description;
-        $monthValueAccount[$account->id] = [];
-        $monthValueAccountNotPaid[$account->id] = [];
-        $accountResult->invoices = [];
-        for($i=0; $i<12; $i++) {
-          $dateEnd = $period->dateEnd[$i];
-          $monthValueAccountNotPaid[$account->id][$i] = $account->getTotal($dateEnd) + -1 * $account->getTotalTransfer($dateEnd);
-          $monthValueAccount[$account->id][$i] = $account->getTotal($dateEnd, true) + -1 * $account->getTotalTransfer($dateEnd, true);
-        }
-        $accountsResult[] = $accountResult;
-        foreach($account->creditCards() as $creditCard){
-          $accountResult = new \stdClass;
-          $accountResult->is_credit_card = true;
-          $accountResult->id = $creditCard->id;
-          $accountResult->description = $creditCard->description;
-          $monthValueAccount[$creditCard->id] = [];
-          $monthValueAccountNotPaid[$creditCard->id] = [];
-          $accountResult->invoices = [];
-          for($i=0; $i<12; $i++) {
-            $dateInit = $period->dateInit[$i];
-            $dateEnd = $period->dateEnd[$i];
-            $monthValueAccount[$creditCard->id][$i] = 0;
-            $monthValueAccountNotPaid[$creditCard->id][$i] = 0; 
-            $invoice = $creditCard->invoices()->whereBetween('debit_date',[$dateInit, $dateEnd])->first();
-            if (isset($invoice)){
-              $value = $invoice->transactions()->sum('value');
-              $monthValueAccount[$creditCard->id][$i] = $value < 0 ? $value : 0;
-              $monthValueAccountNotPaid[$creditCard->id][$i] = $value > 0 ? $value : 0;
+        if ($actualYear < $systemYear) {
+            for ($year = $actualYear + 1; $year <= $systemYear; $year++) {
+                $years[] = $year;
             }
-            $accountResult->invoices[] = $invoice;
-          }
-          $accountsResult[] = $accountResult;
         }
-      }
-
-      $result = new \stdClass;
-      $result->result = $accountsResult;
-      $result->monthValueAccount = $monthValueAccount;
-      $result->monthValueAccountNotPaid = $monthValueAccountNotPaid;
-      return $result;
-    }
-    
-    private function getCalcResult($accountResult){
-      $sumPaid = [];
-      $sumNotPaid = [];
-      for($i=0; $i<12; $i++) {
-        $sumPaid[$i] = 0;
-        $sumNotPaid[$i] = 0;
-        foreach ($accountResult->result as $account) {
-          $sumPaid[$i] += $accountResult->monthValueAccount[$account->id][$i];
-          $sumNotPaid[$i] += $accountResult->monthValueAccountNotPaid[$account->id][$i];
-        }
-      }
-      $result = new \stdClass;
-      $result->sumPaid = $sumPaid;
-      $result->sumNotPaid = $sumNotPaid;
-      return $result;
+        return $years;
     }
 
-    private function getAvg(){
-      //$period->actualMonth = date('n')-1;
-      $avgMax = Transaction::whereIn('account_id', \Auth::user()->getAccoutsId())->where('value', '>', 0);
-      $avgMaxDivision = count($avgMax->get());
-      if ($avgMaxDivision==0)
-      {
-        $avgMaxDivision = 1;
-      }
-      $avgMax = $avgMax->sum('value') / $avgMaxDivision;
-      $avgMin = Transaction::whereIn('account_id', \Auth::user()->getAccoutsId())->where('value', '<', 0);
-      $avgMinDivision = count($avgMin->get());
-      if ($avgMinDivision==0)
-      {
-        $avgMinDivision = 1;
-      }
-      $avgMin = $avgMin->sum('value') / $avgMinDivision;
-      $result = new \stdClass;
-      $result->avgMax = $avgMax;
-      $result->avgMin = $avgMin;
-      $result->avgAvg = $avgMax+$avgMin;
-      return $result;
+    /**
+     * @param integer $actualYear
+     * @return array
+     */
+    private function months($actualYear)
+    {
+        $months = [];
+        for ($i = 0; $i < 12; $i++) {
+            $months[$i] = new \stdClass;
+            $months[$i]->init = date($actualYear . '-' . ($i + 1) . '-1');
+            $months[$i]->end = date('Y-m-t', strtotime($months[$i]->init));
+        }
+        return $months;
+    }
+
+    /**
+     * @param integer $year
+     * @param string $viewMode
+     * @return \stdClass
+     */
+    private function period($year, $viewMode)
+    {
+        $result = new \stdClass;
+        $result->actual = new \stdClass;
+        $result->actual->month = date('n') - 1;
+        if ($viewMode == 'table') {
+            $result->actual->year = isset($year) ? $year : date('Y');
+            $years = $this->yearsList($result->actual->year);
+        } else { // On card view just show actual year
+            $result->actual->year = date('Y');
+            $years = [$result->actual->year];
+        }
+        $result->years = $years;
+        $result->months = $this->months($result->actual->year);
+        return $result;
+    }
+
+    /**
+     * @param Collection $accounts
+     * @param \stdClass $period
+     * @return \stdClass
+     */
+    private function values($accounts, $period)
+    {
+        $values = new \stdClass;
+        $values->paid = [];
+        $values->nonPaid = [];
+        foreach ($accounts as $account) {
+            $values->paid[$account->id] = [];
+            $values->nonPaid[$account->id] = [];
+            for ($month = 0; $month < 12; $month++) {
+                $dateEnd = $period->months[$month]->end;
+                $values->nonPaid[$account->id][$month] = $account->total($dateEnd);
+                $values->paid[$account->id][$month] = $account->total($dateEnd, true);
+            }
+            foreach ($account->creditCards() as $creditCard) {
+                $values->paid[$creditCard->id] = [];
+                $values->nonPaid[$creditCard->id] = [];
+                $creditCardFormatted = $creditCard->format($period);
+                for ($i = 0; $i < 12; $i++) {
+                    $values->paid[$creditCard->id][$i] = 0;
+                    $values->nonPaid[$creditCard->id][$i] = 0;
+                    $invoice = $creditCardFormatted->invoices[$i];
+                    if (isset($invoice)) {
+                        $value = $invoice->total();
+                        $values->paid[$creditCard->id][$i] = $value < 0 ? $value : 0;
+                        $values->nonPaid[$creditCard->id][$i] = $value > 0 ? $value : 0;
+                    }
+                }
+            }
+        }
+        return $values;
+    }
+
+    /**
+     * @param Collection $accounts
+     * @param \stdClass $period
+     * @return array
+     */
+    private function accounts($accounts, $period)
+    {
+        $result = [];
+        foreach ($accounts as $account) {
+            $result[] = $account->format($period);
+        }
+        return $result;
+    }
+
+    /**
+     * @param Collection $accounts
+     * @param \stdClass $values
+     * @return \stdClass
+     */
+    private function totals($accounts, $values)
+    {
+        $result = new \stdClass;
+        $result->paid = [];
+        $result->nonPaid = [];
+        for ($month = 0; $month < 12; $month++) {
+            $result->paid[$month] = 0;
+            $result->nonPaid[$month] = 0;
+            foreach ($accounts as $account) {
+                $result->paid[$month] += $values->paid[$account->id][$month];
+                $result->nonPaid[$month] += $values->nonPaid[$account->id][$month];
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    private function avg()
+    {
+        $result = new \stdClass;
+        $result->max = Transaction::ofUser(Auth::user())->positive();
+        $result->maxDivision = count($result->max->get());
+        if ($result->maxDivision == 0) {
+            $result->maxDivision = 1;
+        }
+        $result->max = $result->max->sum('value') / $result->maxDivision;
+        $result->min = Transaction::ofUser(Auth::user())->negative();
+        $result->minDivision = count($result->min->get());
+        if ($result->minDivision == 0) {
+            $result->minDivision = 1;
+        }
+        $result->min = $result->min->sum('value') / $result->minDivision;
+        $result->avg = $result->max + $result->min;
+        return $result;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
-        $modeView = $this->getModeView($request);
-        $period = $this->getPeriod($request, $modeView);
-        $accountsResult = $this->getAccountsResult($period);
-        $calcResult = $this->getCalcResult($accountsResult);
-        $avg = $this->getAvg();
-        return view('accounts.index', ['accounts' => $accountsResult, 'period' => $period, 'calcResult' => $calcResult, 'avg' => $avg, 'modeView' => $modeView]);
+        $viewMode = $this->modeView($request->view_mode);
+        $period = $this->period($request->year, $viewMode);
+        $accounts = Auth::user()->accounts()->get();
+        $values = $this->values($accounts, $period);
+        $totals = $this->totals($accounts, $values);
+        return view('accounts.index', [
+            'viewMode' => $viewMode,
+            'accounts' => $this->accounts($accounts, $period),
+            'period' => $period,
+            'values' => $values,
+            'totals' => $totals,
+            'avg' => $this->avg()
+        ]);
     }
 
-    private function getOptionsPreferDebitAccount(){
-        $accounts = \Auth::user()->accounts;
-        $selectAccounts = [null=>__('common.none')];
-        foreach($accounts as $account){
-            if (!$account->is_credit_card){
-                $selectAccounts[$account->id] = $account->id."/".$account->description;
-            }
-        }
-        return $selectAccounts;
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -199,124 +223,111 @@ class AccountController extends Controller
      */
     public function create()
     {
-        $selectAccounts = $this->getOptionsPreferDebitAccount();
-        return view('accounts.form', ['selectAccounts' => $selectAccounts, 'action' => __('common.add') ]);
+        return view('accounts.form', [
+            'selectAccounts' => Auth::user()->listNonCreditCard(),
+            'action' => __('common.add')
+        ]);
     }
 
-    private function valid($request){
-        return Validator::make($request->all(),[
+    /**
+     * @param $request
+     * @return mixed
+     */
+    private function valid($request)
+    {
+        return Validator::make($request->all(), [
             'description' => 'required|min:5|max:50'
         ], [
-            'description.required' => __('common.description_required'),
-            'description.min' => __('common.description_min_5'),
-            'description.max' => __('common.description_max_50')
-        ])->after(function ($validator) use ($request){
-            if ($request->is_credit_card) {
-                if ($request->prefer_debit_account_id!=null){
-                    $prefer_debit_account = \Auth::user()->accounts->where('id',$request->prefer_debit_account_id)->first();
-                    if (!$prefer_debit_account){
-                        $validator->errors()->add('id', __('accounts.not_your_account'));
-                    }
+            'description.required' => __('common.description-required'),
+            'description.min' => __('common.description-min-5'),
+            'description.max' => __('common.description-max-50')
+        ])->after(function ($validator) use ($request) {
+            if ($request->is_credit_card && $request->prefer_debit_account_id != null) {
+                $request->prefer_debit_account = Auth::user()->accounts->find($request->prefer_debit_account_id);
+                if (!$request->prefer_debit_account) {
+                    $validator->errors()->add('id', __('accounts.not-your-account'));
                 }
             }
         })->validate();
     }
+
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
     {
         $this->valid($request);
-
         $account = new Account;
-
-        $account->description = $request->description;
-        $account->user()->associate(\Auth::user());
-        
-        $account->is_credit_card = $request->is_credit_card==null?false:$request->is_credit_card;
-        if ($account->is_credit_card){
-            $prefer_debit_account = Account::find($request->prefer_debit_account_id);
-            if ($prefer_debit_account){
-                $account->preferDebitAccount()->associate($prefer_debit_account);
-            }
-        }
-        $account->save();
+        $account->user()->associate(Auth::user());
+        $account->is_credit_card = $request->is_credit_card == null ? false : $request->is_credit_card;
+        $account->updateByRequest($request);
         return redirect('/accounts');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $account = \Auth::user()->accounts->where('id',$id)->first();
-        $selectAccounts = $this->getOptionsPreferDebitAccount();
-        return view('accounts.form', ['account'=>$account, 'selectAccounts' => $selectAccounts, 'action' => __('common.edit') ]);
+        return view('accounts.form', [
+            'account' => $request->account,
+            'selectAccounts' => Auth::user()->listNonCreditCard(),
+            'action' => __('common.edit')
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
     {
         $this->valid($request);
-
-        $account = \Auth::user()->accounts->where('id',$id)->first();
-
-        $account->description = $request->description;
-        $account->user()->associate(\Auth::user());
-        
-        if ($account->is_credit_card){
-            $prefer_debit_account = \Auth::user()->accounts->where('id',$request->prefer_debit_account_id)->first();
-            if ($prefer_debit_account){
-                $account->preferDebitAccount()->associate($prefer_debit_account);
-            }
-        } 
-
-        $account->save();
+        $account = $request->account;
+        $account->updateByRequest($request);
         return redirect('/accounts');
     }
 
-    public function confirm($id){
-        $account = \Auth::user()->accounts->where('id',$id)->first();
-        return view('accounts.confirm', ['account'=>$account]);
+    /**
+     * Confirmation do remove the specified resource from storage.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function confirm(Request $request, $id)
+    {
+        return view('accounts.confirm', [
+            'account' => $request->account
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        foreach (\Auth::user()->accounts as $account){
-            if($account->prefer_debit_account_id == $id){
+        foreach (Auth::user()->accounts as $account) {
+            if ($account->prefer_debit_account_id == $id) {
                 $account->prefer_debit_account_id = null;
                 $account->save();
             }
         }
-        $account = \Auth::user()->accounts->where('id',$id)->first();
-        $account->delete();
+        $request->account->delete();
         return redirect('/accounts');
     }
 }
