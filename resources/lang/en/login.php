@@ -1,16 +1,16 @@
 <?php
 
 return array (
-  'email' => 'Email',
-  'forgot' => 'I forgot my password',
   'login' => 'Login',
-  'logout' => 'Logout',
-  'name' => 'Name',
+  'email' => 'Email',
   'password' => 'Password',
-  'password_confirmation' => 'Confirm password',
-  'register' => 'Register',
-  'remember_me' => 'Remember-me',
-  'reset_password' => 'Recovery password',
-  'send_email_reset' => 'Send to my email',
-  'social' => 'Login with social media',
+  'remember-me' => 'Remember-me',
+  'forgot' => 'I forget my password',
+  'reset-password' => 'Recovery password',
+  'password-confirmation' => 'Confirm password',
+  'register' => 'Registrer',
+  'name' => 'Name',
+  'social' => 'Social login',
+  'logout' => 'Logout',
+  'role' => 'Roles',
 );

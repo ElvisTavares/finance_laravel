@@ -9,15 +9,15 @@ class CheckInvoice
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        $invoiceId = $request->invoiceId;
-        if (!$invoiceId || !($invoice = $request->account->invoices->where('id', $invoiceId)->first())){   
-          return redirect('/account/'.$request->account->id.'/invoices')->withErrors([__('invoices.not_your_invoice')]);
+        $invoice = $request->account->invoices->where('id', $request->invoice)->first();
+        if (!$invoice) {
+            return redirect('/account/' . $request->account->id . '/invoices')->withErrors([__('invoices.not-your-invoice')]);
         }
         $request->invoice = $invoice;
         return $next($request);

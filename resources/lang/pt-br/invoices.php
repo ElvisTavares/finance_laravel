@@ -1,11 +1,12 @@
 <?php
 
 return array (
+  'not-your-invoice' => 'Esta fatura não é sua',
   'title' => 'Faturas',
-  'invoice' => 'fatura',
-  'date_init' => 'Data de início',
-  'date_end' => 'Data de fim',
-  'debit_date' => 'Data de débito',
-  'confirm_destroy' => 'Confirmação para remover fatura',
-  'confirmation_text' => 'Tem certeza que deseja remover a fatura :id/:description?',
+  'confirm-destroy' => 'Remover fatura',
+  'confirmation-text' => 'Tem certeza que deseja remover a fatura :id/:description?',
+  'date-init' => 'Data início',
+  'date-end' => 'Data fim',
+  'debit-date' => 'Data de débito',
+  'invoice' => 'Fatura',
 );

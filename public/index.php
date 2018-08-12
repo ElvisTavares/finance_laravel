@@ -37,9 +37,10 @@ require __DIR__.'/../vendor/autoload.php';
 */
 
 $app = require_once __DIR__.'/../bootstrap/app.php';
-
-
-require __DIR__.'/../app/Helper.php';
+$baseHelpers = __DIR__ . '/../app/Helpers/';
+require $baseHelpers."Application.php";
+requireAll($baseHelpers."Bootstrap/");
+requireAll($baseHelpers);
 
 /*
 |--------------------------------------------------------------------------

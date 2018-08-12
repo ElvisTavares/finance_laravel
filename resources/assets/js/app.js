@@ -5,6 +5,5 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 global.$ = global.jQuery = require('jquery');
-
-require('./bootstrap');
+require('bootstrap')
 require('./tagsinput');

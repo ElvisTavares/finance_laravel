@@ -85,12 +85,12 @@ $('#invoice_id').change(function () {
 });
 $('#is_transfer').change(function () {
   if (this.checked) {
-    $('#transfer_account').slideDown();
-    $('#is_credit_div').slideUp();
+    $('#account_id_transfer').closest('.form-group').slideDown();
+    $('#is_credit').closest('.form-group').slideUp();
     $('#is_credit').prop('checked', true);
   } else {
-    $('#transfer_account').slideUp();
-    $('#is_credit_div').slideDown();
+    $('#account_id_transfer').closest('.form-group').slideUp();
+    $('#is_credit').closest('.form-group').slideDown();
   }
 });
 $(function () {

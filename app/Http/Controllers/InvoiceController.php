@@ -2,133 +2,165 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use Illuminate\Http\Request;
-use App\Account;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Invoice;
-use App\SysConfig;
 use App\UserConfig;
 
 class InvoiceController extends Controller
 {
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-    $this->middleware('auth');
-  }
-
-	public function index(Request $request)
-  {
-    $user = \Auth::user();
-    $modeViewConfigId = config('constants.user_configs.mode_invoice_view');
-    $modeViewConfig = $user->configs()->where(['config_id'=>$modeViewConfigId])->first();
-    if (!isset($modeViewConfig)){
-      $modeViewConfig = new UserConfig;
-      $modeViewConfig->user()->associate(\Auth::user());
-      $modeViewConfig->config()->associate(SysConfig::find($modeViewConfigId));
-      $modeViewConfig->value = 'table';
-      $modeViewConfig->save();
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
-    if (isset($request->view_mode)){
-      $modeViewConfig->value = $request->view_mode;
-      $modeViewConfig->save();
+
+    /**
+     * Get mode view of accounts
+     * @param string $viewMode [card, table]
+     * @return string
+     */
+    private function modeView($viewMode)
+    {
+        $viewModeConfig = UserConfig::invoicesModeView(Auth::user()->id);
+        if (isset($viewMode)) {
+            $viewModeConfig->value = $viewMode;
+            $viewModeConfig->save();
+        }
+        return $viewModeConfig->value ?: 'table';
     }
-    $modeView = $modeViewConfig->value;
-    $invoices = $request->account->invoices()->orderBy('debit_date')->get();
-    return view('invoices.index', ['account' => $request->account, 'invoices' => $invoices, 'modeView' => $modeView]);
-  }   
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create(Request $request)
-  {
-    return view('invoices.form', ['action'=>__('common.add'), 'account' => $request->account]);
-  }
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        return view('invoices.index', [
+            'account' => $request->account,
+            'invoices' => $request->account->invoices()->orderBy('debit_date')->get(),
+            'viewMode' => $this->modeView($request->view_mode)
+        ]);
+    }
 
-  private function valid($request){
-    return Validator::make($request->all(),[
-        'description' => 'required|min:5|max:100',
-        'date_init' => 'required',
-        'date_end' => 'required',
-        'debit_date' => 'required'
-    ], [
-        'description.required' => __('common.description_required'),
-        'description.min' => __('common.description_min_5'),
-        'description.max' => __('common.description_max_100'),
-        'date_init.required' => __('common.date_required'),
-        'date_end.required' => __('common.date_required'),
-        'debit_date.required' => __('common.date_required'),
-    ])->validate();
-  } 
-   /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request)
-  {
-    $this->valid($request);
-    $invoice = new Invoice;
-    $invoice->account()->associate($request->account);
-    $invoice->description = $request->description;
-    $invoice->date_init = $request->date_init;
-    $invoice->date_end = $request->date_end;
-    $invoice->debit_date = $request->debit_date;
-    $invoice->save();
-    return redirect('/account/'.$request->account->id.'/invoices/');    
-  }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        return view('invoices.form', [
+            'action' => __('common.add'),
+            'account' => $request->account
+        ]);
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  Integer $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit(Request $request)
-  {
-    return view('invoices.form', ['action'=>__('common.edit'),'account' => $request->account, 'invoice' => $request->invoice]);
-  }
+    /**
+     * @param $request
+     * @return mixed
+     */
+    private function valid($request)
+    {
+        return Validator::make($request->all(), [
+            'description' => 'required|min:5|max:100',
+            'date_init' => 'required',
+            'date_end' => 'required',
+            'debit_date' => 'required'
+        ], [
+            'description.required' => __('common.description-required'),
+            'description.min' => __('common.description-min-5'),
+            'description.max' => __('common.description-max-100'),
+            'date_init.required' => __('common.date-required'),
+            'date_end.required' => __('common.date-required'),
+            'debit_date.required' => __('common.date-required'),
+        ])->validate();
+    }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  Integer $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request)
-  {   
-    $this->valid($request);
-    $request->invoice->description = $request->description;
-    $request->invoice->date_init = $request->date_init;
-    $request->invoice->date_end = $request->date_end;
-    $request->invoice->debit_date = $request->debit_date;
-    $request->invoice->save();
-    return redirect('/account/'.$request->account->id.'/invoices');
-  }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->valid($request);
+        $invoice = new Invoice;
+        $invoice->account()->associate($request->account);
+        $invoice->description = $request->description;
+        $invoice->date_init = $request->date_init;
+        $invoice->date_end = $request->date_end;
+        $invoice->debit_date = $request->debit_date;
+        $invoice->save();
+        return redirect('/account/' . $request->account->id . '/invoices/');
+    }
 
-  public function confirm(Request $request){
-    return view('invoices.confirm', ['account' => $request->account, 'invoice' => $request->invoice]);
-  }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  Integer $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $id)
+    {
+        return view('invoices.form', [
+            'action' => __('common.edit'),
+            'account' => $request->account,
+            'invoice' => $request->invoice
+        ]);
+    }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  Integer $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy(Request $request)
-  {
-    $request->invoice->transactions()->delete();
-    $request->invoice->delete();
-    return redirect('/account/'.$request->account->id.'/invoices');
-  }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  Integer $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $this->valid($request);
+        $request->invoice->description = $request->description;
+        $request->invoice->date_init = $request->date_init;
+        $request->invoice->date_end = $request->date_end;
+        $request->invoice->debit_date = $request->debit_date;
+        $request->invoice->save();
+        return redirect('/account/' . $request->account->id . '/invoices');
+    }
+
+    /**
+     * Confirmation to remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  Integer $id
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm(Request $request)
+    {
+        return view('invoices.confirm', [
+            'account' => $request->account,
+            'invoice' => $request->invoice
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Integer $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+        $request->invoice->transactions()->delete();
+        $request->invoice->delete();
+        return redirect('/account/' . $request->account->id . '/invoices');
+    }
 }

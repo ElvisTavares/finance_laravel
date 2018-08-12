@@ -1,0 +1,19 @@
+table.table {
+  tr{
+    border-top: none;
+    border-bottom: none;
+    td, th {
+      &.actual {
+        background-color: $green-littlest;
+      }
+      border: 1px solid $gray-little;
+      padding: 2px !important;
+      vertical-align: middle;
+      div.bootstrap-tagsinput {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+}

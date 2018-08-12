@@ -1,21 +1,17 @@
 <?php
 
 return array (
+  'not-your-account' => 'Esta conta não é sua.',
+  'confirm-destroy' => 'Remover conta',
+  'confirmation-text' => 'Tem certeza que deseja remover a conta :id/:description?',
   'title' => 'Contas',
-  'account' => 'conta',
-  'is_credit_card' => 'Cartão de crédito',
-  'prefer_debit_account' => 'Conta preferida de débito',
-  'not_your_account' => 'A conta selecionada não é sua',
-  'confirm_destroy' => 'Confirmação
-para remover conta',
-  'confirmation_text' => 'Tem certeza que deseja remover a conta :id/:description?',
-  'amount' => 'Saldo',
-  'end_month_amount' => 'Saldo fim do mês',
-  'totals' => 'Total final',
-  'totals_paid' => 'Total pago',
-  'totals_not_paid' => 'Total não pago',
-  'balance' => 'Saldo',
-  'avg_max' => 'Média de recebimento por dia',
-  'avg_min' => 'Média de gasto por dia',
-  'avg_avg' => 'Média por dia',
+  'is-credit-card' => 'Cartão de crédito?',
+  'prefer-debit-account' => 'Conta de débito preferida',
+  'avg-max' => 'Média máxima',
+  'avg-min' => 'Média minima',
+  'avg-avg' => 'Média',
+  'totals-paid' => 'Total pago',
+  'totals-not-paid' => 'Totais à pagar',
+  'totals' => 'Totais',
+  'account' => 'Conta',
 );

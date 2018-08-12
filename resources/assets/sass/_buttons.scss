@@ -1,0 +1,111 @@
+.btn {
+  width: 100%;
+  border-radius: 50px;
+  border: none;
+  overflow: hidden;
+  padding: 7px;
+  margin-bottom: 3px;
+}
+
+.btn.btn-add {
+  color: $add-color-text;
+  background-color: $add-color;
+  &:hover {
+    background-color: $add-color-hover;
+  }
+}
+
+.btn.btn-back {
+  color: $back-color-text;
+  background-color: $back-color;
+  &:hover {
+    background-color: $back-color-hover;
+  }
+}
+
+.btn.btn-change {
+  color: $change-color-text;
+  background-color: $change-color;
+  &:hover {
+    background-color: $change-color-hover;
+  }
+}
+
+.btn.btn-edit {
+  color: $edit-color-text;
+  background-color: $edit-color;
+  &:hover {
+    background-color: $edit-color-hover;
+  }
+}
+
+.btn.btn-remove {
+  color: $remove-color-text;
+  background-color: $remove-color;
+  &:hover {
+    background-color: $remove-color-hover;
+  }
+}
+
+.btn.btn-import {
+  color: $import-color-text;
+  background-color: $import-color;
+  &:hover {
+    background-color: $import-color-hover;
+  }
+}
+
+.btn.btn-list {
+  color: $list-color-text;
+  background-color: $list-color;
+  &:hover {
+    background-color: $list-color-hover;
+  }
+}
+
+.btn.btn-submit {
+  color: $list-color-text;
+  background-color: $list-color;
+  &:hover {
+    background-color: $list-color-hover;
+  }
+}
+
+.btn.btn-toogle{
+  width: 40px;
+  height: 40px;
+  background-color: $toogle-color;
+  &:hover{
+    background-color: $toogle-color-hover;
+    * {
+      color: $toogle-color;
+    }
+  }
+  * {
+    color: $toogle-color-text;
+  }
+}
+@media (min-width: 992px) {
+  .btn.btn-toogle {
+    display: none;
+  }
+}
+
+.btn-facebook {
+  background-color: #3b5998;
+  &:hover {
+    background-color: rgb(50, 76, 130);
+  }
+}
+
+table.table {
+  td, th {
+    .btn {
+      padding: 0px;
+      width: 25px;
+      height: 25px;
+      margin: auto;
+      display: block;
+    }
+  }
+}

@@ -19,8 +19,8 @@ class CreateAccountsTable extends Migration
             $table->boolean('is_credit_card')->nullable(true)->default(false);
             $table->integer('prefer_debit_account_id')->unsigned()->nullable(true);
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('prefer_debit_account_id')->references('id')->on('accounts');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('prefer_debit_account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->timestamps();
         });
     }

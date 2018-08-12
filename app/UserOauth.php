@@ -16,6 +16,11 @@ class UserOauth extends Model
         'name', 'email', 'avatar', 'uuid'
     ];
 
+    /**
+     * Get user from user ouath's
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
