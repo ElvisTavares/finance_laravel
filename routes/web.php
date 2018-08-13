@@ -14,6 +14,9 @@ Route::get('/', function () {
     return view('/home');
 });
 
+Route::get('privacy', 'PrivacyController@index');
+Route::get('terms', 'PrivacyController@terms');
+
 Auth::routes();
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
