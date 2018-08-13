@@ -10,13 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-App::error(function(Exception $exception)
-{
-    Log::error($exception);
-
-    return 'Sorry! Something is wrong with this account!';
-});
-
 Route::get('/', function () {
     return view('/home');
 });
