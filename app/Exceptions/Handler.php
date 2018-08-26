@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use GrahamCampbell\GitHub\Facades\GitHub;
+use Crypt;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +50,24 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        try {
+            if (env('APP_ENV', 'development') == 'production') {
+                $title = 'Auto inssue code: ' . md5($exception->getMessage());
+                $backtrace = Crypt::encrypt($exception->getMessage()."<br>".$exception->getTraceAsString());
+                $issues = array_map(function ($value) {
+                    return $value['title'];
+                }, Github::issues()->all('guifabrin', 'FinancasLaravel'));
+                if (!in_array($title, $issues)) {
+                    Github::issues()->create('guifabrin', 'FinancasLaravel', [
+                        'title' => $title,
+                        'body' => 'This is a auto inssue created by ' . env('APP_URL') . ' for security reasons is encoded:<br> '. $backtrace
+                    ]);
+                }
+            }
+        } catch (Exception $githubException) {
+
+        }
         return parent::render($request, $exception);
     }
+
 }
