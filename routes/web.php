@@ -61,4 +61,6 @@ Route::get('users/{id}/confirm', '\jeremykenedy\laravelusers\App\Http\Controller
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('issues', 'AutoIssuesController@index');
+Route::get('issues/{number}', 'AutoIssuesController@show');
 
