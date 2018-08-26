@@ -178,7 +178,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\TranslationManager\TranslationServiceProvider::class,
-        Barryvdh\TranslationManager\ManagerServiceProvider::class
+        Barryvdh\TranslationManager\ManagerServiceProvider::class,
+        GrahamCampbell\GitHub\GitHubServiceProvider::class
     ],
 
     /*
@@ -230,7 +231,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Input' => Illuminate\Support\Facades\Input::class
+        'Input' => Illuminate\Support\Facades\Input::class,
+        'GitHub' => GrahamCampbell\GitHub\Facades\GitHub::class
     ],
 
 ];
