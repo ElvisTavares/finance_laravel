@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         try {
-//            if (env('APP_ENV', 'development') == 'production') {
+            if (env('APP_ENV', 'development') == 'production') {
                 $title = __('github.title_issue') . md5($exception->getMessage());
                 $backtrace = Crypt::encrypt($exception->getMessage()."<br>".$exception->getTraceAsString());
                 $issues = array_map(function ($value) {
@@ -63,7 +63,7 @@ class Handler extends ExceptionHandler
                         'body' => __('github.body_issue', ['url'=>env('APP_URL'), 'backtrace' => $backtrace])
                     ]);
                 }
-//            }
+            }
         } catch (Exception $githubException) {
 
         }

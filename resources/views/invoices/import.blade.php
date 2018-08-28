@@ -12,7 +12,7 @@
                       enctype="multipart/form-data">
                     {{csrf_field()}}
                     <h5>{{__('common.import')}} {{__('common.ofx')}}</h5>
-                    <input type="file" name="ofx-file[]" multiple/>
+                    <input type="file" name="ofx-file[]" multiple accept=".ofx"/>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('common.close')}}</button>
                     @include('shared.submit', ['text' => __('common.import'), 'iconClass'=>'fa fa-upload'])
                 </form>
@@ -20,7 +20,7 @@
                       enctype="multipart/form-data">
                     {{csrf_field()}}
                     <h5>{{__('common.import')}} {{__('common.csv')}}</h5>
-                    <input type="file" name="csv-file[]" multiple/>
+                    <input type="file" name="csv-file[]" multiple accept=".csv"/>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('common.close')}}</button>
                     @include('shared.submit', ['text' => __('common.import'), 'iconClass'=>'fa fa-upload'])
                 </form>

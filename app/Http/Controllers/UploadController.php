@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use App\Invoice;
+use App\Account;
 use App\Http\Requests\UploadOfxRequest;
 use App\Http\Requests\UploadCsvRequest;
 
@@ -16,7 +17,7 @@ class UploadController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'account']);
     }
 
     /**
@@ -28,10 +29,10 @@ class UploadController extends Controller
      */
     public function ofx(UploadOfxRequest $request)
     {
-        $account = $request->account;
+        $account = Account::find($request->account);
         if (isset($invoice)) {
             $this->middleware('invoice');
-            $invoice = $request->invoice;
+            $invoice = Invoice::find($request->invoice);
         }
         foreach ($request->file('ofx-file') as $file) {
             $xml = $this->oxfToXml($file);
@@ -71,10 +72,10 @@ class UploadController extends Controller
      */
     public function csv(UploadCsvRequest $request)
     {
-        $account = $request->account;
+        $account = Account::find($request->account);
         if (isset($invoice)) {
             $this->middleware('invoice');
-            $invoice = $request->invoice;
+            $invoice = Invoice::find($request->invoice);
         }
         foreach ($request->file('csv-file') as $file) {
             $csvData = $this->csvToArray($file);
