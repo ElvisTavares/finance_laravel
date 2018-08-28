@@ -51,19 +51,19 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         try {
-            if (env('APP_ENV', 'development') == 'production') {
-                $title = 'Auto inssue code: ' . md5($exception->getMessage());
+//            if (env('APP_ENV', 'development') == 'production') {
+                $title = __('github.title_issue') . md5($exception->getMessage());
                 $backtrace = Crypt::encrypt($exception->getMessage()."<br>".$exception->getTraceAsString());
                 $issues = array_map(function ($value) {
                     return $value['title'];
-                }, Github::issues()->all('guifabrin', 'FinancasLaravel'));
+                }, Github::issues()->all(env('GITHUB_USER'), env('GITHUB_REPOSITORY')));
                 if (!in_array($title, $issues)) {
-                    Github::issues()->create('guifabrin', 'FinancasLaravel', [
+                    Github::issues()->create(env('GITHUB_USER'), env('GITHUB_REPOSITORY'), [
                         'title' => $title,
-                        'body' => 'This is a auto inssue created by ' . env('APP_URL') . ' for security reasons is encoded:<br> '. $backtrace
+                        'body' => __('github.body_issue', ['url'=>env('APP_URL'), 'backtrace' => $backtrace])
                     ]);
                 }
-            }
+//            }
         } catch (Exception $githubException) {
 
         }
