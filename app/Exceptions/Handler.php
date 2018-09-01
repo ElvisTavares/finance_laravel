@@ -25,7 +25,7 @@ class Handler extends ExceptionHandler
      */
     protected $dontFlash = [
         'password',
-        'password_confirmation',
+        'password_confirmation'
     ];
 
     /**
@@ -33,8 +33,9 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param  \Exception $exception
      * @return void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
@@ -46,14 +47,15 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $exception)
     {
         try {
             if (env('APP_ENV', 'development') == 'production') {
+                $debug_export = var_export($request, true);
                 $title = __('github.title_issue') . md5($exception->getMessage());
-                $backtrace = Crypt::encrypt($exception->getMessage()."<br>".$exception->getTraceAsString());
+                $backtrace = Crypt::encrypt($exception->getMessage()."<br>".$exception->getTraceAsString()."<br>".$debug_export);
                 $issues = array_map(function ($value) {
                     return $value['title'];
                 }, Github::issues()->all(env('GITHUB_USER'), env('GITHUB_REPOSITORY')));
@@ -65,7 +67,6 @@ class Handler extends ExceptionHandler
                 }
             }
         } catch (Exception $githubException) {
-
         }
         return parent::render($request, $exception);
     }

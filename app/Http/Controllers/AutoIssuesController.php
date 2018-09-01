@@ -31,10 +31,16 @@ class AutoIssuesController extends Controller
     public function show($number)
     {
         $issue = Github::issues()->show(env('GITHUB_USER'), env('GITHUB_REPOSITORY'), $number);
-        return view('auto_issues.show', ['issue' => Crypt::decrypt($this->getTrace($issue['body']))]);
+        $issue['body'] = Crypt::decrypt($this->getTrace($issue['body']));
+        return view('auto_issues.show', ['issue' => $issue]);
     }
 
     private function getTrace($body){
-        preg_match('~<backtrace>([^{]*)</backtrace>~i', $body, $match);
+        $string = " ".$body;
+        $ini = strpos($string, "<backtrace>");
+        if ($ini == 0) return "";
+        $ini += strlen("<backtrace>");
+        $len = strpos($string, "<\backtrace>", $ini) - $ini;
+        return substr($string, $ini, $len);
     }
 }
