@@ -42,6 +42,7 @@ class Invoice extends Model
      * @return double
      */
     public function total(){
-        return $this->transactions()->sum('value');
+        $lastInvoice = Invoice::where('debit_date', '<', $this->debit_date)->orderBy('debit_date', 'desc')->first();
+        return $this->transactions()->sum('value') + (isset($lastInvoice) ? $lastInvoice->total() : 0);
     }
 }
