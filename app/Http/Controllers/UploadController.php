@@ -20,6 +20,24 @@ class UploadController extends Controller
         $this->middleware(['auth', 'account']);
     }
 
+    private function adjustValuesOfx(&$item){
+        $keyValue = get_object_vars($item);
+        foreach ($keyValue as $key => $value){
+            if ($key == 'TRNAMT' && !contains($value, '.')){
+                $item->$key = preg_replace( "/\r|\n/", "", $value.'.00' );;
+            } else{
+                if (is_object($value)) {
+                    $this->adjustValuesOfx($value);
+                } elseif (is_array($value)){
+                    foreach ($value as $v){
+                        $this->adjustValuesOfx($v);
+                    }
+                }
+            }
+        }
+        return $item;
+    }
+
     /**
      * Process an oxf file
      *
@@ -56,6 +74,9 @@ class UploadController extends Controller
                 $transaction->date = date("Y-m-d\TH:i:s", $ofxTransaction->date->getTimestamp());
                 $transaction->description = $ofxTransaction->memo;
                 $transaction->value = $ofxTransaction->amount;
+                if ($transaction->value == 7.23) {
+                    dd($ofxTransaction);
+                }
                 $transaction->paid = true;
                 if (isset($invoice) && $account->is_credit_card) {
                     $transaction->invoice()->associate($invoice);

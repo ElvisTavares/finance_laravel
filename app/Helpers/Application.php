@@ -35,3 +35,7 @@ function formatDate($date)
 {
     return date(__('config.date-format'), strtotime($date));
 }
+
+function contains($string, $searched){
+    return strpos($string, $searched) !== false;
+}
