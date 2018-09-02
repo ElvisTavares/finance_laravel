@@ -35,14 +35,12 @@
                 $baseUrl = "/account/" . $account->id . "/transactions";
             @endphp
             <td class="{{ $isNowMonth ? 'actual' : '' }}" rowspan="3">
-                @if (isset($account->invoices))
-                    @if (isset($account->invoices[$month]))
-                        <a class="btn btn-list" title="{{ __('transactions.title') }}"
-                           href="{{ url($baseUrl."?invoice_id=".$account->invoices[$month]->id) }}">
-                            <i class="fa fa-list"></i>
-                        </a>
-                    @endif
-                @else
+                @if ($account->is_credit_card && isset($account->invoices) && isset($account->invoices[$month]))
+                    <a class="btn btn-list" title="{{ __('transactions.title') }}"
+                       href="{{ url($baseUrl."?invoice_id=".$account->invoices[$month]->id) }}">
+                        <i class="fa fa-list"></i>
+                    </a>
+                @elseif (!$account->is_credit_card)
                     @php($periodMonth = $period->months[$month])
                     <a class="btn btn-list" title="{{ __('transactions.title') }}"
                        href="{{ url($baseUrl."?date_init=".$periodMonth->init."&date_end=".$periodMonth->end) }}">
