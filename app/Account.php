@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Crypt;
 
 class Account extends Model
 {
@@ -86,12 +87,33 @@ class Account extends Model
             for ($month = 0; $month < 12; $month++) {
                 $invoice = null;
                 if (isset($period)) {
-                    $invoice = $this->invoices()->whereBetween('debit_date', [$period->months[$month]->init, $period->months[$month]->end])->first();
+                    $invoices = $this->invoices()->whereBetween('debit_date', [$period->months[$month]->init, $period->months[$month]->end])->get();
+                    $invoice = $this->virtualInvoice($invoices);
                 }
                 $formattedAccount->invoices[] = $invoice;
             }
         }
         return $formattedAccount;
+    }
+
+    private function virtualInvoice($invoices){
+        $virtualInvoice = [];
+        foreach($invoices as $invoice){
+            $virtualInvoice['id'] = isset($virtualInvoice['id']) ? $virtualInvoice['id'].';' . $invoice->id : $invoice->id;
+            $virtualInvoice['debit_date'] = $invoice->debit_date;
+            $virtualInvoice['date_init'] = !isset($virtualInvoice['date_init']) ? $invoice->date_init : $virtualInvoice['date_init'];
+            if ($virtualInvoice['date_init'] > $invoice->date_init){
+                $virtualInvoice['date_init'] = $invoice->date_init;
+            }
+            $virtualInvoice['date_end'] = !isset($virtualInvoice['date_end']) ? $invoice->date_end : $virtualInvoice['date_end'];
+            if ($virtualInvoice['date_end'] > $invoice->date_end){
+                $virtualInvoice['date_end'] = $invoice->date_end;
+            }
+        }
+        if (isset($virtualInvoice['id'])) {
+            $virtualInvoice['id'] = Crypt::encrypt($virtualInvoice['id']);
+        }
+        return $virtualInvoice == [] ? null : (object) $virtualInvoice;
     }
 
     /**

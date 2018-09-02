@@ -41,7 +41,7 @@ class UploadController extends Controller
             $bankAccountInfo = $bankAccount->statement;
             $startDate = $bankAccountInfo->startDate;
             $endDate = $bankAccountInfo->endDate;
-            if (!isset($invoice) && $account->is_credit_card) {
+            if (!isset($request->invoice) && $account->is_credit_card) {
                 $invoice = new Invoice;
                 $invoice->account()->associate($account);
                 $invoice->description = "Invoice " . $file->getClientOriginalName();
@@ -79,7 +79,7 @@ class UploadController extends Controller
         }
         foreach ($request->file('csv-file') as $file) {
             $csvData = $this->csvToArray($file);
-            if (!isset($invoice) && $account->is_credit_card) {
+            if (!isset($request->invoice) && $account->is_credit_card) {
                 $invoice = new Invoice;
                 $invoice->account()->associate($account);
                 $invoice->description = "Invoice " . $file->getClientOriginalName();

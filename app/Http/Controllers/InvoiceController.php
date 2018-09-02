@@ -45,7 +45,7 @@ class InvoiceController extends Controller
     {
         return view('invoices.index', [
             'account' => $request->account,
-            'invoices' => $request->account->invoices()->orderBy('debit_date')->get(),
+            'invoices' => $request->account->invoices()->orderBy('debit_date')->orderBy('date_init')->get(),
             'viewMode' => $this->modeView($request->view_mode)
         ]);
     }
