@@ -117,21 +117,6 @@ class AccountController extends Controller
                 $values->nonPaid[$account->id][$month] = $account->total($dateEnd);
                 $values->paid[$account->id][$month] = $account->total($dateEnd, true);
             }
-            foreach ($account->creditCards() as $creditCard) {
-                $values->paid[$creditCard->id] = [];
-                $values->nonPaid[$creditCard->id] = [];
-                $creditCardFormatted = $creditCard->format($period);
-                for ($i = 0; $i < 12; $i++) {
-                    $values->paid[$creditCard->id][$i] = 0;
-                    $values->nonPaid[$creditCard->id][$i] = 0;
-                    $invoice = $creditCardFormatted->invoices[$i];
-                    if (isset($invoice)) {
-                        $value = $invoice->total();
-                        $values->paid[$creditCard->id][$i] = $value < 0 ? $value : 0;
-                        $values->nonPaid[$creditCard->id][$i] = $value > 0 ? $value : 0;
-                    }
-                }
-            }
         }
         return $values;
     }

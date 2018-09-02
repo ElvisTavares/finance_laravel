@@ -69,7 +69,22 @@ class Account extends Model
      */
     public function total($maxDate, $paid = false)
     {
-        return $this->transactions()->where('paid', $paid)->where('date', '<=', $maxDate)->sum('value') + -1 * $this->totalTransfer($maxDate, $paid);
+        if ($this->is_credit_card){
+            $invoice = $this->invoices()->where('debit_date','<=', $maxDate)->orderBy('debit_date', 'desc')->first();
+            if (!isset($invoice)) {
+                return 0;
+            }
+            if ($paid && $invoice->total() > 0){
+                return $invoice->total();
+            } elseif (!$paid && $invoice->total() < 0){
+                return $invoice->total();
+            } else {
+                return 0;
+            }
+        } else {
+            return $this->transactions()->where('paid', $paid)->where('date', '<=', $maxDate)->sum('value') +
+                -1 * $this->totalTransfer($maxDate, $paid);
+        }
     }
 
     /**
