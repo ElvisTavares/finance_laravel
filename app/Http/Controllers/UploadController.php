@@ -74,9 +74,6 @@ class UploadController extends Controller
                 $transaction->date = date("Y-m-d\TH:i:s", $ofxTransaction->date->getTimestamp());
                 $transaction->description = $ofxTransaction->memo;
                 $transaction->value = $ofxTransaction->amount;
-                if ($transaction->value == 7.23) {
-                    dd($ofxTransaction);
-                }
                 $transaction->paid = true;
                 if (isset($invoice) && $account->is_credit_card) {
                     $transaction->invoice()->associate($invoice);
