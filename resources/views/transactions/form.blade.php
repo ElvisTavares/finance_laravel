@@ -42,7 +42,7 @@
             {!! (new FormGroup(__('transactions.is-transfer'), new Field('checkbox', 'is_transfer'), $errors, $transaction))->html() !!}
             {!! (new FormGroup(__('common.description'), new Field('select', 'account_id_transfer'), $errors, $transaction, $accounts->pluck('description', 'id')))->html() !!}
             {!! (new FormGroup(__('transactions.is-credit'), new Field('checkbox', 'is_credit', ['value' => $issetTransaction && $transaction->value < 0]), $errors, $transaction))->html() !!}
-            {!! (new FormGroup(__('transactions.value'), new Field('number', 'value',['value' => $issetTransaction ? abs($transaction->value) : 0]), $errors, $transaction))->html() !!}
+            {!! (new FormGroup(__('transactions.value'), new Field('number', 'value',['value' => $issetTransaction ? abs($transaction->value) : 0, 'step' => '0.01']), $errors, $transaction))->html() !!}
             @if (!$account->is_credit_card)
                 {!! (new FormGroup(__('transactions.paid'), new Field('checkbox', 'paid'), $errors, $transaction))->html() !!}
             @endif

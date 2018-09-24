@@ -12,6 +12,8 @@ class Field {
         $this->attributes = $attributes;
         if (!isset($this->attributes['required'])){
             $this->attributes['required'] = true;
+        } elseif (!$this->attributes['required']) {
+            unset($this->attributes['required']);
         }
     }
 }
