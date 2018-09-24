@@ -157,7 +157,7 @@ class UploadController extends Controller
             }
         }
         $ofxy = str_replace('&', '&amp;', $ofxy);
-        return simplexml_load_string($ofxy);
+        return simplexml_load_string(utf8_encode($ofxy));
     }
 
 
