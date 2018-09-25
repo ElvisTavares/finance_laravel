@@ -44,20 +44,20 @@ function contains($string, $searched)
 /**
  * Returns an encrypted & utf8-encoded
  */
-function sslEncrypt($pure_string)
+function sslEncrypt($string)
 {
-    return encrypt_decrypt('encrypt', $pure_string);
+    return sslEncryptDecrypt('encrypt', $string);
 }
 
 /**
  * Returns decrypted original string
  */
-function sslDecrypt($encrypted_string)
+function sslDecrypt($encString)
 {
-    return encrypt_decrypt('decrypt', $encrypted_string);
+    return sslEncryptDecrypt('decrypt', $encString);
 }
 
-function encrypt_decrypt($action, $string) {
+function sslEncryptDecrypt($action, $string) {
     $output = false;
     $encrypt_method = "AES-256-CBC";
     $secret_key = env('APP_KEY', 'FR4jhZkoxZ');
