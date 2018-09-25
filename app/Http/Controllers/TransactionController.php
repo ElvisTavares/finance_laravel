@@ -42,7 +42,7 @@ class TransactionController extends Controller
         $dateInit = $request->input('date_init');
         $dateEnd = $request->input('date_end');
         $filterDate = true;
-        if (isset($request->invoice_id) && $request->invoice_id != -1) {
+        if (isset($request->invoice_id) && strcmp($request->invoice_id, '-1') != 0) {
             $virtualInvoice = new VirtualInvoice($request->invoice_id);
             $transactions = $virtualInvoice->transactions();
         } else {
@@ -107,17 +107,17 @@ class TransactionController extends Controller
     {
         $transactions = $this->getEloquentTransactions($request)->get();
         $categories = Auth::user()->categories;
-        $category_transactions = [];
-        $transactions->each(function ($transaction) use (&$category_transactions) {
-            $transaction->categories->each(function ($category) use (&$category_transactions) {
-                $category_transactions[] = $category;
+        $categoryTransactions = [];
+        $transactions->each(function ($transaction) use (&$categoryTransactions) {
+            $transaction->categories->each(function ($category) use (&$categoryTransactions) {
+                $categoryTransactions[] = $category;
             });
         });
         return view('transactions.charts', [
             'account' => $request->account,
             'transactions' => $transactions,
             'categories' => $categories,
-            'category_transactions' => $category_transactions
+            'category_transactions' => $categoryTransactions
         ]);
     }
 
