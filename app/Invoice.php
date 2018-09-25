@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -44,5 +44,9 @@ class Invoice extends Model
     public function total(){
         $lastInvoice = Invoice::where('debit_date', '<', $this->debit_date)->orderBy('debit_date', 'desc')->first();
         return $this->transactions()->sum('value') + (isset($lastInvoice) ? $lastInvoice->total() : 0);
+    }
+
+    public function encryptedId(){
+        return sslEncrypt($this->id);
     }
 }

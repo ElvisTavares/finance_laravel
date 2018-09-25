@@ -20,7 +20,7 @@
         $urlAdd = url("/transactions/create");
     }
 
-    $links[] = new LinkResponsive($urlViewMode, 'btn btn-change', 'fas fa-exchange-alt', __('common.'.$viewMode));
+    //$links[] = new LinkResponsive($urlViewMode, 'btn btn-change', 'fas fa-exchange-alt', __('common.'.$viewMode));
     $links[] = new LinkResponsive($urlAdd, 'btn btn-add', 'fas fa-plus', __('common.add'));
     @endphp
     @include('shared/titleButtons', ['links'=>$links])

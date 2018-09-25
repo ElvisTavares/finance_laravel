@@ -7,5 +7,10 @@
 			$iconClass = "fa fa-save";
 		}
 	?>
-  {{ Form::button('<i class="'.$iconClass.'"></i> '.$text,['type'=>'submit', 'class'=>'btn btn-submit', 'style'=>'float:right;']) }}
+  {{ Form::button('<i class="'.$iconClass.'"></i> '.$text,[
+  'type'=>'button',
+  'class'=>'btn btn-submit',
+  'style'=>'float:right;',
+  'onclick'=>"$(this).closest('form').submit()"
+  ]) }}
 </div>

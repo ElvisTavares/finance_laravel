@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use App\Invoice;
+use App\VirtualInvoice;
 use App\UserConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,17 +39,12 @@ class TransactionController extends Controller
 
     private function getEloquentTransactions($request)
     {
-        $date_init = $request->input('date_init');
-        $date_end = $request->input('date_end');
-        $filter_date = true;
-        if (isset($request->invoice_id)) {
-            $invoice = $request->account->invoices()->where('id', $request->invoice_id)->first();
-            if (isset($invoice)) {
-                $filter_date = false;
-                $transactions = $invoice->transactions();
-            } else {
-                $transactions = $request->account->transactions();
-            }
+        $dateInit = $request->input('date_init');
+        $dateEnd = $request->input('date_end');
+        $filterDate = true;
+        if (isset($request->invoice_id) && strcmp($request->invoice_id, '-1') != 0) {
+            $virtualInvoice = new VirtualInvoice($request->invoice_id);
+            $transactions = $virtualInvoice->transactions();
         } else {
             if (isset($request->account)) {
                 $transactions = $request->account->transactions();
@@ -58,9 +54,9 @@ class TransactionController extends Controller
                 }));
             }
         }
-        if ($filter_date) {
-            if ($date_init !== null && $date_end !== null) {
-                $transactions->whereBetween('date', [$date_init, $date_end]);
+        if ($filterDate) {
+            if ($dateInit !== null && $dateEnd !== null) {
+                $transactions->whereBetween('date', [$dateInit, $dateEnd]);
             }
         }
 
@@ -111,17 +107,17 @@ class TransactionController extends Controller
     {
         $transactions = $this->getEloquentTransactions($request)->get();
         $categories = Auth::user()->categories;
-        $category_transactions = [];
-        $transactions->each(function ($transaction) use (&$category_transactions) {
-            $transaction->categories->each(function ($category) use (&$category_transactions) {
-                $category_transactions[] = $category;
+        $categoryTransactions = [];
+        $transactions->each(function ($transaction) use (&$categoryTransactions) {
+            $transaction->categories->each(function ($category) use (&$categoryTransactions) {
+                $categoryTransactions[] = $category;
             });
         });
         return view('transactions.charts', [
             'account' => $request->account,
             'transactions' => $transactions,
             'categories' => $categories,
-            'category_transactions' => $category_transactions
+            'category_transactions' => $categoryTransactions
         ]);
     }
 

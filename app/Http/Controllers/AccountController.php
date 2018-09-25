@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Account;
 use App\UserConfig;
-use App\Transaction;
+use App\User;
+use App\PeriodAccount;
 
 class AccountController extends Controller
 {
@@ -39,72 +40,11 @@ class AccountController extends Controller
     }
 
     /**
-     * @param integer $actualYear
-     * @return array
-     */
-    private function yearsList($actualYear)
-    {
-        $years = [];
-        $systemYear = date('Y');
-        $yearDiff = ($systemYear - $actualYear);
-        $minYear = 10 - $yearDiff;
-        if ($minYear <= 0) {
-            $minYear = 1;
-        }
-        for ($year = $actualYear - $minYear; $year <= $actualYear; $year++) {
-            $years[] = $year;
-        }
-        if ($actualYear < $systemYear) {
-            for ($year = $actualYear + 1; $year <= $systemYear; $year++) {
-                $years[] = $year;
-            }
-        }
-        return $years;
-    }
-
-    /**
-     * @param integer $actualYear
-     * @return array
-     */
-    private function months($actualYear)
-    {
-        $months = [];
-        for ($i = 0; $i < 12; $i++) {
-            $months[$i] = new \stdClass;
-            $months[$i]->init = date($actualYear . '-' . ($i + 1) . '-1');
-            $months[$i]->end = date('Y-m-t', strtotime($months[$i]->init));
-        }
-        return $months;
-    }
-
-    /**
-     * @param integer $year
-     * @param string $viewMode
-     * @return \stdClass
-     */
-    private function period($year, $viewMode)
-    {
-        $result = new \stdClass;
-        $result->actual = new \stdClass;
-        $result->actual->month = date('n') - 1;
-        if ($viewMode == 'table') {
-            $result->actual->year = isset($year) ? $year : date('Y');
-            $years = $this->yearsList($result->actual->year);
-        } else { // On card view just show actual year
-            $result->actual->year = date('Y');
-            $years = [$result->actual->year];
-        }
-        $result->years = $years;
-        $result->months = $this->months($result->actual->year);
-        return $result;
-    }
-
-    /**
      * @param Collection $accounts
-     * @param \stdClass $period
+     * @param PeriodAccount $periodAccount
      * @return \stdClass
      */
-    private function values($accounts, $period)
+    private function values($accounts, PeriodAccount $periodAccount)
     {
         $values = new \stdClass;
         $values->paid = [];
@@ -113,26 +53,12 @@ class AccountController extends Controller
             $values->paid[$account->id] = [];
             $values->nonPaid[$account->id] = [];
             for ($month = 0; $month < 12; $month++) {
-                $dateEnd = $period->months[$month]->end;
+                $dateEnd = $periodAccount->months[$month]->end;
                 $values->nonPaid[$account->id][$month] = $account->total($dateEnd);
                 $values->paid[$account->id][$month] = $account->total($dateEnd, true);
             }
         }
         return $values;
-    }
-
-    /**
-     * @param Collection $accounts
-     * @param \stdClass $period
-     * @return array
-     */
-    private function accounts($accounts, $period)
-    {
-        $result = [];
-        foreach ($accounts as $account) {
-            $result[] = $account->format($period);
-        }
-        return $result;
     }
 
     /**
@@ -157,28 +83,6 @@ class AccountController extends Controller
     }
 
     /**
-     * @return \stdClass
-     */
-    private function avg()
-    {
-        $result = new \stdClass;
-        $result->max = Transaction::ofUser(Auth::user())->positive();
-        $result->maxDivision = count($result->max->get());
-        if ($result->maxDivision == 0) {
-            $result->maxDivision = 1;
-        }
-        $result->max = $result->max->sum('value') / $result->maxDivision;
-        $result->min = Transaction::ofUser(Auth::user())->negative();
-        $result->minDivision = count($result->min->get());
-        if ($result->minDivision == 0) {
-            $result->minDivision = 1;
-        }
-        $result->min = $result->min->sum('value') / $result->minDivision;
-        $result->avg = $result->max + $result->min;
-        return $result;
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -187,17 +91,21 @@ class AccountController extends Controller
     public function index(Request $request)
     {
         $viewMode = $this->modeView($request->view_mode);
-        $period = $this->period($request->year, $viewMode);
+        $periodAccount = new PeriodAccount($request->year, $viewMode);
         $accounts = Auth::user()->accounts()->get();
-        $values = $this->values($accounts, $period);
+        $values = $this->values($accounts, $periodAccount);
         $totals = $this->totals($accounts, $values);
+        $formatedAccounts = [];
+        foreach ($accounts as $account) {
+            $formatedAccounts[] = $account->format($periodAccount);
+        }
         return view('accounts.index', [
             'viewMode' => $viewMode,
-            'accounts' => $this->accounts($accounts, $period),
-            'period' => $period,
+            'accounts' => $formatedAccounts,
+            'period' => $periodAccount,
             'values' => $values,
             'totals' => $totals,
-            'avg' => $this->avg()
+            'avg' => Auth::user()->avgTransactions()
         ]);
     }
 

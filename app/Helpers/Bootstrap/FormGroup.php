@@ -30,6 +30,7 @@ class FormGroup
         }
         $label = (new TagTemplate('label', [], $this->labelText))->html();
         $value = old($this->field->name);
+        $value = $value ?: isset($_GET[$this->field->name])? $_GET[$this->field->name] : null;
         if (!isset($value) && isset($this->model)) {
             if (isset($this->field->attributes['value'])) {
                 $value = $this->field->attributes['value'];

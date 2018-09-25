@@ -28,7 +28,7 @@
         @if (isset($account))
             {{ Form::open(['url' => '/account/'.$account->id.'/transaction/'.($issetTransaction?$transaction->id:'').$query, 'method'=>($issetTransaction?'PUT':'POST')]) }}
             @if ($account->is_credit_card)
-                {!! (new FormGroup(__('transactions.invoice'), new Field('select', 'invoice_id'), $errors, $transaction, $account->listInvoices()))->html() !!}
+                {!! (new FormGroup(__('transactions.invoice'), new Field('select', 'invoice_id'), $errors, $transaction, $account->createListInvoices()))->html() !!}
                 <div id="new_invoice" class="form-group"
                      style="{{ $issetTransaction && ($transaction->invoice_id==-1 || $transaction->invoice_id==null) ? '' : 'display: none' }};">
                     {!! (new FormGroup(__('common.description'), new Field('text', 'invoice_description'), $errors, $transaction))->html() !!}

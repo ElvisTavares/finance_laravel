@@ -8,7 +8,7 @@
                 {!! (new FormGroup(__('common.date-end'), new Field('date', 'date_end'), $errors, null, null, ['class'=>'form-group col-6']))->html() !!}
             </div>
             <div class="row">
-                {!! (new FormGroup(__('common.description'), new Field('text', 'description'), $errors, null, null, ['class'=>'form-group col-8']))->html() !!}
+                {!! (new FormGroup(__('common.description'), new Field('text', 'description', ['required' => false]), $errors, null, null, ['class'=>'form-group col-8']))->html() !!}
                 @include('shared/submit', ['text' => __('common.search'), 'class'=>'col-4 fixed-bottom-inside', 'iconClass' => 'fa fa-search'])
             </div>
         </div>
@@ -20,10 +20,10 @@
             {{ Form::open(['url' => $baseUrl, 'method'=>'GET']) }}
             <div class="container-fluid">
                 <div class="row">
-                    {!! (new FormGroup(__('transactions.invoice'), new Field('select', 'invoice_id', ['value' => isset($request->invoice_id) ? $request->invoice_id : null]), $errors, null, $account->listInvoices(false), ['class'=>'col-12']))->html() !!}
+                    {!! (new FormGroup(__('transactions.invoice'), new Field('select', 'invoice_id', ['value' => isset($request->invoice_id) ? $request->invoice_id : null]), $errors, null, $account->filterListInvoices(), ['class'=>'col-12']))->html() !!}
                 </div>
                 <div class="row">
-                    {!! (new FormGroup(__('common.description'), new Field('text', 'description'), $errors, null, null, ['class'=>'form-group col-8']))->html() !!}
+                    {!! (new FormGroup(__('common.description'), new Field('text', 'description', ['required' => false]), $errors, null, null, ['class'=>'form-group col-8']))->html() !!}
                     @include('shared/submit', ['text' => __('common.search'), 'class'=>'col-4 fixed-bottom-inside', 'iconClass' => 'fa fa-search'])
                 </div>
             </div>

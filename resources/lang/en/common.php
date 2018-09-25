@@ -37,6 +37,7 @@ return array (
   'create' => 'Add',
   'card' => 'card',
   'table' => 'Table',
+  'any' => 'Any',
   'months' => 
   array (
     0 => 'Jan',

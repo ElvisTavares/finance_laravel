@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Crypt;
 
 class Account extends Model
 {
@@ -88,11 +87,12 @@ class Account extends Model
     }
 
     /**
-     * @param \stdClass $period
+     * @param PeriodAccount|null $periodAccount
      * @return \stdClass
      */
-    public function format($period = null)
+    public function format(PeriodAccount $periodAccount = null)
     {
+        $periodAccount = $periodAccount ?: new PeriodAccount(date('Y'), 'table');
         $formattedAccount = new \stdClass;
         $formattedAccount->id = $this->id;
         $formattedAccount->description = $this->description;
@@ -101,34 +101,23 @@ class Account extends Model
         if ($this->is_credit_card) {
             for ($month = 0; $month < 12; $month++) {
                 $invoice = null;
-                if (isset($period)) {
-                    $invoices = $this->invoices()->whereBetween('debit_date', [$period->months[$month]->init, $period->months[$month]->end])->get();
-                    $invoice = $this->virtualInvoice($invoices);
+                if (isset($periodAccount)) {
+                    $invoiceIds = $this->invoices()
+                        ->whereBetween('debit_date', [
+                            $periodAccount->months[$month]->init,
+                            $periodAccount->months[$month]->end
+                        ])->get()->map(function ($invoice) {
+                        return $invoice->id;
+                    })->implode(';');
+
+                    if ($invoiceIds != '') {
+                        $invoice = new VirtualInvoice(sslEncrypt($invoiceIds));
+                    }
                 }
                 $formattedAccount->invoices[] = $invoice;
             }
         }
         return $formattedAccount;
-    }
-
-    private function virtualInvoice($invoices){
-        $virtualInvoice = [];
-        foreach($invoices as $invoice){
-            $virtualInvoice['id'] = isset($virtualInvoice['id']) ? $virtualInvoice['id'].';' . $invoice->id : $invoice->id;
-            $virtualInvoice['debit_date'] = $invoice->debit_date;
-            $virtualInvoice['date_init'] = !isset($virtualInvoice['date_init']) ? $invoice->date_init : $virtualInvoice['date_init'];
-            if ($virtualInvoice['date_init'] > $invoice->date_init){
-                $virtualInvoice['date_init'] = $invoice->date_init;
-            }
-            $virtualInvoice['date_end'] = !isset($virtualInvoice['date_end']) ? $invoice->date_end : $virtualInvoice['date_end'];
-            if ($virtualInvoice['date_end'] > $invoice->date_end){
-                $virtualInvoice['date_end'] = $invoice->date_end;
-            }
-        }
-        if (isset($virtualInvoice['id'])) {
-            $virtualInvoice['id'] = Crypt::encrypt($virtualInvoice['id']);
-        }
-        return $virtualInvoice == [] ? null : (object) $virtualInvoice;
     }
 
     /**
@@ -161,14 +150,31 @@ class Account extends Model
      *
      * @return array
      */
-    public function listInvoices($create = true)
+    public function createListInvoices()
     {
         $selectInovice = [];
-        if ($create) {
-            $selectInovice[-1] = __('common.select');
+        $selectInovice[-1] = __('common.select');
+        foreach ($this->invoices()->get() as $invoice) {
+            $selectInovice[$invoice->id] = $invoice->id . "/" . $invoice->description;
         }
-        foreach ($this->invoices()->get() as $account) {
-            $selectInovice[$account->id] = $account->id . "/" . $account->description;
+        return $selectInovice;
+    }
+
+    /**
+     * Function to get list of invoice's accounts
+     *
+     * @return array
+     */
+    public function filterListInvoices()
+    {
+        $formattedAccount = $this->format();
+        $selectInovice = [];
+        $selectInovice[-1] = __('common.any');
+        foreach ($formattedAccount->invoices as $invoice) {
+            if (!isset($invoice)){
+                continue;
+            }
+            $selectInovice[$invoice->encryptedId()] = $invoice->description();
         }
         return $selectInovice;
     }

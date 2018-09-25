@@ -33,7 +33,7 @@
           </a>
         </td>
         <td>
-          <a class="btn btn-list" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$invoice->id}}">
+          <a class="btn btn-list" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$invoice->encryptedId()}}">
             <i class="fa fa-list"></i>
           </a>
         </td>
