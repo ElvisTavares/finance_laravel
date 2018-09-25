@@ -57,5 +57,5 @@ function sslEncrypt($pure_string)
  */
 function sslDecrypt($encrypted_string)
 {
-    return openssl_decrypt(urldenode($encrypted_string), CRYPT_METHOD, CRYPT_KEY);
+    return openssl_decrypt(urldecode($encrypted_string), CRYPT_METHOD, CRYPT_KEY);
 }
