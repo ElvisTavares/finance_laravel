@@ -114,4 +114,25 @@ class User extends Authenticatable
         return $selectAccounts;
     }
 
+    /**
+     * @return \stdClass
+     */
+    public function avgTransactions()
+    {
+        $result = new \stdClass;
+        $result->max = Transaction::ofUser($this)->positive();
+        $result->maxDivision = count($result->max->get());
+        if ($result->maxDivision == 0) {
+            $result->maxDivision = 1;
+        }
+        $result->max = $result->max->sum('value') / $result->maxDivision;
+        $result->min = Transaction::ofUser($this)->negative();
+        $result->minDivision = count($result->min->get());
+        if ($result->minDivision == 0) {
+            $result->minDivision = 1;
+        }
+        $result->min = $result->min->sum('value') / $result->minDivision;
+        $result->avg = $result->max + $result->min;
+        return $result;
+    }
 }

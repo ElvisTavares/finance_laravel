@@ -20,7 +20,7 @@
             {{ Form::open(['url' => $baseUrl, 'method'=>'GET']) }}
             <div class="container-fluid">
                 <div class="row">
-                    {!! (new FormGroup(__('transactions.invoice'), new Field('select', 'invoice_id', ['value' => isset($request->invoice_id) ? $request->invoice_id : null]), $errors, null, $account->listInvoices(false), ['class'=>'col-12']))->html() !!}
+                    {!! (new FormGroup(__('transactions.invoice'), new Field('select', 'invoice_id', ['value' => isset($request->invoice_id) ? $request->invoice_id : null]), $errors, null, $account->filterListInvoices(), ['class'=>'col-12']))->html() !!}
                 </div>
                 <div class="row">
                     {!! (new FormGroup(__('common.description'), new Field('text', 'description', ['required' => false]), $errors, null, null, ['class'=>'form-group col-8']))->html() !!}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use App\Invoice;
+use App\VirtualInvoice;
 use App\UserConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,17 +42,9 @@ class TransactionController extends Controller
         $dateInit = $request->input('date_init');
         $dateEnd = $request->input('date_end');
         $filterDate = true;
-        if (isset($request->invoice_id)) {
-            $invoiceIds = array_map('intval', explode(';', sslDecrypt($request->invoice_id)));
-            $invoices = $request->account->invoices()->whereIn('id', $invoiceIds)->get();
-            $transactionIds = [];
-            foreach ($invoices as $invoice) {
-                $filterDate = false;
-                foreach ($invoice->transactions()->get() as $transaction) {
-                    $transactionIds[] = $transaction->id;
-                }
-            }
-            $transactions = Transaction::whereIn('id', $transactionIds);
+        if (isset($request->invoice_id) && $request->invoice_id != -1) {
+            $virtualInvoice = new VirtualInvoice($request->invoice_id);
+            $transactions = $virtualInvoice->transactions();
         } else {
             if (isset($request->account)) {
                 $transactions = $request->account->transactions();

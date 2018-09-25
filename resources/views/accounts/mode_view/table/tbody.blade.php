@@ -37,7 +37,7 @@
             <td class="{{ $isNowMonth ? 'actual' : '' }}" rowspan="3">
                 @if ($account->is_credit_card && isset($account->invoices) && isset($account->invoices[$month]))
                     <a class="btn btn-list" title="{{ __('transactions.title') }}"
-                       href="{{ url($baseUrl."?invoice_id=".$account->invoices[$month]->id) }}">
+                       href="{{ url($baseUrl."?invoice_id=".$account->invoices[$month]->encryptedId()) }}">
                         <i class="fa fa-list"></i>
                     </a>
                 @elseif (!$account->is_credit_card)
