@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Crypt;
 
 class TransactionController extends Controller
 {
@@ -38,17 +39,20 @@ class TransactionController extends Controller
 
     private function getEloquentTransactions($request)
     {
-        $date_init = $request->input('date_init');
-        $date_end = $request->input('date_end');
-        $filter_date = true;
+        $dateInit = $request->input('date_init');
+        $dateEnd = $request->input('date_end');
+        $filterDate = true;
         if (isset($request->invoice_id)) {
-            $invoice = $request->account->invoices()->where('id', $request->invoice_id)->first();
-            if (isset($invoice)) {
-                $filter_date = false;
-                $transactions = $invoice->transactions();
-            } else {
-                $transactions = $request->account->transactions();
+            $invoiceIds = array_map('intval', explode(';', myDecrypt($request->invoice_id)));
+            $invoices = $request->account->invoices()->whereIn('id', $invoiceIds)->get();
+            $transactionIds = [];
+            foreach ($invoices as $invoice) {
+                $filterDate = false;
+                foreach ($invoice->transactions()->get() as $transaction) {
+                    $transactionIds[] = $transaction->id;
+                }
             }
+            $transactions = Transaction::whereIn('id', $transactionIds);
         } else {
             if (isset($request->account)) {
                 $transactions = $request->account->transactions();
@@ -58,9 +62,9 @@ class TransactionController extends Controller
                 }));
             }
         }
-        if ($filter_date) {
-            if ($date_init !== null && $date_end !== null) {
-                $transactions->whereBetween('date', [$date_init, $date_end]);
+        if ($filterDate) {
+            if ($dateInit !== null && $dateEnd !== null) {
+                $transactions->whereBetween('date', [$dateInit, $dateEnd]);
             }
         }
 

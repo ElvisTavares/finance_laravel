@@ -32,7 +32,7 @@
         <a class="btn btn-remove" title="{{__('common.remove')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/confirm">
           <i class="fa fa-trash"></i> {{__('common.remove')}}
         </a>
-        <a class="btn btn-list" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$invoice->id}}">
+        <a class="btn btn-list" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{myEncrypt($invoice->id)}}">
           <i class="fa fa-list"></i> {{__('transactions.title')}}
         </a>
       </div>

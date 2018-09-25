@@ -39,3 +39,17 @@ function formatDate($date)
 function contains($string, $searched){
     return strpos($string, $searched) !== false;
 }
+
+/**
+ * Returns an encrypted & utf8-encoded
+ */
+function myEncrypt($pure_string) {
+    return openssl_encrypt($pure_string,"AES-128-ECB","superchave");
+}
+
+/**
+ * Returns decrypted original string
+ */
+function myDecrypt($encrypted_string) {
+    return openssl_decrypt($encrypted_string,"AES-128-ECB","superchave");
+}

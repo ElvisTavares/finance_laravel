@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Crypt;
 
 class Account extends Model
 {
@@ -126,7 +125,7 @@ class Account extends Model
             }
         }
         if (isset($virtualInvoice['id'])) {
-            $virtualInvoice['id'] = Crypt::encrypt($virtualInvoice['id']);
+            $virtualInvoice['id'] = myEncrypt($virtualInvoice['id']);
         }
         return $virtualInvoice == [] ? null : (object) $virtualInvoice;
     }
@@ -168,7 +167,7 @@ class Account extends Model
             $selectInovice[-1] = __('common.select');
         }
         foreach ($this->invoices()->get() as $account) {
-            $selectInovice[$account->id] = $account->id . "/" . $account->description;
+            $selectInovice[myEncrypt($account->id)] = $account->id . "/" . $account->description;
         }
         return $selectInovice;
     }
