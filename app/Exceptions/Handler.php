@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use GrahamCampbell\GitHub\Facades\GitHub;
-use Crypt;
 
 class Handler extends ExceptionHandler
 {
@@ -55,7 +54,7 @@ class Handler extends ExceptionHandler
             if (env('APP_ENV', 'development') == 'production') {
                 $debug_export = var_export($request, true);
                 $title = __('github.title_issue') . md5($exception->getMessage());
-                $backtrace = myEncrypt($exception->getMessage()."<br>".$exception->getTraceAsString()."<br>".$debug_export);
+                $backtrace = sslEncrypt($exception->getMessage()."<br>".$exception->getTraceAsString()."<br>".$debug_export);
                 $issues = array_map(function ($value) {
                     return $value['title'];
                 }, Github::issues()->all(env('GITHUB_USER'), env('GITHUB_REPOSITORY')));

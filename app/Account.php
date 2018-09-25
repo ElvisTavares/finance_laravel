@@ -125,7 +125,7 @@ class Account extends Model
             }
         }
         if (isset($virtualInvoice['id'])) {
-            $virtualInvoice['id'] = myEncrypt($virtualInvoice['id']);
+            $virtualInvoice['id'] = sslEncrypt($virtualInvoice['id']);
         }
         return $virtualInvoice == [] ? null : (object) $virtualInvoice;
     }
@@ -167,7 +167,7 @@ class Account extends Model
             $selectInovice[-1] = __('common.select');
         }
         foreach ($this->invoices()->get() as $account) {
-            $selectInovice[myEncrypt($account->id)] = $account->id . "/" . $account->description;
+            $selectInovice[sslEncrypt($account->id)] = $account->id . "/" . $account->description;
         }
         return $selectInovice;
     }

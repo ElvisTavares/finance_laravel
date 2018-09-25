@@ -36,20 +36,26 @@ function formatDate($date)
     return date(__('config.date-format'), strtotime($date));
 }
 
-function contains($string, $searched){
+function contains($string, $searched)
+{
     return strpos($string, $searched) !== false;
 }
+
+define("CRYPT_KEY", env('APP_KEY', 'FR4jhZkoxZ'));
+define("CRYPT_METHOD", "AES-128-ECB");
 
 /**
  * Returns an encrypted & utf8-encoded
  */
-function myEncrypt($pure_string) {
-    return openssl_encrypt($pure_string,"AES-128-ECB","superchave");
+function sslEncrypt($pure_string)
+{
+    return openssl_encrypt($pure_string, CRYPT_METHOD, CRYPT_KEY);
 }
 
 /**
  * Returns decrypted original string
  */
-function myDecrypt($encrypted_string) {
-    return openssl_decrypt($encrypted_string,"AES-128-ECB","superchave");
+function sslDecrypt($encrypted_string)
+{
+    return openssl_decrypt($encrypted_string, CRYPT_METHOD, CRYPT_KEY);
 }

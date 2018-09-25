@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use GrahamCampbell\GitHub\Facades\GitHub;
-use Crypt;
 
 class AutoIssuesController extends Controller
 {
@@ -31,7 +30,7 @@ class AutoIssuesController extends Controller
     public function show($number)
     {
         $issue = Github::issues()->show(env('GITHUB_USER'), env('GITHUB_REPOSITORY'), $number);
-        $issue['body'] = myDecrypt($this->getTrace($issue['body']));
+        $issue['body'] = sslDecrypt($this->getTrace($issue['body']));
         return view('auto_issues.show', ['issue' => $issue]);
     }
 

@@ -45,4 +45,8 @@ class Invoice extends Model
         $lastInvoice = Invoice::where('debit_date', '<', $this->debit_date)->orderBy('debit_date', 'desc')->first();
         return $this->transactions()->sum('value') + (isset($lastInvoice) ? $lastInvoice->total() : 0);
     }
+
+    public function encryptedId(){
+        return sslEncrypt($this->id);
+    }
 }

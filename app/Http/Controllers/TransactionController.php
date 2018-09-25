@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
-use Crypt;
 
 class TransactionController extends Controller
 {
@@ -43,7 +42,7 @@ class TransactionController extends Controller
         $dateEnd = $request->input('date_end');
         $filterDate = true;
         if (isset($request->invoice_id)) {
-            $invoiceIds = array_map('intval', explode(';', myDecrypt($request->invoice_id)));
+            $invoiceIds = array_map('intval', explode(';', sslDecrypt($request->invoice_id)));
             $invoices = $request->account->invoices()->whereIn('id', $invoiceIds)->get();
             $transactionIds = [];
             foreach ($invoices as $invoice) {
