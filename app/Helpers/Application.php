@@ -41,15 +41,12 @@ function contains($string, $searched)
     return strpos($string, $searched) !== false;
 }
 
-define("CRYPT_KEY", env('APP_KEY', 'FR4jhZkoxZ'));
-define("CRYPT_METHOD", "AES-128-ECB");
-
 /**
  * Returns an encrypted & utf8-encoded
  */
 function sslEncrypt($pure_string)
 {
-    return urlencode(openssl_encrypt($pure_string, CRYPT_METHOD, CRYPT_KEY));
+    return urlencode(base64_encode($pure_string));
 }
 
 /**
@@ -57,5 +54,5 @@ function sslEncrypt($pure_string)
  */
 function sslDecrypt($encrypted_string)
 {
-    return openssl_decrypt(urldecode($encrypted_string), CRYPT_METHOD, CRYPT_KEY);
+    return base64_decode(urldecode($encrypted_string));
 }
