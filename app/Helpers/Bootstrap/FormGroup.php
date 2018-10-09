@@ -30,7 +30,9 @@ class FormGroup
         }
         $label = (new TagTemplate('label', [], $this->labelText))->html();
         $value = old($this->field->name);
-        $value = $value ?: isset($_GET[$this->field->name])? $_GET[$this->field->name] : null;
+        if (!isset($value)) {
+            $value = isset($_GET) && isset($_GET[$this->field->name]) ? $_GET[$this->field->name] : null;
+        }
         if (!isset($value) && isset($this->model)) {
             if (isset($this->field->attributes['value'])) {
                 $value = $this->field->attributes['value'];
@@ -39,7 +41,7 @@ class FormGroup
             }
         }
         if ($this->field->type == 'checkbox') {
-            $field = (new Swicth($this->field->name, $this->model, $value ?: (isset($this->field->attributes['value']) ? $this->field->attributes['value']:false) ))->html();
+            $field = (new Swicth($this->field->name, $this->model, $value ?: (isset($this->field->attributes['value']) ? $this->field->attributes['value'] : false)))->html();
         } elseif ($this->field->type == 'select') {
             $field = Form::select($this->field->name, $this->options, $value, ['id' => $this->field->name, 'class' => 'form-control']);
         } else {
