@@ -38,7 +38,8 @@ return array (
   'table' => 'Tabela',
   'card' => 'Card',
   'any' => 'Qualquer',
-  'months' => 
+  'name' => 'Nome',
+  'months' =>
   array (
     0 => 'Jan',
     1 => 'Fev',

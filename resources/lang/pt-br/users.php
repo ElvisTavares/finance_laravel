@@ -1,30 +1,17 @@
 <?php
 
-return array (
-  'title' => 'Usuários',
-  'tooltips' => 
-  array (
-    'email-user' => 'Email',
-  ),
-  'role' => 'Permissão',
-  'created' => 'Criado em',
-  'updated' => 'Atualizado em',
-  'account' => 'Conta',
-  'name' => 'Nome',
-  'show' => 'Mostrar',
-  'search-caption' => 'Pesquisar',
-  'email' => 'Email',
-  'actions' => 'Ações',
-  'confirmation-text' => 'Remover usuário',
-  'userNameTaken' => 'Nome de usuário já está em uso',
-  'userNameRequired' => 'Nome de usuário é necessário',
-  'emailRequired' => 'Email é necessário',
-  'emailInvalid' => 'Email é invalido',
-  'passwordRequired' => 'Senha é necessária',
-  'PasswordMin' => 'Senha precisa ter 6 caracteres',
-  'roleRequired' => 'Permissão é necessária',
-  'user-creation-success' => 'Usuário criado com sucesso',
-  'update-user-success' => 'Usuário atualizado',
-  'delete-success' => 'Usuário removido com sucesso',
-  'cannot-delete-yourself' => 'Você não pode se remover',
-);
+return [
+    'show_title' => 'Informações de Usuário',
+    'show_contacts' => 'Contatos',
+    'roles' => 'Funções',
+    'level' => 'Level',
+    'created_at' => 'Criado em',
+    'updated_at' => 'Atualizado em',
+    'new_title' => 'Novo usuário',
+    'role' => 'Função',
+    'password' => 'Senha',
+    'password_confirmation' => 'Confirmar Senha',
+    'edit_title' => 'Editar usuário',
+    'back_to_user' => 'Voltar para usuário',
+    'users' => 'Usuários'
+];
