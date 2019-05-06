@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use GrahamCampbell\GitHub\Facades\GitHub;
 
 class Handler extends ExceptionHandler
 {
@@ -38,6 +37,9 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if (app()->bound('sentry') && $this->shouldReport($exception)){
+            app('sentry')->captureException($exception);
+        }
         parent::report($exception);
     }
 
@@ -50,23 +52,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        try {
-            if (env('APP_ENV', 'development') == 'production') {
-                $debug_export = var_export($request, true);
-                $title = __('github.title_issue') . md5($exception->getMessage());
-                $backtrace = sslEncrypt($exception->getMessage()."<br>".$exception->getTraceAsString()."<br>".$debug_export);
-                $issues = array_map(function ($value) {
-                    return $value['title'];
-                }, Github::issues()->all(env('GITHUB_USER'), env('GITHUB_REPOSITORY')));
-                if (!in_array($title, $issues)) {
-                    Github::issues()->create(env('GITHUB_USER'), env('GITHUB_REPOSITORY'), [
-                        'title' => $title,
-                        'body' => __('github.body_issue', ['url'=>env('APP_URL'), 'backtrace' => $backtrace])
-                    ]);
-                }
-            }
-        } catch (Exception $githubException) {
-        }
         return parent::render($request, $exception);
     }
 

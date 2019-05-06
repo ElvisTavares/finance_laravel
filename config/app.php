@@ -179,7 +179,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\TranslationManager\TranslationServiceProvider::class,
         Barryvdh\TranslationManager\ManagerServiceProvider::class,
-        GrahamCampbell\GitHub\GitHubServiceProvider::class
+        Sentry\Laravel\ServiceProvider::class
     ],
 
     /*
@@ -232,7 +232,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Input' => Illuminate\Support\Facades\Input::class,
-        'GitHub' => GrahamCampbell\GitHub\Facades\GitHub::class
+        'Sentry' => Sentry\Laravel\Facade::class,
     ],
 
 ];

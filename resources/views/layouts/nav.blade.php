@@ -34,9 +34,6 @@
                             <a href="{{ url('users') }}" class="dropdown-item">
                                 {{__('users.title')}}
                             </a>
-                            <a href="{{ url('issues') }}" class="dropdown-item">
-                                {{__('issues.title')}}
-                            </a>
                         @endif
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('logout') }}" class="dropdown-item"
