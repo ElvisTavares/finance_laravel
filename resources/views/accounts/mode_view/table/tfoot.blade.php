@@ -3,7 +3,7 @@
         {{__('accounts.totals-paid')}}:
     </th>
     @for($month=0; $month<12; $month++)
-        <th class="{{$isNowYear && $month==$period->actual->month?'actual':''}} text-right" colspan="2">
+        <th class="{{$isNowYear && $month==$period->actual->month?'bg-dark':''}} text-right" colspan="2">
             {!! formatMoney($totals->paid[$month]) !!}
         </th>
     @endfor
@@ -13,7 +13,7 @@
         {{ __('accounts.totals-not-paid') }}:
     </th>
     @for($month=0; $month<12; $month++)
-        <th class="{{ $isNowYear && $month==$period->actual->month ? 'actual' : '' }} text-right" colspan="2">
+        <th class="{{ $isNowYear && $month==$period->actual->month ? 'bg-dark' : '' }} text-right" colspan="2">
             {!!formatMoney($totals->nonPaid[$month])!!}
         </th>
     @endfor
@@ -23,7 +23,7 @@
         {{__('accounts.totals')}}:
     </th>
     @for($month=0; $month<12; $month++)
-        <th class="{{ $isNowYear && $month == $period->actual->month ? 'actual' : '' }} text-right" colspan="2">
+        <th class="{{ $isNowYear && $month == $period->actual->month ? 'bg-dark' : '' }} text-right" colspan="2">
             {!! formatMoney($totals->nonPaid[$month] + $totals->paid[$month]) !!}
         </th>
     @endfor

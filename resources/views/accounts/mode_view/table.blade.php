@@ -10,7 +10,7 @@
     @endforeach
 </ul>
 <div class="table-responsive">
-    <table class="table table-sm">
+    <table class="table table-sm table table-bordered">
         <thead>
             @include('accounts.mode_view.table.thead')
         </thead>
