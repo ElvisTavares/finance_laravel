@@ -48,8 +48,7 @@
                     </a>
                 @endif
             </td>
-            <td class="{{ $isNowMonth ? 'bg-dark' : '' }} text-right" title="{{ __('accounts.totals-paid') }}"
-                style="border-right: 2px solid;">
+            <td class="{{ $isNowMonth ? 'bg-dark' : '' }} text-right" title="{{ __('accounts.totals-paid') }}">
                 {!! formatMoney($values->paid[$account->id][$month]) !!}
             </td>
         @endfor
@@ -57,7 +56,7 @@
     <tr>
         @for($month=0; $month<12; $month++)
             <td class="{{ $isNowYear && $month==$period->actual->month ? 'bg-dark' : '' }} text-right"
-                title="{{ __('accounts.totals-not-paid') }}" style="border-right: 2px solid;">
+                title="{{ __('accounts.totals-not-paid') }}">
                 {!! formatMoney($values->nonPaid[$account->id][$month]) !!}
             </td>
         @endfor
@@ -65,7 +64,7 @@
     <tr>
         @for($month=0; $month<12; $month++)
             <td class="{{ $isNowYear && $month==$period->actual->month ? 'bg-dark' : '' }} text-right"
-                style="font-weight: bold; border-bottom: 2px solid; border-right: 2px solid;" title="{{ __('accounts.totals') }}">
+                style="font-weight: bold; border-bottom: 2px solid;" title="{{ __('accounts.totals') }}">
                 {!! formatMoney($values->paid[$account->id][$month] + $values->nonPaid[$account->id][$month]) !!}
             </td>
         @endfor
