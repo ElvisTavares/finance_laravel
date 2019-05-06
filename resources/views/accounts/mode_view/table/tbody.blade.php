@@ -22,7 +22,7 @@
             </a>
         </td>
         @if ($account->is_credit_card)
-            <td class="title" rowspan="3">
+            <td class="title" rowspan="3" style="border-bottom: 2px solid;">
                 <a class="btn btn-list" title="{{ __('invoices.title') }} {{ __('accounts.account') }}"
                    href="{{ url("/account/".$account->id."/invoices") }}">
                     <i class="fas fa-receipt"></i>
