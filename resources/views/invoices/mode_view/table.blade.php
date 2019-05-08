@@ -23,17 +23,17 @@
           </a>
         </td>
         <td>
-           <a class="btn btn-edit" title="{{__('common.edit')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/edit">
+           <a class="btn btn-edit" title="{{__('common.edit')}} {{__('invoices.invoice')}}" href="{{url('/account/'.$account->id.'/invoice/'.$invoice->id.'/edit')}}">
             <i class="fa fa-edit"></i>
           </a>
         </td>
         <td>
-          <a class="btn btn-remove" title="{{__('common.remove')}} {{__('invoices.invoice')}}" href="/account/{{$account->id}}/invoice/{{$invoice->id}}/confirm">
+          <a class="btn btn-remove" title="{{__('common.remove')}} {{__('invoices.invoice')}}" href="{{url('/account/'.$account->id.'/invoice/'.$invoice->id.'/confirm')}}">
             <i class="fa fa-trash"></i>
           </a>
         </td>
         <td>
-          <a class="btn btn-list" title="{{__('transactions.transaction')}}" href="/account/{{$account->id}}/transactions?invoice_id={{$invoice->encryptedId()}}">
+          <a class="btn btn-list" title="{{__('transactions.transaction')}}" href="{{url('/account/'.$account->id.'/transactions?invoice_id='.$invoice->encryptedId())}}">
             <i class="fa fa-list"></i>
           </a>
         </td>
