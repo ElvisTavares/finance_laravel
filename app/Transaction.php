@@ -60,8 +60,11 @@ class Transaction extends ApplicationModel
      */
     public function updateCategories($categories = [])
     {
-        foreach (array_map('strtoupper', $categories) as $categoryDescription) {
-            $category = Category::firstOrCreate(['user_id' => Auth::user()->id, 'description' => $categoryDescription]);
+        foreach (array_map('strtoupper', $categories) as $description) {
+            $category = Category::firstOrCreate([
+                'user_id' => $this->account->user_id,
+                'description' => $description
+            ]);
             CategoryTransaction::firstOrCreate([
                 'category_id' => $category->id,
                 'transaction_id' => $this->id
@@ -81,9 +84,8 @@ class Transaction extends ApplicationModel
         $this->description = $request->description;
         $this->value = $request->value * (isset($request->is_credit) && $request->is_credit ? -1 : 1);
         $this->paid = isset($request->paid) ? $request->paid : false;
-        if (isset($request->is_transfer) && $request->is_transfer) {
+        if (isset($request->is_transfer) && $request->is_transfer)
             $this->accountTransfer()->associate($request->account_transfer);
-        }
         if (isset($request->invoice_id)) {
             $this->invoice_id = $request->invoice_id;
         }
@@ -144,16 +146,5 @@ class Transaction extends ApplicationModel
     public function scopeOfUser($query, User $user)
     {
         return $query->whereIn('account_id', $user->mapped('accounts', 'id'));
-    }
-
-    /**
-     * Function to return stringfy imploded with ',' of categorie's transaction
-     *
-     * @return string
-     */
-    public function categoriesString(){
-        return $this->categories->map(function ($categoryTransaction) {
-            return $categoryTransaction->category->description;
-        })->implode(',');
     }
 }

@@ -45,17 +45,18 @@ class Invoice extends ApplicationModel
         return $query->whereBetween('debit_date', [$dateInit, $dateEnd]);
     }
 
+    private function lastMe(){
+        return self::where('debit_date', '<', $this->debit_date)->orderBy('debit_date', 'desc')->first();
+    }
+
     /**
      * Get total of invoice
      *
      * @return double
      */
     public function total(){
-        $lastInvoice = Invoice::where('debit_date', '<', $this->debit_date)->orderBy('debit_date', 'desc')->first();
-        return $this->transactions()->sum('value') + (isset($lastInvoice) ? $lastInvoice->total() : 0);
-    }
-
-    public function encryptedId(){
-        return sslEncrypt($this->id);
+        $lastMe = $this->lastMe();
+        $totalLast = isset($lastMe) ? $lastMe->total() : 0;
+        return $this->transactions()->sum('value') + totalLast;
     }
 }

@@ -46,7 +46,7 @@
             @if (!$account->is_credit_card)
                 {!! (new FormGroup(__('transactions.paid'), new Field('checkbox', 'paid'), $errors, $transaction))->html() !!}
             @endif
-            {!! (new FormGroup(__('common.categories'), new Field('text', 'categories', ['class'=>'form-control', 'data-role'=>'tagsinput', 'value' => ($issetTransaction ? $transaction->categoriesString() : ''), 'required' => false]), $errors, $transaction))->html() !!}
+            {!! (new FormGroup(__('common.categories'), new Field('text', 'categories', ['class'=>'form-control', 'data-role'=>'tagsinput', 'value' => ($issetTransaction ? $transaction->mappedSubItem('categories', 'descricao', 'category') : ''), 'required' => false]), $errors, $transaction))->html() !!}
             <hr>
             @include('shared.submit')
             {{ Form::close() }}

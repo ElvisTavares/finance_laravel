@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationModel extends Model {
 
     public function mapped($method, $variable){
+        return self::mappedArray($this->{$method}->toArray(), null, $variable);
+    }
+
+    public function mappedSubItem($method, $variable, $subitem){
         return self::mappedArray($this->{$method}->toArray(), $variable);
     }
 
-    public static function mappedArray($array, $variable){
-        return array_map(function($item) use ($variable){
-            return $item["$variable"];
+    public static function mappedArray($array, $variable, $subitem = null){
+        return array_map(function($item) use ($variable, $subitem){
+            if ($subitem) return $item[$subitem][$variable];
+            return $item[$variable];
         }, $array);
     }
 
