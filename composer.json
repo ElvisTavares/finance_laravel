@@ -30,6 +30,7 @@
     },
     "autoload": {
         "files": [
+            "app/Base/ApplicationModel.php",
             "app/Helpers/Account/Period.php",
             "app/Helpers/Invoice/Invoice.php",
             "app/Helpers/Account/Formatter.php"
