@@ -1,21 +1,6 @@
 <?php
 
 /**
- * Function to require all php files in path
- *
- * @param string $basePath
- */
-function requireAll($basePath)
-{
-    foreach (scandir($basePath) as $filename) {
-        $path = $basePath . '/' . $filename;
-        if (is_file($path)) {
-            require_once $path;
-        }
-    }
-}
-
-/**
  * @param double $value
  * @return string
  */
@@ -74,8 +59,4 @@ function sslEncryptDecrypt($action, $string) {
         $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
     }
     return $output;
-}
-
-function camelCase($string){
-    return str_replace(' ', '', lcfirst(ucwords(str_replace('-', ' ', $string))));
 }
