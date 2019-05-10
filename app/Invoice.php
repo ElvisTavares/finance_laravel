@@ -57,6 +57,6 @@ class Invoice extends ApplicationModel
     public function total(){
         $lastMe = $this->lastMe();
         $totalLast = isset($lastMe) ? $lastMe->total() : 0;
-        return $this->transactions()->sum('value') + totalLast;
+        return $this->transactions()->sum('value') + $totalLast;
     }
 }

@@ -23,9 +23,9 @@ class AccountController extends ApplicationController
     public function index(Request $request)
     {
         return view('accounts.index', [
-            'accounts' => $this->user->formattedAccounts($request->year),
-            'values' => $this->user->resumeAccounts($request->year),
-            'avg' => $this->user->avgTransactions()
+            'accounts' => Auth::user()->formattedAccounts($request->year),
+            'values' => Auth::user()->resumeAccounts($request->year),
+            'avg' => Auth::user()->avgTransactions()
         ]);
     }
 
@@ -33,7 +33,7 @@ class AccountController extends ApplicationController
         return view('accounts.form', [
             'account' => $account,
             'action' => $account->id ? __('common.add') : __('common.edit'),
-            'select' => $this->user->listed('debitAccounts')
+            'select' => Auth::user()->listed('debitAccounts')
         ]);
     }
 
@@ -51,56 +51,59 @@ class AccountController extends ApplicationController
 
     public function edit(Request $request, $id)
     {
-        return $this->form($request->account);
+        return $this->form(Account::find($id));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param AccountSaveRequest $request
      * @return Response
      */
     public function store(AccountSaveRequest $request)
     {
-        $request->user = $this->user;
         $account = new Account();
-        $account->user()->associate($this->user);
-        $account->is_credit_card = $request->is_credit_card == null ? false : $request->is_credit_card;
-        $account->updateByRequest($request);
+        $account->user()->associate(Auth::user());
+        $account->description = $request->description;
+        $account->is_credit_card = $request->isCreditCard();
+        if ($account->is_credit_card && isset($request->prefer_debit_account)) {
+            $account->preferDebitAccount()->associate($request->prefer_debit_account);
+        }
         return $this->rootRedirect();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param AccountSaveRequest $request
      * @param int $id
      * @return Response
      */
     public function update(AccountSaveRequest $request, $id)
     {
-        $request->user = $this->user;
-        $account = $request->account;
-        $account->updateByRequest($request);
+        $account = Account::find($id);
+        $account->description = $request->description;
+        if ($account->is_credit_card && isset($request->prefer_debit_account)) {
+            $account->preferDebitAccount()->associate($request->prefer_debit_account);
+        }
         return $this->rootRedirect();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Request $request
+     * @param AccountDestroyRequest $request
      * @param int $id
      * @return Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(AccountDestroyRequest $request, $id)
     {
-        foreach ($this->user->accounts as $account) {
-            if ($account->prefer_debit_account_id == $id) {
-                $account->prefer_debit_account_id = null;
-                $account->save();
-            }
+        foreach (Auth::user()->accounts as $account) {
+            if ($account->prefer_debit_account_id != $id) continue;
+            $account->prefer_debit_account_id = null;
+            $account->save();
         }
-        $request->account->delete();
+        Account::find($id)->delete();
         return $this->rootRedirect();
     }
 }

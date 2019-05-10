@@ -29,11 +29,13 @@
     },
     "autoload": {
         "files": [
+            "app/Helpers/helpers.php",
             "app/Base/ApplicationModel.php",
             "app/Base/ApplicationController.php",
             "app/Helpers/Account/Period.php",
             "app/Helpers/Invoice/Invoice.php",
-            "app/Helpers/Account/Formatter.php"
+            "app/Helpers/Account/Formatter.php",
+            "app/Helpers/Account/Values.php"
         ],
         "classmap": [
             "database/seeds",

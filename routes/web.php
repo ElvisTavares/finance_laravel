@@ -28,14 +28,15 @@ Route::get('/transactions/charts', 'TransactionController@charts');
 Route::get('/transactions/create', 'TransactionController@create');
 Route::put('/transactions/addCategories', 'TransactionController@addCategories');
 Route::group(['middleware' => ['account']], function () {
-    Route::get('accounts/{account}/confirm', 'AccountController@confirm');
-    Route::get('account/{account}/transactions', 'TransactionController@index');
+    Route::get('account/{account}/confirm', 'AccountController@confirm')->name('accounts.confirm');
+    Route::get('account/{account}/invoices', 'InvoiceController@index')->name('accounts.invoices');
+    Route::get('account/{account}/transactions', 'TransactionController@index')->name('accounts.transactions');
+
     Route::get('account/{account}/transaction/create', 'TransactionController@create');
     Route::post('account/{account}/transaction', 'TransactionController@store');
     Route::post('account/{account}/upload/ofx', 'UploadController@ofx');
     Route::post('account/{account}/upload/csv', 'UploadController@csv');
 
-    Route::get('account/{account}/invoices', 'InvoiceController@index');
     Route::get('account/{account}/invoice/create', 'InvoiceController@create');
     Route::post('account/{account}/invoice', 'InvoiceController@store');
     Route::put('account/{account}/transactions/addCategories', 'TransactionController@addCategories');
@@ -57,21 +58,17 @@ Route::group(['middleware' => ['account', 'invoice']], function () {
     Route::post('account/{account}/invoice/{invoice}/upload/csv', 'UploadController@csv');
 });
 
-Route::get('users/{id}/confirm', '\jeremykenedy\laravelusers\App\Http\Controllers\UsersManagementController@confirm');
+Route::get('users/{id}/confirm', 'UsersManagementController@confirm');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-// APP Routes Below
-Route::group(['middleware' => 'web', 'namespace' => 'jeremykenedy\laravelusers\app\Http\Controllers'], function () {
-    Route::resource('users', 'UsersManagementController', [
-        'names' => [
-            'index'   => 'users',
-            'destroy' => 'user.destroy',
-        ],
-    ]);
-});
+Route::resource('users', 'UsersManagementController', [
+    'names' => [
+        'index'   => 'users',
+        'destroy' => 'user.destroy',
+    ],
+]);
 
 Route::middleware(['web', 'auth'])->group(function () {
-    Route::post('search-users', 'jeremykenedy\laravelusers\app\Http\Controllers\UsersManagementController@search')->name('search-users');
+    Route::post('search-users', 'UsersManagementController@search')->name('search-users');
 });

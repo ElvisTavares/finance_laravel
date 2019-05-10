@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use jeremykenedy\LaravelRoles\Models\Role;
+use App\Helpers\Account\Values;
 
 class User extends ApplicationModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
@@ -110,7 +111,7 @@ class User extends ApplicationModel implements AuthenticatableContract, Authoriz
         return $builder->sum('value') / $division;
     }
 
-    private function avgTransactions()
+    public function avgTransactions()
     {
         $positive = $this->avgTransactionsPositive();
         $negative = $this->avgTransactionsNegative();
@@ -121,14 +122,14 @@ class User extends ApplicationModel implements AuthenticatableContract, Authoriz
         ];
     }
 
-    private function formattedAccounts($year)
+    public function formattedAccounts($year)
     {
-        return array_map(function($account) use ($request){
+        return  $this->accounts->map(function($account) use ($year){
             return $account->format($year);
-        }, $this->accounts);
+        });
     }
 
-    private function resumeAccounts($year)
+    public function resumeAccounts($year)
     {
         $values = new Values($year);
         foreach ($this->accounts as $account)

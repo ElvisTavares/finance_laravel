@@ -95,19 +95,6 @@ class Account extends ApplicationModel
                 -1 * $this->totalTransfer($date, $paid);
     }
 
-    /**
-     * Method to update model by request
-     * @param Request $request
-     * @return void
-     */
-    public function updateByRequest($request){
-        $this->description = $request->description;
-        if ($this->is_credit_card && isset($request->prefer_debit_account)) {
-            $this->preferDebitAccount()->associate($request->prefer_debit_account);
-        }
-        $this->save();
-    }
-
     public function format($year = null){
         return (new Formatter($this))->format($year ?: date('Y'));
     }

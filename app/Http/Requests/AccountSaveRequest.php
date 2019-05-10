@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AccountSaveRequest extends FormRequest
@@ -16,11 +17,10 @@ class AccountSaveRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $prefer = $this->input('prefer_debit_account_id');
-            if (!$this->input('is_credit_card') || $prefer == null) return;
-            if ($this->input('account_id') && !$this->user->accounts->find($this->input('account_id')))
+            if (!$this->is_credit_card || $this->prefer_debit_account_id == null) return;
+            if ($this->account_id && !Auth::user()->accounts()->find($this->account_id))
                 $validator->errors()->add('account_id', __('accounts.not-your-account'));
-            if ($this->user->accounts->find($prefer)) return;
+            if (Auth::user()->accounts()->find($this->prefer_debit_account_id)) return;
             $validator->errors()->add('prefer_debit_account', __('accounts.not-your-account'));
         });
     }
@@ -32,5 +32,9 @@ class AccountSaveRequest extends FormRequest
             'description.min' => __('common.description-min-5'),
             'description.max' => __('common.description-max-50')
         ];
+    }
+
+    public function isCreditCard(){
+        return $this->is_credit_card == null ? false : $this->is_credit_card;
     }
 }

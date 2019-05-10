@@ -1,58 +1,63 @@
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
 
-/* Hide default HTML checkbox */
-.switch input {display:none;}
+input[type="checkbox"] {
+  position:relative;
+  width:40px;
+  height:20px;
+  visibility:hidden;
 
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  &:before {
+    visibility:visible;
+    position:absolute;
+    display:block;
+    width:100%;
+    height: 20px;
+    top:0;
+    background:#fff;
+    content: '';
+    border-radius:10px;
+    border:solid 1px #ddd;
+    transition:all .5s;
+  }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  &:after {
+    visibility:visible;
+    top:0;
+    display:block;
+    content:'';
+    width:20px;
+    height:20px;
+    background:#fff;
+    position:absolute;
+    border-radius:50%;
+    border:solid 1px #ddd;
+    transition:all .5s;
+    left:0;
+  }
 
-input:checked + .slider {
-  background-color: $green;
-}
+  &:checked:after {
+    left:100%;
+    margin-left:-20px;
+  }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px $green;
-}
+  &:checked:before {
+    background: $green;
+  }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+  &.square {
+    width:60px;
+    &:before {
+      border-radius:2px;
+    }
+    &:after {
+      border-radius:2px;
+      width:30px;
+    }
+    &:checked:after {
+      left:100%;
+      margin-left:-30px;
+    }
+    &:checked:before {
+      background:#3498db;
+    }
+  }
 }

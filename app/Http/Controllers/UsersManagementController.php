@@ -1,6 +1,5 @@
 <?php
-
-namespace jeremykenedy\laravelusers\App\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;

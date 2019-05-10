@@ -9,10 +9,17 @@ class Invoice
     public $account;
     private $invoices;
 
+
     public function __construct($account, $invoices)
     {
         $this->account = $account;
         $this->invoices = $invoices;
+    }
+
+    public function id(){
+        return encrypt($this->account->id.";".implode(',', array_map(function($invoice){
+            return $invoice['id'];
+        }, $this->invoices)));
     }
 
     /**

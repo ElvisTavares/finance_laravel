@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Log;
-use App\Http\Controllers\AplicationController;
+use App\Http\Controllers\ApplicationController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use App\UserOauth;
@@ -12,7 +12,7 @@ use App\User;
 
 use Illuminate\Http\Request;
 
-class LoginController extends AplicationController
+class LoginController extends ApplicationController
 {
     /*
     |--------------------------------------------------------------------------
@@ -54,6 +54,30 @@ class LoginController extends AplicationController
         return \Socialite::driver($provider)->redirect();
     }
 
+    private function firstOrCreateUser($userSocialite){
+        $user = User::where('email', $userSocialite->getEmail())->first();
+        if ($user) return $user;
+        return User::create([
+            'name' => $userSocialite->getName(),
+            'email' => $userSocialite->getEmail(),
+            'picture' => $userSocialite->getAvatar()
+        ]);
+    }
+
+    private function firstOrCreateOAuthUser($userSocialite, $provider){
+        $userOauth = UserOauth::where('uuid', $userSocialite->getId())->first();
+        if ($userOauth) return $userOauth;
+        $user = Auth::guest() ? $this->firstOrCreateUser($userSocialite) : Auth::user();
+        return UserOauth::create([
+            'uuid' => $userSocialite->getId(),
+            'name' => $userSocialite->getName(),
+            'email' => $userSocialite->getEmail(),
+            'avatar' => $userSocialite->getAvatar(),
+            'user_id' => $user->id,
+            'provider' => $provider
+        ]);
+    }
+
     /**
      * Obtain the user information from Facebook.
      *
@@ -62,34 +86,8 @@ class LoginController extends AplicationController
     public function handleProviderCallback($provider)
     {
         $userSocialite = \Socialite::driver($provider)->user();
-        $userOauth = UserOauth::where('uuid', $userSocialite->getId())->first();
-        if ($userOauth == null) {
-            Log::info('User Oauth not found');
-            if (Auth::guest()) {
-                Log::info('User not logged');
-                $user = User::where('email', $userSocialite->getEmail())->first();
-                if ($user == null) {
-                    $user = new User;
-                    $user->name = $userSocialite->getName();
-                    $user->email = $userSocialite->getEmail();
-                    $user->picture = $userSocialite->getAvatar();
-                    $user->save();
-                }
-            } else {
-                Log::info('User logged');
-                $user = Auth::user();
-            }
-            $userOauth = new UserOauth;
-            $userOauth->uuid = $userSocialite->getId();
-            $userOauth->name = $userSocialite->getName();
-            $userOauth->email = $userSocialite->getEmail();
-            $userOauth->avatar = $userSocialite->getAvatar();
-            $userOauth->provider = $provider;
-            $userOauth->user()->associate($user);
-            $userOauth->save();
-        }
+        $userOauth = $this->firstOrCreateOAuthUser($userSocialite, $provider);
         Auth::login($userOauth->user);
-        Log::info(['User Oauth', $userOauth->toJson(), $userOauth->user->toJson(), Auth::check()]);
         return redirect($this->redirectTo);
     }
 }

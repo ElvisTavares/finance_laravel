@@ -21,13 +21,13 @@ class Formatter {
     }
 
     public function format($year, $mode = 'table'){
-        if (!$this->account->is_credit_card) return $object;
+        if (!$this->account->is_credit_card) return $this;
         $period = new Period($year, $mode);
         for ($monthIndex = 0; $monthIndex < 12; $monthIndex++) {
             $month = $period->months[$monthIndex];
             $invoices = $this->account->invoices()->betweenDates($month->init, $month->end)->get()->toArray();
-            $object->invoices[] = empty($invoices) ? null : new Invoice($this->account, $invoices);
+            $this->invoices[] = empty($invoices) ? null : new Invoice($this->account, $invoices);
         }
-        return $object;
+        return $this;
     }
 }
