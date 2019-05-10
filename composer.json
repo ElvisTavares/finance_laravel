@@ -12,7 +12,6 @@
         "fideloper/proxy": "~3.3",
         "guzzlehttp/guzzle": "^6.3",
         "jeremykenedy/laravel-roles": "^1.2",
-        "jeremykenedy/laravel-users": "^3.1",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
@@ -31,6 +30,7 @@
     "autoload": {
         "files": [
             "app/Base/ApplicationModel.php",
+            "app/Base/ApplicationController.php",
             "app/Helpers/Account/Period.php",
             "app/Helpers/Invoice/Invoice.php",
             "app/Helpers/Account/Formatter.php"

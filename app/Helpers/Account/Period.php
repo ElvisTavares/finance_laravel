@@ -10,21 +10,14 @@ class Period {
 
     /**
      * @param integer $year
-     * @param string $viewMode
      * @return \stdClass
      */
-    public function __construct($year, $viewMode)
+    public function __construct($year)
     {
         $this->actual = new \stdClass;
         $this->actual->month = date('n') - 1;
-        if ($viewMode == 'table') {
-            $this->actual->year = isset($year) ? $year : date('Y');
-            $years = $this->yearsList($this->actual->year);
-        } else { // On card view just show actual year
-            $this->actual->year = date('Y');
-            $years = [$this->actual->year];
-        }
-        $this->years = $years;
+        $this->actual->year = isset($year) ? $year : date('Y');
+        $this->years = $this->yearsList($this->actual->year);
         $this->months = $this->months($this->actual->year);
     }
 

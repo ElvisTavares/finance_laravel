@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Log;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AplicationController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use App\UserOauth;
@@ -12,7 +12,7 @@ use App\User;
 
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class LoginController extends AplicationController
 {
     /*
     |--------------------------------------------------------------------------

@@ -96,11 +96,11 @@ class User extends ApplicationModel implements AuthenticatableContract, Authoriz
         return $this->hasMany('App\Category');
     }
 
-    public function avgTransactionsPositive(){
+    private function avgTransactionsPositive(){
         return $this->avgTransactionsCalc(Transaction::ofUser($this)->positive());
     }
 
-    public function avgTransactionsNegative(){
+    private function avgTransactionsNegative(){
         return $this->avgTransactionsCalc(Transaction::ofUser($this)->negative());
     }
 
@@ -110,8 +110,29 @@ class User extends ApplicationModel implements AuthenticatableContract, Authoriz
         return $builder->sum('value') / $division;
     }
 
-    public function avgTransactions()
+    private function avgTransactions()
     {
-        return $this->avgTransactionsPositive() + $this->avgTransactionsNegative();
+        $positive = $this->avgTransactionsPositive();
+        $negative = $this->avgTransactionsNegative();
+        return (object)[
+            'all' => $positive + $negative,
+            'positive' => $positive,
+            'negative' => $negative
+        ];
+    }
+
+    private function formattedAccounts($year)
+    {
+        return array_map(function($account) use ($request){
+            return $account->format($year);
+        }, $this->accounts);
+    }
+
+    private function resumeAccounts($year)
+    {
+        $values = new Values($year);
+        foreach ($this->accounts as $account)
+            $values->fillAccount($account);
+        return $values;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PrivacyController extends Controller
+class PrivacyController extends ApplicationController
 {
     public function index(){
         return view('privacy.index');

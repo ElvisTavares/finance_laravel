@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2ec50919399080010e460eacf116838",
+    "content-hash": "1a7d463fc2f90282ce9d0a325b71f5b5",
     "packages": [
         {
             "name": "asgrim/ofxparser",
@@ -1144,62 +1144,6 @@
                 "roles"
             ],
             "time": "2019-04-19T21:57:29+00:00"
-        },
-        {
-            "name": "jeremykenedy/laravel-users",
-            "version": "v3.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jeremykenedy/laravel-users.git",
-                "reference": "2d2755402262f41b054feec1c11f4b8298e58155"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jeremykenedy/laravel-users/zipball/2d2755402262f41b054feec1c11f4b8298e58155",
-                "reference": "2d2755402262f41b054feec1c11f4b8298e58155",
-                "shasum": ""
-            },
-            "require": {
-                "laravelcollective/html": "^5.4|^5.5|^5.6|^5.7|^5.8",
-                "php": ">=7.1.3"
-            },
-            "require-dev": {
-                "illuminate/support": "^5.7",
-                "laravel/laravel": "5.7.*",
-                "orchestra/testbench": "~3.0",
-                "phpunit/phpunit": "^7.0"
-            },
-            "type": "package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "jeremykenedy\\laravelusers\\LaravelUsersServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "jeremykenedy\\laravelusers\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "jeremykenedy",
-                    "email": "jeremykenedy@gmail.com"
-                }
-            ],
-            "description": "Laravel Users Management CRUD Package",
-            "keywords": [
-                "Users",
-                "crud",
-                "laravel",
-                "management"
-            ],
-            "time": "2019-04-05T05:22:07+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3330,16 +3274,16 @@
         },
         {
             "name": "symfony/contracts",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf"
+                "reference": "d3636025e8253c6144358ec0a62773cae588395b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/1aa7ab2429c3d594dd70689604b5cf7421254cdf",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/d3636025e8253c6144358ec0a62773cae588395b",
+                "reference": "d3636025e8253c6144358ec0a62773cae588395b",
                 "shasum": ""
             },
             "require": {
@@ -3347,19 +3291,22 @@
             },
             "require-dev": {
                 "psr/cache": "^1.0",
-                "psr/container": "^1.0"
+                "psr/container": "^1.0",
+                "symfony/polyfill-intl-idn": "^1.10"
             },
             "suggest": {
                 "psr/cache": "When using the Cache contracts",
                 "psr/container": "When using the Service contracts",
                 "symfony/cache-contracts-implementation": "",
+                "symfony/event-dispatcher-implementation": "",
+                "symfony/http-client-contracts-implementation": "",
                 "symfony/service-contracts-implementation": "",
                 "symfony/translation-contracts-implementation": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -3394,7 +3341,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2018-12-05T08:06:11+00:00"
+            "time": "2019-04-27T14:29:50+00:00"
         },
         {
             "name": "symfony/css-selector",

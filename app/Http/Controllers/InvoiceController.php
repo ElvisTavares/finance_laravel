@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Invoice;
 use App\UserConfig;
 
-class InvoiceController extends Controller
+class InvoiceController extends ApplicationController
 {
     /**
      * Create a new controller instance.

@@ -8,7 +8,7 @@ use App\Account;
 use App\Http\Requests\UploadOfxRequest;
 use App\Http\Requests\UploadCsvRequest;
 
-class UploadController extends Controller
+class UploadController extends ApplicationController
 {
     /**
      * Create a new controller instance.

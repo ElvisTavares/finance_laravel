@@ -108,8 +108,8 @@ class Account extends ApplicationModel
         $this->save();
     }
 
-    public function format($year = null, $mode = 'table'){
-        return (new Formatter($this))->format($year ?: date('Y'), $mode);
+    public function format($year = null){
+        return (new Formatter($this))->format($year ?: date('Y'));
     }
 
     /**

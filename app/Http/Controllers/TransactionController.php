@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class TransactionController extends Controller
+class TransactionController extends ApplicationController
 {
     /**
      * Create a new controller instance.
