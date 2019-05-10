@@ -117,7 +117,7 @@ class AccountController extends Controller
     public function create()
     {
         return view('accounts.form', [
-            'selectAccounts' => Auth::user()->listNonCreditCard(),
+            'selectAccounts' => Auth::user()->listed('debitAccounts'),
             'action' => __('common.add')
         ]);
     }
@@ -171,7 +171,7 @@ class AccountController extends Controller
     {
         return view('accounts.form', [
             'account' => $request->account,
-            'selectAccounts' => Auth::user()->listNonCreditCard(),
+            'selectAccounts' => Auth::user()->listed('debitAccounts'),
             'action' => __('common.edit')
         ]);
     }

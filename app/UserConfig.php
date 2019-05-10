@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class UserConfig extends Model
+class UserConfig extends ApplicationModel
 {
     /**
      * The attributes that are mass assignable.

@@ -1,26 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Helpers\Invoice;
 
-use App\Invoice;
+use App\Invoice as MainInvoice;
 
-class VirtualInvoice
+class Invoice
 {
+    public $account;
     private $invoices;
 
-    public function __construct($encryptedIds)
+    public function __construct($account, $invoices)
     {
-        $this->invoices = $this->decryptInvoices($encryptedIds);
-    }
-
-    /**
-     * Get account of invoice
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function account()
-    {
-        return $this->invoices[0]->account();
+        $this->account = $account;
+        $this->invoices = $invoices;
     }
 
     /**

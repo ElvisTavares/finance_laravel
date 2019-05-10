@@ -3,10 +3,9 @@
 namespace App;
 
 use Auth;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Transaction extends Model
+class Transaction extends ApplicationModel
 {
 
     protected $fillable = [
@@ -114,6 +113,28 @@ class Transaction extends Model
     }
 
     /**
+     * Scope a query to only include transactions which negative values.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePaid($query, $paid)
+    {
+        return $query->where('paid', $paid);
+    }
+
+    /**
+     * Scope a query to only include transactions which negative values.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDateMinus($query, $date)
+    {
+        return $query->where('date', '<=', $date);
+    }
+
+    /**
      * Scope a query to only include transactions of user.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -122,7 +143,7 @@ class Transaction extends Model
      */
     public function scopeOfUser($query, User $user)
     {
-        return $query->whereIn('account_id', $user->accoutsId());
+        return $query->whereIn('account_id', $user->mapped('accounts', 'id'));
     }
 
     /**

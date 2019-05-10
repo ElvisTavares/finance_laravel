@@ -29,6 +29,11 @@
         "symfony/thanks": "^1.0"
     },
     "autoload": {
+        "files": [
+            "app/Helpers/Account/Period.php",
+            "app/Helpers/Invoice/Invoice.php",
+            "app/Helpers/Account/Formatter.php"
+        ],
         "classmap": [
             "database/seeds",
             "database/factories"

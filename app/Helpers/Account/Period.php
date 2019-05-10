@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Helpers\Account;
 
-class PeriodAccount {
+class Period {
 
     public $actual;
     public $years;
@@ -61,7 +61,7 @@ class PeriodAccount {
         $months = [];
         for ($i = 0; $i < 12; $i++) {
             $months[$i] = new \stdClass;
-            $months[$i]->init = date($actualYear . '-' . ($i + 1) . '-1');
+            $months[$i]->init = date($actualYear . '-' . str_pad(($i + 1),2, "0", STR_PAD_LEFT) . '-01');
             $months[$i]->end = date('Y-m-t', strtotime($months[$i]->init));
         }
         return $months;

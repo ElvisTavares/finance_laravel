@@ -75,3 +75,7 @@ function sslEncryptDecrypt($action, $string) {
     }
     return $output;
 }
+
+function camelCase($string){
+    return str_replace(' ', '', lcfirst(ucwords(str_replace('-', ' ', $string))));
+}

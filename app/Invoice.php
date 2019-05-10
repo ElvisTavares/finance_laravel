@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Invoice extends Model
+class Invoice extends ApplicationModel
 {
 
     /**
@@ -34,6 +32,17 @@ class Invoice extends Model
     public function transactions()
     {
         return $this->hasMany('App\Transaction','invoice_id');
+    }
+
+    /**
+     * Scope a query between two dates
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBetweenDates($query, $dateInit, $dateEnd)
+    {
+        return $query->whereBetween('debit_date', [$dateInit, $dateEnd]);
     }
 
     /**

@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class CategoryTransaction extends Model
+class CategoryTransaction extends ApplicationModel
 {
     /**
      * The attributes that are mass assignable.
