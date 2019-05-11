@@ -9,4 +9,5 @@ return array (
   'date-end' => 'Data fim',
   'debit-date' => 'Data de débito',
   'invoice' => 'Fatura',
+  'total' => 'Total'
 );

@@ -2,6 +2,9 @@
 
 namespace App\Helpers\Invoice;
 
+use Auth;
+use App\Account;
+use App\Transaction;
 use App\Invoice as MainInvoice;
 
 class Invoice
@@ -17,9 +20,26 @@ class Invoice
     }
 
     public function id(){
-        return encrypt($this->account->id.";".implode(',', array_map(function($invoice){
+        return short_encode($this->account->id.";".implode(',', array_map(function($invoice){
             return $invoice['id'];
         }, $this->invoices)));
+    }
+
+    public static function get($id){
+        $decode = short_decode($id);
+        $accountInvoicesIds = explode(";", $decode);
+        $account = Auth::user()->accounts()->findOrFail($accountInvoicesIds[0]);
+        $invoicesId = explode(",", $accountInvoicesIds[1]);
+        $invoices = [];
+        foreach($invoicesId as $invoiceId)
+            $invoices[] = $account->invoices()->findOrFail($invoiceId);
+        return (new self($account, $invoices));
+    }
+
+    public function getYear(){
+        $filtered = array_filter($this->invoices);
+        if (empty($filtered)) return date('Y');
+        return strtok($filtered[0]->debit_date, '-');;
     }
 
     /**
@@ -28,11 +48,9 @@ class Invoice
     public function transactions()
     {
         $transactionIds = [];
-        foreach ($this->invoices as $invoice) {
-            foreach ($invoice->transactions()->get() as $transaction) {
+        foreach ($this->invoices as $invoice)
+            foreach ($invoice->transactions as $transaction)
                 $transactionIds[] = $transaction->id;
-            }
-        }
         return Transaction::whereIn('id', $transactionIds);
     }
 
@@ -43,36 +61,17 @@ class Invoice
      */
     public function total(){
         $total = 0;
-        foreach ($this->invoices as $invoice) {
+        foreach ($this->invoices as $invoice)
             $total += $invoice->total();
-        }
         return $total;
-    }
-
-    public function encryptedId(){
-        $ids = '';
-        foreach ($this->invoices as $invoice) {
-            if ($ids != ''){
-                $ids .= ";";
-            }
-            $ids .= $invoice->id;
-        }
-        return sslEncrypt($ids);
-    }
-
-    private function decryptInvoices($encryptedIds){
-        $ids = array_map('intval', explode(';', sslDecrypt($encryptedIds)));
-        return Invoice::whereIn('id', $ids)->orderBy('id', 'asc')->get();
     }
 
     public function description(){
         $description = '';
-        foreach ($this->invoices as $invoice) {
-            if ($description != ''){
-                $description .= "; ";
-            }
-            $description .= $invoice->id."/".$invoice->description;
+        foreach (array_filter($this->invoices) as $invoice) {
+            if ($description != '') $description .= "; ";
+            $description .= $invoice['id']."/".$invoice['description'];
         }
-        return $description;
+        return "[". $description. "]";
     }
 }

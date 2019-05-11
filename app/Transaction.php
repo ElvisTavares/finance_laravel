@@ -147,4 +147,15 @@ class Transaction extends ApplicationModel
     {
         return $query->whereIn('account_id', $user->mapped('accounts', 'id'));
     }
+
+    public function scopeDescription($query, $description)
+    {
+        $description = iconv('UTF-8', 'ASCII//TRANSLIT', strtolower($description));
+        return $query->whereRaw("replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace( lower(description), 'á','a'), 'ã','a'), 'â','a'), 'é','e'), 'ê','e'), 'í','i'),'ó','o') ,'õ','o') ,'ô','o'),'ú','u'), 'ç','c') LIKE '%{$description}%'");
+    }
+
+    public function scopeBetweenDates($query, $dateInit, $dateEnd){
+        return $query->whereBetween('date', [$dateInit, $dateEnd]);
+    }
+
 }

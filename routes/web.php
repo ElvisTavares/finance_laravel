@@ -26,24 +26,24 @@ Route::resource('accounts', 'AccountController');
 Route::get('/transactions', 'TransactionController@index');
 Route::get('/transactions/charts', 'TransactionController@charts');
 Route::get('/transactions/create', 'TransactionController@create');
-Route::put('/transactions/addCategories', 'TransactionController@addCategories');
 Route::get('account/{account}/confirm', 'AccountController@confirm')->name('accounts.confirm');
 Route::get('account/{account}/invoices', 'InvoiceController@index')->name('accounts.invoices');
 Route::get('account/{account}/transactions', 'TransactionController@index')->name('accounts.transactions');
+Route::get('account/{account}/transaction/create', 'TransactionController@create')->name('accounts.transactions.create');
+Route::post('account/{account}/transactions/category/', 'TransactionController@category')->name('accounts.transactions.categories');
 
 Route::get('account/{account}/invoice/{invoice}/edit', 'InvoiceController@edit')->name('invoices.edit');
 Route::get('account/{account}/invoice/{invoice}/confirm', 'InvoiceController@confirm')->name('invoices.confirm');
-Route::get('account/{account}/invoice/{invoice}transactions', 'TransactionController@index')->name('invoices.transactions');
+Route::get('account/{account}/invoice/{invoice}/transactions', 'TransactionController@index')->name('invoices.transactions');
+Route::get('account/{account}/invoice/{invoice}/transaction/create', 'TransactionController@create')->name('invoices.transactions.create');
+Route::post('account/{account}/invoice/{invoice}/transactions/category/', 'TransactionController@category')->name('invoices.transactions.categories');
 
-
-Route::get('account/{account}/transaction/create', 'TransactionController@create');
 Route::get('account/{account}/invoice/create', 'InvoiceController@create')->name('invoices.create');
 Route::post('account/{account}/transaction', 'TransactionController@store');
 Route::post('account/{account}/upload/ofx', 'UploadController@ofx')->name('accounts.import.ofx');
 Route::post('account/{account}/upload/csv', 'UploadController@csv')->name('accounts.import.csv');
 
 Route::post('account/{account}/invoice', 'InvoiceController@store');
-Route::put('account/{account}/transactions/addCategories', 'TransactionController@addCategories');
 Route::get('account/{account}/transaction/{transaction}/edit', 'TransactionController@edit');
 Route::get('account/{account}/transaction/{transaction}/confirm', 'TransactionController@confirm');
 Route::put('account/{account}/transaction/{transaction}', 'TransactionController@update');

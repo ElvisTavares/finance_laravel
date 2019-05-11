@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    <i class="fas fa-piggy-bank"></i> {{__('accounts.title')}}
+    {{__('invoices.title')}}
 @endsection
 @section('class', config('constants.classes.full'))
 @section('title-buttons')

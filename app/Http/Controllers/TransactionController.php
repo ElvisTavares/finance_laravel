@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use App\Invoice;
-use App\VirtualInvoice;
+use App\Helpers\Invoice\Invoice as VirtualInvoice;
 use App\UserConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,61 +23,25 @@ class TransactionController extends ApplicationController
         $this->middleware('auth');
     }
 
-    /**
-     * Create a query string to use in url
-     *
-     * @return string
-     */
-    private function query()
-    {
-        $dateInit = Input::get('date_init');
-        $dateEnd = Input::get('date_end');
-        $description = Input::get('description');
-        $accountId = Input::get('account_id');
-        return "?" . implode([(isset($accountId) ? 'account_id=' . $accountId : '') . (isset($description) ? 'description=' . $description : ''), (isset($dateInit) && isset($dateEnd) ? 'date_init=' . $dateInit . '&date_end=' . $dateEnd : '')], '&');
+    private function getInvoiceByRequest(Request $request, $invoiceId = null){
+        $invoiceId = isset($invoiceId) ? $invoiceId : $request->invoice_id;
+        return isset($invoiceId) ? VirtualInvoice::get($invoiceId) : null;
     }
 
-    private function getEloquentTransactions($request)
-    {
-        $dateInit = $request->input('date_init');
-        $dateEnd = $request->input('date_end');
-        $filterDate = true;
-        if (isset($request->invoice_id) && strcmp($request->invoice_id, '-1') != 0) {
-            $virtualInvoice = new VirtualInvoice($request->invoice_id);
-            $transactions = $virtualInvoice->transactions();
-        } else {
-            if (isset($request->account)) {
-                $transactions = $request->account->transactions();
-            } else {
-                $transactions = Transaction::whereIn('account_id', Auth::user()->accounts->map(function ($account) {
-                    return $account->id;
-                }));
-            }
-        }
-        if ($filterDate) {
-            if ($dateInit !== null && $dateEnd !== null) {
-                $transactions->whereBetween('date', [$dateInit, $dateEnd]);
-            }
-        }
+    private function getYearByRequest(Request $request, $invoice = null){
+        if ($invoice) return $invoice->getYear();
+        if ($request->date_init && $request->date_end)
+            return strtok($request->date_init , '-');
+        return date('Y');
+    }
 
-        $request->description = iconv('UTF-8', 'ASCII//TRANSLIT', strtolower($request->description));
-        $transactions = $transactions->whereRaw("replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace( lower(description), 'á','a'), 'ã','a'), 'â','a'), 'é','e'), 'ê','e'), 'í','i'),'ó','o') ,'õ','o') ,'ô','o'),'ú','u'), 'ç','c') LIKE '%{$request->description}%'")->orderBy('date')->orderBy('description');
+    private function getTransactionsByRequest(Request $request, $account, $invoice = null){
+        $transactions = ($invoice) ? $invoice->transactions() : $account->transactions();
+        if ($request->description)
+            $transactions = $transactions->description($request->description);
+        if ($request->date_init && $request->date_end)
+            $transactions = $transactions->betweenDates($request->date_init, $request->date_end);
         return $transactions;
-    }
-
-    /**
-     * Get mode view of accounts
-     * @param string $viewMode [card, table]
-     * @return string
-     */
-    private function modeView($viewMode)
-    {
-        $viewModeConfig = UserConfig::transactionsModeView(Auth::user()->id);
-        if (isset($viewMode)) {
-            $viewModeConfig->value = $viewMode;
-            $viewModeConfig->save();
-        }
-        return $viewModeConfig->value ?: 'table';
     }
 
     /**
@@ -86,15 +50,39 @@ class TransactionController extends ApplicationController
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $accountId, $invoiceId = null)
     {
-        $transactions = $this->getEloquentTransactions($request)->paginate(30)->appends(request()->input());
+        $account = Auth::user()->accounts()->findOrFail($accountId);
+        $invoice = $this->getInvoiceByRequest($request, $invoiceId);
+        $transactions = $this->getTransactionsByRequest($request, $account, $invoice);
+        $year = $this->getYearByRequest($request, $invoice);
         return view('transactions.index', [
-            'account' => $request->account,
-            'transactions' => $transactions,
-            'query' => $this->query(),
-            'viewMode' => $this->modeView($request->view_mode)
+            'account' => $account->format($year),
+            'invoice' => $invoice,
+            'transactions' => $transactions->paginate(30)->appends($request->all())
         ]);
+    }
+
+    /**
+     * Add categories to listed resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function category(Request $request, $accountId, $invoiceId = null)
+    {
+        $account = Auth::user()->accounts()->findOrFail($accountId);
+        $invoice = $this->getInvoiceByRequest($request, $invoiceId);
+        $transactions = $this->getTransactionsByRequest($request, $account, $invoice);
+        $categories = explode(',', $request->categories);
+        foreach ($transactions->get() as $transaction)
+            $transaction->updateCategories($categories);
+        $route = route('accounts.transactions', [
+            'account' => $account,
+            'invoice_id' => $invoice ? $invoice->id() : null,
+            http_build_query($request->except('invoice_id')
+        )]);
+        return redirect($route);
     }
 
     /**
@@ -298,22 +286,5 @@ class TransactionController extends ApplicationController
             $transaction->save();
         }
         return redirect('/account/' . $request->account->id . '/transactions' . $this->query());
-    }
-
-    /**
-     * Add categories to listed resource.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function addCategories(Request $request)
-    {
-        $categories = explode(',', $request->categories);
-        $transactions = $this->getEloquentTransactions($request)->get();
-        foreach ($transactions as $transaction) {
-            $transaction->updateCategories($categories);
-        }
-        $baseUrl = isset($request->account) ? '/account/' . $request->account->id : '';
-        return redirect( $baseUrl . '/transactions' . $this->query());
     }
 }

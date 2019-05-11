@@ -28,3 +28,11 @@ function contains($string, $searched)
 {
     return strpos($string, $searched) !== FALSE;
 }
+
+function short_encode($data) {
+    return strtr(base64_encode($data), '+/=', '-_,');
+}
+
+function short_decode($data) {
+    return base64_decode(strtr($data, '-_,', '+/='));
+}

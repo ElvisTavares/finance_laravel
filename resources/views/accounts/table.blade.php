@@ -32,7 +32,7 @@
                         <td class="{{ $values->isThisMonth($month) ? 'actual' : '' }}" rowspan="3" data-account="a{{$account->id}}" data-month="m{{$month}}">
                             @if (isset($account->invoices[$month]))
                                 <a class="btn btn-list" title="{{ __('transactions.title') }}"
-                                    href="{{ route('accounts.transactions', ['account' => $account->id, 'invoice_id' => $account->invoices[$month]->id()]) }}">
+                                    href="{{ route('invoices.transactions', ['account' => $account->id, 'invoice_id' => $account->invoices[$month]->id()]) }}">
                                     <i class="fa fa-list"></i>
                                 </a>
                             @elseif (!$account->is_credit_card)

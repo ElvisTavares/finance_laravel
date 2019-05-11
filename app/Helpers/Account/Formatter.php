@@ -20,9 +20,9 @@ class Formatter {
         $this->is_credit_card = $account->is_credit_card;
     }
 
-    public function format($year, $mode = 'table'){
+    public function format($year){
         if (!$this->account->is_credit_card) return $this;
-        $period = new Period($year, $mode);
+        $period = new Period($year);
         for ($monthIndex = 0; $monthIndex < 12; $monthIndex++) {
             $month = $period->months[$monthIndex];
             $invoices = $this->account->invoices()->betweenDates($month->init, $month->end)->get()->toArray();

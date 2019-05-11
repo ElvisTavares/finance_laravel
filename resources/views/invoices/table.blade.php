@@ -6,6 +6,7 @@
       <th>{{__('invoices.date-init')}}</th>
       <th>{{__('invoices.date-end')}}</th>
       <th>{{__('invoices.debit-date')}}</th>
+      <th>{{__('invoices.total')}}</th>
       <th colspan="4">{{__('common.actions')}}</th>
     </tr>
   </thead>
@@ -17,6 +18,7 @@
         <td>{{_e_date($invoice->date_init)}}</td>
         <td>{{_e_date($invoice->date_end)}}</td>
         <td>{{_e_date($invoice->debit_date)}}</td>
+        <td>{{_e_money($invoice->total())}}</td>
         <td>
           <a class="btn btn-import" title="{{__('common.import')}} {{__('accounts.account')}}"
             href="#" data-toggle="modal" data-target="#model_account_{{$invoice->id}}">
@@ -37,7 +39,7 @@
         </td>
         <td>
           <a class="btn btn-list" title="{{__('transactions.transaction')}}"
-            href="{{route('invoices.confirm',[$account, $invoice->id()])}}">
+            href="{{route('invoices.transactions',[$account, $invoice->id()])}}">
             <i class="fa fa-list"></i>
           </a>
         </td>

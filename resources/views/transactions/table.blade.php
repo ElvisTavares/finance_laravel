@@ -1,4 +1,4 @@
-<table class="table" style="margin-top:10px;">
+<table class="{{config('constants.classes.table')}}" style="margin-top:10px;">
     <thead>
     <tr>
         <th>{{ __('common.id') }}</th>
@@ -18,7 +18,7 @@
                 {{ $transaction->id }}
             </td>
             <td>
-                {{formatDate($transaction->date) }}
+                {{_e_date($transaction->date) }}
             </td>
             <td>
                 @if ($transaction->account->is_credit_card && $transaction->invoice)
@@ -38,7 +38,7 @@
                 @endif
             </td>
             <td class="text-right">
-                {!! formatMoney($transaction->value) !!}
+                {!! _e_money($transaction->value) !!}
             </td>
             <td class="text-center">
                 @if (!$transaction->account->is_credit_card)
@@ -52,19 +52,19 @@
             </td>
             <td class="text-center">
                 <a class="btn btn-list" title="{{ __('common.repeat') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/repeat".$query) }}">
+                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/repeat") }}">
                     <i class="fas fa-redo-alt"></i>
                 </a>
             </td>
             <td class="text-center">
                 <a class="btn btn-edit" title="{{ __('common.edit') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/edit".$query) }}">
+                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/edit") }}">
                     <i class="fa fa-edit"></i>
                 </a>
             </td>
             <td class="text-center">
                 <a class="btn btn-remove" title="{{ __('common.remove') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/confirm".$query) }}">
+                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/confirm") }}">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>
