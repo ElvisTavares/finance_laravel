@@ -38,11 +38,11 @@ class OFX
     }
 
     public function getDateInit(){
-        return $this->bankAccountInfo->startDate;
+        return date("Y-m-d\TH:i:s", $this->bankAccountInfo->startDate->getTimestamp());
     }
 
     public function getDateEnd(){
-        return $this->bankAccountInfo->endDate;
+        return date("Y-m-d\TH:i:s", $this->bankAccountInfo->endDate->getTimestamp());
     }
 
     public function getTransaction($index){
@@ -52,6 +52,10 @@ class OFX
             "value" => $transaction->amount,
             "description" => $transaction->memo
         ];
+    }
+
+    public function size(){
+        return count($this->bankAccountInfo->transactions);
     }
 
 }

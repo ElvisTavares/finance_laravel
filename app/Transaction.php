@@ -9,7 +9,7 @@ class Transaction extends ApplicationModel
 {
 
     protected $fillable = [
-        'description', 'value', 'date', 'paid'
+        'description', 'value', 'date', 'paid', 'account_id', 'invoice_id', 'account_id_transfer'
     ];
 
     /**

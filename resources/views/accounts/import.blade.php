@@ -9,16 +9,16 @@
             </div>
             <div class="modal-body">
                 <strong>{{__('common.upload_max_filesize')}}: </strong>{{ini_get('upload_max_filesize')}}
-                {!! Form::open(['route' => ['accounts.import.ofx', $account->id]]) !!}
+                {!! Form::open(['route' => ['accounts.import.ofx', $account->id], 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         {!! Form::label('ofx-file[]', __('common.ofx_files')) !!}
-                        <input type="file" name="csv-file[]" class="form-control" multiple accept=".ofx"/>
+                        <input type="file" name="ofx-file[]" class="form-control" multiple accept=".ofx"/>
                     </div>
                     <div class="form-group">
                         {!! Form::submit(__('common.import'), ['class' => 'btn btn-success']); !!}
                     </div>
                 {!! Form::close() !!}
-                {!! Form::open(['route' => ['accounts.import.csv', $account->id]]) !!}
+                {!! Form::open(['route' => ['accounts.import.csv', $account->id], 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         {!! Form::label('csv-file[]', __('common.csv_files')) !!}
                         <input type="file" name="csv-file[]" class="form-control" multiple accept=".csv"/>

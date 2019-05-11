@@ -11,7 +11,7 @@ class Invoice extends ApplicationModel
      * @var array
      */
     protected $fillable = [
-        'id', 'description', 'date_init', 'date_end', 'debit_date', 'closed'
+        'id', 'account_id','description', 'date_init', 'date_end', 'debit_date', 'closed'
     ];
 
     /**

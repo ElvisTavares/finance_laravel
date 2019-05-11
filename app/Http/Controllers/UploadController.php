@@ -38,10 +38,30 @@ class UploadController extends ApplicationController
                 $dateEnd = date("Y-m-d\TH:i:s", strtotime($ofx->getDateEnd()));
                 $request->invoice_id = $this->invoice($request->account->id, $description, $dateInit, $dateEnd)->id;
             }
-            for ($index = 0; $index < $ofx->size(); $i++)
+            for ($index = 0; $index < $ofx->size(); $index++)
                 $this->transaction($request->account->id, $request->invoice_id, $ofx->getTransaction($index));
         }
-        return redirect('/accounts/');
+        return redirect(route('accounts'));
+    }
+
+    /**
+     * @param UploadCsvRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function csv(UploadCsvRequest $request)
+    {
+        foreach ($request->file('csv-file') as $file) {
+            $csv = new CSV($file);
+            if ($request->account->is_credit_card && !$request->invoice_id){
+                $description = $file->getClientOriginalName();
+                $dateInit = date("Y-m-d\TH:i:s", strtotime($csv->getFirst("date")));
+                $dateEnd = date("Y-m-d\TH:i:s", strtotime($csv->getLast("date")));
+                $request->invoice_id = $this->invoice($request->account->id, $description, $dateInit, $dateEnd)->id;
+            }
+            for ($line = 0; $line < $csv->size(); $line++)
+                $this->transaction($request->account->id, $request->invoice_id, $csv->getLine($line));
+        }
+        return redirect(route('accounts'));
     }
 
     private function invoice($accountId, $description, $dateInit, $dateEnd){
@@ -63,25 +83,5 @@ class UploadController extends ApplicationController
             'description' => $data["description"],
             'date' => date("Y-m-d\TH:i:s", strtotime($data["date"]))
         ]);
-    }
-
-    /**
-     * @param UploadCsvRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function csv(UploadCsvRequest $request)
-    {
-        foreach ($request->file('csv-file') as $file) {
-            $csv = new CSV($file);
-            if ($request->account->is_credit_card && !$request->invoice_id){
-                $description = $file->getClientOriginalName();
-                $dateInit = date("Y-m-d\TH:i:s", strtotime($csv->getFirst("date")));
-                $dateEnd = date("Y-m-d\TH:i:s", strtotime($csv->getLast("date")));
-                $request->invoice_id = $this->invoice($request->account->id, $description, $dateInit, $dateEnd)->id;
-            }
-            for ($line = 0; $line < $csv->size(); $i++)
-                $this->transaction($request->account->id, $request->invoice_id, $csv->getLine($line));
-        }
-        return redirect(route('accounts'));
     }
 }
