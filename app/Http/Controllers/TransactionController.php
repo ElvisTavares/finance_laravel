@@ -79,7 +79,7 @@ class TransactionController extends ApplicationController
             $transaction->updateCategories($categories);
         $route = route('accounts.transactions', [
             'account' => $account,
-            'invoice_id' => $invoice ? $invoice->id() : null,
+            'invoice_id' => $invoice ? $invoice->getId() : null,
             http_build_query($request->except('invoice_id')
         )]);
         return redirect($route);

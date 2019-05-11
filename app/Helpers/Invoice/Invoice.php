@@ -19,7 +19,7 @@ class Invoice
         $this->invoices = $invoices;
     }
 
-    public function id(){
+    public function getId(){
         return short_encode($this->account->id.";".implode(',', array_map(function($invoice){
             return $invoice['id'];
         }, $this->invoices)));

@@ -16,8 +16,9 @@ class Invoice extends ApplicationModel
         'id', 'account_id','description', 'date_init', 'date_end', 'debit_date', 'closed'
     ];
 
-    public function id(){
-        return (new VirtualInvoice($this->account, [$this]))->id();
+    public function getId(){
+        if (!$this->account) return null;
+        return (new VirtualInvoice($this->account, [$this]))->getId();
     }
 
     /**

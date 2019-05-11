@@ -98,23 +98,4 @@ class Account extends ApplicationModel
     public function format($year = null){
         return (new Formatter($this))->format($year ?: date('Y'));
     }
-
-    /**
-     * Function to get list of invoice's accounts
-     *
-     * @return array
-     */
-    public function filterListInvoices()
-    {
-        $formattedAccount = $this->format();
-        $selectInovice = [];
-        $selectInovice[-1] = __('common.any');
-        foreach ($formattedAccount->invoices as $invoice) {
-            if (!isset($invoice)){
-                continue;
-            }
-            $selectInovice[$invoice->encryptedId()] = $invoice->description();
-        }
-        return $selectInovice;
-    }
 }

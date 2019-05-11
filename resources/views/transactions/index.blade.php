@@ -5,7 +5,7 @@
 @section('class', config('constants.classes.full'))
 @section('title-buttons')
     @if($invoice)
-        <a href="{{route('invoices.transactions.create', [$account->id, $invoice->id()])}}" class="btn btn-primary">
+        <a href="{{route('invoices.transactions.create', [$account->id, $invoice->getId()])}}" class="btn btn-primary">
             <i class="fa fa-plus"></i> {{__('common.add')}}
         </a>
     @else

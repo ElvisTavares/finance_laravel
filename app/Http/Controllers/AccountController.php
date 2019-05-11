@@ -101,12 +101,17 @@ class AccountController extends ApplicationController
      */
     public function destroy(AccountDestroyRequest $request, $id)
     {
-        foreach (Auth::user()->accounts as $account) {
-            if ($account->prefer_debit_account_id != $id) continue;
-            $account->prefer_debit_account_id = null;
-            $account->save();
+        $account = Auth::user()->accounts()->findOrFail($id);
+        foreach (Auth::user()->accounts as $oaccount) {
+            if ($oaccount->prefer_debit_account_id != $id) continue;
+            $oaccount->prefer_debit_account_id = null;
+            $oaccount->save();
         }
-        Auth::user()->accounts()->findOrFail($id)->delete();
+        foreach($account->invoices as $invoice){
+            $invoice->transactions()->delete();
+            $invoice->delete();
+        }
+        $account->delete();
         return $this->rootRedirect();
     }
 }

@@ -39,7 +39,7 @@
         </td>
         <td>
           <a class="btn btn-list" title="{{__('transactions.transaction')}}"
-            href="{{route('invoices.transactions',[$account, $invoice->id()])}}">
+            href="{{route('invoices.transactions',[$account, $invoice->getId()])}}">
             <i class="fa fa-list"></i>
           </a>
         </td>

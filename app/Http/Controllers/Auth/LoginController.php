@@ -65,11 +65,11 @@ class LoginController extends ApplicationController
     }
 
     private function firstOrCreateOAuthUser($userSocialite, $provider){
-        $userOauth = UserOauth::where('uuid', $userSocialite->getId())->first();
+        $userOauth = UserOauth::where('uuid', $userSocialite->getgetId())->first();
         if ($userOauth) return $userOauth;
         $user = Auth::guest() ? $this->firstOrCreateUser($userSocialite) : Auth::user();
         return UserOauth::create([
-            'uuid' => $userSocialite->getId(),
+            'uuid' => $userSocialite->getgetId(),
             'name' => $userSocialite->getName(),
             'email' => $userSocialite->getEmail(),
             'avatar' => $userSocialite->getAvatar(),

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountDestroyRequest extends FormRequest
+class InvoiceDestroyRequest extends FormRequest
 {
 
     public function authorize() {
@@ -26,8 +26,8 @@ class AccountDestroyRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            if ($this->account && !Auth::user()->accounts()->find($this->account))
-                $validator->errors()->add('account', __('accounts.not-your-account'));
+            if ($this->invoice && !Auth::user()->invoices($this->account)->find($this->invoice))
+                $validator->errors()->add('invoice', __('accounts.not-your-account'));
         });
     }
 }

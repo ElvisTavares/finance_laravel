@@ -6,7 +6,7 @@
         <h4>{{__('common.filter-by-date')}}</h4>
         {!! Form::open(['route' => (
                 $invoice ?
-                ['invoices.transactions', $account->id, $invoice->id(), $request] :
+                ['invoices.transactions', $account->id, $invoice->getId(), $request] :
                 ['accounts.transactions', $account->id, $request]
             ), 'method'=>'GET']) !!}
             <div class="form-group">
@@ -38,10 +38,10 @@
                     @php
                         $select = [];
                         foreach(array_filter($account->invoices) as $invoice)
-                            $select[$invoice->id()] = $invoice->description();
+                            $select[$invoice->getId()] = $invoice->description();
                     @endphp
                     {!! Form::label('invoice_id', __('common.invoice')) !!}
-                    {!! Form::select('invoice_id', $select, old('invoice_id', $invoice->id()), ['class'=>'form-control']) !!}
+                    {!! Form::select('invoice_id', $select, old('invoice_id', $invoice->getId()), ['class'=>'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::submit(__('common.submit'), ['class' => 'btn btn-success']); !!}
@@ -53,7 +53,7 @@
         <h4>{{__('common.add-category')}}</h4>
         {{ Form::open(['route' => (
             $invoice ?
-            ['invoices.transactions.categories', $account->id, $invoice->id(), $request]:
+            ['invoices.transactions.categories', $account->id, $invoice->getId(), $request]:
             ['accounts.transactions.categories', $account->id, $request]
         )]) }}
             <div class="form-group">
