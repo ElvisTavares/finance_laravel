@@ -12,7 +12,7 @@ class Account extends ApplicationModel
      * @var array
      */
     protected $fillable = [
-        'description', 'is_credit_card', 'prefer_debit_account_id'
+        'description', 'is_credit_card', 'prefer_debit_account_id', 'user_id'
     ];
 
     /**

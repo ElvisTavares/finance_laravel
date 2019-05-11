@@ -21,21 +21,6 @@ class InvoiceController extends ApplicationController
     }
 
     /**
-     * Get mode view of accounts
-     * @param string $viewMode [card, table]
-     * @return string
-     */
-    private function modeView($viewMode)
-    {
-        $viewModeConfig = UserConfig::invoicesModeView(Auth::user()->id);
-        if (isset($viewMode)) {
-            $viewModeConfig->value = $viewMode;
-            $viewModeConfig->save();
-        }
-        return $viewModeConfig->value ?: 'table';
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -43,10 +28,10 @@ class InvoiceController extends ApplicationController
      */
     public function index(Request $request)
     {
+        $account = Auth::user()->accounts()->findOrFail($request->account);
         return view('invoices.index', [
-            'account' => $request->account,
-            'invoices' => $request->account->invoices()->orderBy('debit_date')->orderBy('date_init')->get(),
-            'viewMode' => $this->modeView($request->view_mode)
+            'account' => $account,
+            'invoices' => $account->invoices()->orderBy('debit_date')->orderBy('date_init')->get()
         ]);
     }
 

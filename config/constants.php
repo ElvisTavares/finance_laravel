@@ -12,6 +12,7 @@ return [
         'card' => 'col-sm-6 col-md-6 col-lg-4 col-xl-4',
         'filter' => 'col-sm-12 col-md-6 col-lg-4 col-xl-4',
         'form' => 'offset-md-2 col-md-7 offset-lg-3 col-lg-6 offset-xl-4 col-xl-5',
-        'full' => 'col-12'
+        'full' => 'col-12',
+        'table' => 'table table-sm table table-bordered'
     ]
 ];

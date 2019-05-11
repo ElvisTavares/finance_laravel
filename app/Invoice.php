@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Helpers\Invoice\Invoice as VirtualInvoice;
+
 class Invoice extends ApplicationModel
 {
 
@@ -13,6 +15,10 @@ class Invoice extends ApplicationModel
     protected $fillable = [
         'id', 'account_id','description', 'date_init', 'date_end', 'debit_date', 'closed'
     ];
+
+    public function id(){
+        return (new VirtualInvoice($this->account, [$this]))->id();
+    }
 
     /**
      * Get account of invoice

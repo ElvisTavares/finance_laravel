@@ -31,12 +31,17 @@ Route::get('account/{account}/confirm', 'AccountController@confirm')->name('acco
 Route::get('account/{account}/invoices', 'InvoiceController@index')->name('accounts.invoices');
 Route::get('account/{account}/transactions', 'TransactionController@index')->name('accounts.transactions');
 
+Route::get('account/{account}/invoice/{invoice}/edit', 'InvoiceController@edit')->name('invoices.edit');
+Route::get('account/{account}/invoice/{invoice}/confirm', 'InvoiceController@confirm')->name('invoices.confirm');
+Route::get('account/{account}/invoice/{invoice}transactions', 'TransactionController@index')->name('invoices.transactions');
+
+
 Route::get('account/{account}/transaction/create', 'TransactionController@create');
+Route::get('account/{account}/invoice/create', 'InvoiceController@create')->name('invoices.create');
 Route::post('account/{account}/transaction', 'TransactionController@store');
 Route::post('account/{account}/upload/ofx', 'UploadController@ofx')->name('accounts.import.ofx');
 Route::post('account/{account}/upload/csv', 'UploadController@csv')->name('accounts.import.csv');
 
-Route::get('account/{account}/invoice/create', 'InvoiceController@create');
 Route::post('account/{account}/invoice', 'InvoiceController@store');
 Route::put('account/{account}/transactions/addCategories', 'TransactionController@addCategories');
 Route::get('account/{account}/transaction/{transaction}/edit', 'TransactionController@edit');
@@ -45,8 +50,6 @@ Route::put('account/{account}/transaction/{transaction}', 'TransactionController
 Route::delete('account/{account}/transaction/{transaction}', 'TransactionController@destroy');
 Route::get('account/{account}/transaction/{transaction}/repeat', 'TransactionController@repeat');
 Route::post('account/{account}/transaction/{transaction}/confirmRepeat', 'TransactionController@confirmRepeat');
-Route::get('account/{account}/invoice/{invoice}/edit', 'InvoiceController@edit');
-Route::get('account/{account}/invoice/{invoice}/confirm', 'InvoiceController@confirm');
 Route::put('account/{account}/invoice/{invoice}', 'InvoiceController@update');
 Route::delete('account/{account}/invoice/{invoice}', 'InvoiceController@destroy');
 Route::post('account/{account}/invoice/{invoice}/upload/ofx', 'UploadController@ofx');

@@ -41,7 +41,7 @@ class UploadController extends ApplicationController
             for ($index = 0; $index < $ofx->size(); $index++)
                 $this->transaction($request->account->id, $request->invoice_id, $ofx->getTransaction($index));
         }
-        return redirect(route('accounts'));
+        return redirect(route('accounts.index'));
     }
 
     /**
@@ -61,7 +61,7 @@ class UploadController extends ApplicationController
             for ($line = 0; $line < $csv->size(); $line++)
                 $this->transaction($request->account->id, $request->invoice_id, $csv->getLine($line));
         }
-        return redirect(route('accounts'));
+        return redirect(route('accounts.index'));
     }
 
     private function invoice($accountId, $description, $dateInit, $dateEnd){

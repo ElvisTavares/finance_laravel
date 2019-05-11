@@ -9,7 +9,7 @@
     @endforeach
 </ul>
 <div class="table-responsive">
-    <table class="table table-sm table table-bordered" id="accounts">
+    <table class="{{config('constants.classes.table')}}" id="accounts">
         <thead>
             <tr>
                 <th colspan="4">

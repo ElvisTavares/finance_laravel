@@ -41,7 +41,7 @@ class AccountController extends ApplicationController
     public function confirm(Request $request, $id)
     {
         return view('accounts.confirm', [
-            'account' => Account::find($id)
+            'account' => Auth::user()->accounts()->findOrFail($id)
         ]);
     }
 
@@ -52,7 +52,7 @@ class AccountController extends ApplicationController
 
     public function edit(Request $request, $id)
     {
-        return $this->form(Account::find($id));
+        return $this->form(Auth::user()->accounts()->findOrFail($id));
     }
 
     /**
@@ -83,7 +83,7 @@ class AccountController extends ApplicationController
      */
     public function update(AccountSaveRequest $request, $id)
     {
-        $account = Account::find($id);
+        $account = Auth::user()->accounts()->findOrFail($id);
         $account->description = $request->description;
         if ($account->is_credit_card && isset($request->prefer_debit_account)) {
             $account->preferDebitAccount()->associate($request->prefer_debit_account);
@@ -106,7 +106,7 @@ class AccountController extends ApplicationController
             $account->prefer_debit_account_id = null;
             $account->save();
         }
-        Account::find($id)->delete();
+        Auth::user()->accounts()->findOrFail($id)->delete();
         return $this->rootRedirect();
     }
 }
