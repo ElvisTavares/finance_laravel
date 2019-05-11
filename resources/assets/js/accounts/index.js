@@ -8,7 +8,6 @@ $(function(){
       const account = $(this).data('account');
       const month = $(this).data('month');
       if (!account && !month) return;
-      console.log(account, month);
       if (account && month){
           $('[data-account='+account+'][data-month='+month+']').addClass('hovered');
           $('[data-account='+account+']').addClass('litte-hovered');

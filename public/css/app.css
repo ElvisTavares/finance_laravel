@@ -10532,11 +10532,10 @@ th {
 }
 
 .btn {
-  width: 100%;
   border-radius: 50px;
   border: none;
   overflow: hidden;
-  padding: 7px;
+  padding: 7px 15px;
   margin-bottom: 3px;
 }
 
@@ -10863,11 +10862,21 @@ th.actual {
 
 .hovered,
 td.actual.hovered,
-th.actual.hovered {
+th.actual.hovered,
+.litte-hovered.hovered {
   background-color: #747474;
 }
 
 .litte-hovered {
   background-color: #e6e6e6;
+}
+
+.card-title {
+  margin-bottom: 0;
+}
+
+.card-header {
+  margin-bottom: 0.75rem;
+  background-color: white;
 }
 

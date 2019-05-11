@@ -2,40 +2,37 @@
 @section('title')
     <i class="fas fa-piggy-bank"></i> {{__('accounts.title')}}
 @endsection
+@section('class', config('constants.classes.full'))
+@section('title-buttons')
+    <a href="{{route('accounts.create')}}" class="btn btn-primary">
+        <i class="fa fa-plus"></i> {{__('common.add')}}
+    </a>
+@endsection
 @section('content')
-    <div class="row line-bottom default-padding">
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.avg-max')}}:</b>
-            {{__('common.money-type')}} {!!_e_money($avg->positive)!!}
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.avg-min')}}:</b>
-            {{__('common.money-type')}} {!!_e_money($avg->negative)!!}
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.avg-avg')}}:</b>
-            {{__('common.money-type')}} {!!_e_money($avg->all)!!}
-        </div>
-    </div>
-    <div class="row line-bottom default-padding default-margin-bottom">
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.totals-paid')}}:</b>
-            {{__('common.money-type')}} {!!_e_money($values->totalPaidActualMonth())!!}
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.totals-not-paid')}}:</b>
-            {{__('common.money-type')}} {!!_e_money($values->totalNonPaidActualMonth())!!}
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.totals')}}:</b>
-            {{__('common.money-type')}} {!!_e_money($values->totalActualMonth())!!}
-        </div>
-    </div>
 
     @include('accounts/table')
 
+    <table class="table table-sm">
+        <tr>
+            <th>{{__('accounts.avg-max')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($avg->positive)!!}</td>
+            <th>{{__('accounts.avg-min')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($avg->negative)!!}</td>
+            <th>{{__('accounts.avg-avg')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($avg->all)!!}</td>
+        </tr>
+        <tr>
+            <th>{{__('accounts.totals-paid')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($values->totalPaidActualMonth())!!}</td>
+            <th>{{__('accounts.totals-not-paid')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($values->totalNonPaidActualMonth())!!}</td>
+            <th>{{__('accounts.totals')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($values->totalActualMonth())!!}</td>
+        </tr>
+    </table>
+
     @foreach($accounts as $account)
-        @include('accounts/import', ['id'=>$account->id])
+        @include('accounts/import', ['id' => $account->id])
     @endforeach
 @endsection
 

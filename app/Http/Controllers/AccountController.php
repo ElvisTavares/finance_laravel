@@ -10,6 +10,8 @@ use App\Account;
 use App\UserConfig;
 use App\User;
 use App\PeriodAccount;
+use App\Http\Requests\AccountSaveRequest;
+use App\Http\Requests\AccountDestroyRequest;
 
 class AccountController extends ApplicationController
 {
@@ -32,7 +34,6 @@ class AccountController extends ApplicationController
     private function form($account){
         return view('accounts.form', [
             'account' => $account,
-            'action' => $account->id ? __('common.add') : __('common.edit'),
             'select' => Auth::user()->listed('debitAccounts')
         ]);
     }
@@ -40,7 +41,7 @@ class AccountController extends ApplicationController
     public function confirm(Request $request, $id)
     {
         return view('accounts.confirm', [
-            'account' => $request->account
+            'account' => Account::find($id)
         ]);
     }
 
@@ -69,6 +70,7 @@ class AccountController extends ApplicationController
         if ($account->is_credit_card && isset($request->prefer_debit_account)) {
             $account->preferDebitAccount()->associate($request->prefer_debit_account);
         }
+        $account->save();
         return $this->rootRedirect();
     }
 
@@ -86,6 +88,7 @@ class AccountController extends ApplicationController
         if ($account->is_credit_card && isset($request->prefer_debit_account)) {
             $account->preferDebitAccount()->associate($request->prefer_debit_account);
         }
+        $account->save();
         return $this->rootRedirect();
     }
 

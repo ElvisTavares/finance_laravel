@@ -16,7 +16,7 @@
                     {{ __('common.description') }}
                 </th>
                 @for ($month=0; $month<12; $month++)
-                    <th colspan="2">
+                    <th colspan="2" data-month="m{{$month}}">
                         {{ __('common.months.'.$month) }} ({{ __('common.money-type') }})
                     </th>
                 @endfor
@@ -66,7 +66,7 @@
                     <td rowspan="2" colspan="{{ $account->is_credit_card ? 1 : 2 }}" data-account="a{{$account->id}}">
                         <a class="btn btn-import"
                             title="{{ __('common.import') }} {{ __('accounts.account') }}" href="#"
-                            data-toggle="modal" data-target="#model_account_a{{$account->id}}">
+                            data-toggle="modal" data-target="#model_account_{{$account->id}}">
                             <i class="fa fa-upload"></i>
                         </a>
                     </td>
