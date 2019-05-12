@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2057929d528f968d2f45647df6ff95b7",
+    "content-hash": "07d714b57afc7ae9d2913864c2608e56",
     "packages": [
         {
             "name": "asgrim/ofxparser",
