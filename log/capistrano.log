@@ -1,0 +1,1130 @@
+# Logfile created on 2019-05-12 19:54:10 +0000 by logger.rb/66358
+  INFO ---------------------------------------------------------------------------
+  INFO START 2019-05-12 19:54:10 +0000 cap production deploy:check
+  INFO ---------------------------------------------------------------------------
+  INFO [07f84732] Running /usr/bin/env mkdir -p /tmp as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [07f84732] Command: /usr/bin/env mkdir -p /tmp
+  INFO [5e58a456] Finished in 3.244 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 0.0%
+  INFO Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 100.0%
+  INFO [fba5981e] Running /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [fba5981e] Command: /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh
+  INFO [d5727a92] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [eb5cfb55] Running /usr/bin/env git ls-remote https://guifabrin@github.com:guifabrin/tracker_system_laravel.git HEAD as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [eb5cfb55] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git ls-remote https://guifabrin@github.com:guifabrin/tracker_system_laravel.git HEAD )
+ DEBUG [454d4ccc] 	fatal: unable to access 'https://guifabrin@github.com:guifabrin/tracker_system_laravel.git/': Port number ended with 'g'
+  INFO ---------------------------------------------------------------------------
+  INFO START 2019-05-12 19:54:30 +0000 cap production deploy:check
+  INFO ---------------------------------------------------------------------------
+  INFO [3203cde6] Running /usr/bin/env mkdir -p /tmp as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [3203cde6] Command: /usr/bin/env mkdir -p /tmp
+  INFO [9518d123] Finished in 1.036 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 0.0%
+  INFO Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 100.0%
+  INFO [946ecdd1] Running /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [946ecdd1] Command: /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh
+  INFO [6ea6c8d8] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [ff9180ee] Running /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ff9180ee] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD )
+ DEBUG [9b0f6ca8] 	Warning: Permanently added 'github.com,192.30.253.113' (RSA) to the list of known hosts.
+ DEBUG [9b0f6ca8] 	f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c	HEAD
+  INFO [9b0f6ca8] Finished in 0.813 seconds with exit status 0 (successful).
+  INFO [9d095218] Running /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9d095218] Command: /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases
+ DEBUG [b5591455] 	mkdir: 
+ DEBUG [b5591455] 	cannot create directory ‘/var/www/finance’
+ DEBUG [b5591455] 	: Permission denied
+ DEBUG [b5591455] 	
+ DEBUG [b5591455] 	mkdir: 
+ DEBUG [b5591455] 	cannot create directory ‘/var/www/finance’
+ DEBUG [b5591455] 	: Permission denied
+ DEBUG [b5591455] 	
+  INFO ---------------------------------------------------------------------------
+  INFO START 2019-05-12 19:55:56 +0000 cap production deploy:check
+  INFO ---------------------------------------------------------------------------
+  INFO [2f79db52] Running /usr/bin/env mkdir -p /tmp as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2f79db52] Command: /usr/bin/env mkdir -p /tmp
+  INFO [a40852f0] Finished in 1.037 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 0.0%
+  INFO Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 100.0%
+  INFO [f904a162] Running /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f904a162] Command: /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh
+  INFO [1ea0f43a] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [3e30b40d] Running /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [3e30b40d] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD )
+ DEBUG [1d940bfd] 	f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c	HEAD
+  INFO [1d940bfd] Finished in 0.608 seconds with exit status 0 (successful).
+  INFO [eb99bb55] Running /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [eb99bb55] Command: /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases
+  INFO [6f0462a2] Finished in 0.155 seconds with exit status 0 (successful).
+  INFO [c0bfbd21] Running /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c0bfbd21] Command: /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public
+  INFO [b5b98e7b] Finished in 0.243 seconds with exit status 0 (successful).
+  INFO [18f0924d] Running /usr/bin/env mkdir -p /var/www/finance/shared as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [18f0924d] Command: /usr/bin/env mkdir -p /var/www/finance/shared
+  INFO [05e7931d] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [830fe407] Running [ -f /var/www/finance/shared/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [830fe407] Command: [ -f /var/www/finance/shared/.env ]
+ DEBUG [9b501503] Finished in 0.122 seconds with exit status 1 (failed).
+ ERROR linked file /var/www/finance/shared/.env does not exist on guifabrin.ddns.net
+  INFO ---------------------------------------------------------------------------
+  INFO START 2019-05-12 19:56:30 +0000 cap production deploy:check
+  INFO ---------------------------------------------------------------------------
+  INFO [81de3309] Running /usr/bin/env mkdir -p /tmp as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [81de3309] Command: /usr/bin/env mkdir -p /tmp
+  INFO [d32ef09c] Finished in 1.009 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 0.0%
+  INFO Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 100.0%
+  INFO [ccb78aab] Running /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ccb78aab] Command: /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh
+  INFO [3a47e60f] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [ec409843] Running /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ec409843] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD )
+ DEBUG [42d0f8fc] 	Warning: Permanently added the RSA host key for IP address '192.30.253.112' to the list of known hosts.
+ DEBUG [42d0f8fc] 	f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c	HEAD
+  INFO [42d0f8fc] Finished in 0.596 seconds with exit status 0 (successful).
+  INFO [46c00f27] Running /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [46c00f27] Command: /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases
+  INFO [d79e0889] Finished in 0.084 seconds with exit status 0 (successful).
+  INFO [35a7dc74] Running /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [35a7dc74] Command: /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public
+  INFO [0c984057] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [81b6841f] Running /usr/bin/env mkdir -p /var/www/finance/shared as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [81b6841f] Command: /usr/bin/env mkdir -p /var/www/finance/shared
+  INFO [831e90b3] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [e5ebb1ff] Running [ -f /var/www/finance/shared/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e5ebb1ff] Command: [ -f /var/www/finance/shared/.env ]
+ DEBUG [f14c111f] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2019-05-12 19:56:43 +0000 cap production deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [9bd56f67] Running /usr/bin/env mkdir -p /tmp as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9bd56f67] Command: /usr/bin/env mkdir -p /tmp
+  INFO [356638a2] Finished in 0.975 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 0.0%
+  INFO Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 100.0%
+  INFO [98c6b3c0] Running /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [98c6b3c0] Command: /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh
+  INFO [e21940ba] Finished in 0.127 seconds with exit status 0 (successful).
+  INFO [3ab4321a] Running /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [3ab4321a] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD )
+ DEBUG [22425143] 	f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c	HEAD
+  INFO [22425143] Finished in 0.606 seconds with exit status 0 (successful).
+  INFO [90934d6b] Running /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [90934d6b] Command: /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases
+  INFO [6c66eaf6] Finished in 0.081 seconds with exit status 0 (successful).
+  INFO [bc783a09] Running /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public /var/www/finance/shared/storage/app /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [bc783a09] Command: /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public /var/www/finance/shared/storage/app /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs
+  INFO [b892a934] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [b7cf12e7] Running /usr/bin/env mkdir -p /var/www/finance/shared as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b7cf12e7] Command: /usr/bin/env mkdir -p /var/www/finance/shared
+  INFO [30c4dcf0] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [76f224a6] Running [ -f /var/www/finance/shared/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [76f224a6] Command: [ -f /var/www/finance/shared/.env ]
+ DEBUG [f267cc4b] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [a5a3fca8] Running [ -f /var/www/finance/current/REVISION ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a5a3fca8] Command: [ -f /var/www/finance/current/REVISION ]
+ DEBUG [a4b60e39] Finished in 0.123 seconds with exit status 1 (failed).
+ DEBUG [f0815ac2] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f0815ac2] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [00299f59] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [a888816c] Running /usr/bin/env mkdir -p vendor as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a888816c] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p vendor
+  INFO [2d46273d] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [cbf5c576] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [cbf5c576] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [cecc9325] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [221430a6] Running /usr/bin/env mkdir -p node_modules as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [221430a6] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p node_modules
+  INFO [5661e468] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [d9ea8f95] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d9ea8f95] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [bf709fd8] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [9e26ee54] Running /usr/bin/env mkdir -p storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9e26ee54] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/app/public
+  INFO [c0189c4e] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [e69506fc] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e69506fc] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [66967501] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [26605d0e] Running /usr/bin/env mkdir -p storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [26605d0e] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/app
+  INFO [d8646285] Finished in 0.127 seconds with exit status 0 (successful).
+ DEBUG [c0a92760] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c0a92760] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [a99e7cb6] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [d12e517a] Running /usr/bin/env mkdir -p storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d12e517a] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/cache
+  INFO [e2bf6520] Finished in 0.126 seconds with exit status 0 (successful).
+ DEBUG [e2380119] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e2380119] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [bafbc03e] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [34820f0f] Running /usr/bin/env mkdir -p storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [34820f0f] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/sessions
+  INFO [2c32aa3d] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [9e17561e] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9e17561e] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [0841d60d] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [a807f729] Running /usr/bin/env mkdir -p storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a807f729] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/views
+  INFO [eb4b60b8] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [c5549b33] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c5549b33] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [bf236faf] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [106fc1fe] Running /usr/bin/env mkdir -p storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [106fc1fe] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/logs
+  INFO [f16ab2d8] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [2bb35926] Running [ -f /var/www/finance/repo/HEAD ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2bb35926] Command: [ -f /var/www/finance/repo/HEAD ]
+ DEBUG [0e4d1f5f] Finished in 0.120 seconds with exit status 1 (failed).
+ DEBUG [8f502705] Running if test ! -d /var/www/finance; then echo "Directory does not exist '/var/www/finance'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [8f502705] Command: if test ! -d /var/www/finance; then echo "Directory does not exist '/var/www/finance'" 1>&2; false; fi
+ DEBUG [42223eb0] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [77b21c6a] Running /usr/bin/env git clone --mirror git@github.com:guifabrin/tracker_system_laravel.git /var/www/finance/repo as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [77b21c6a] Command: cd /var/www/finance && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git clone --mirror git@github.com:guifabrin/tracker_system_laravel.git /var/www/finance/repo )
+ DEBUG [cde438cc] 	Cloning into bare repository '/var/www/finance/repo'...
+  INFO [cde438cc] Finished in 1.361 seconds with exit status 0 (successful).
+ DEBUG [bacebd54] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [bacebd54] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [16b95300] Finished in 0.080 seconds with exit status 0 (successful).
+  INFO [cf819b0a] Running /usr/bin/env git remote set-url origin git@github.com:guifabrin/tracker_system_laravel.git as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [cf819b0a] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git remote set-url origin git@github.com:guifabrin/tracker_system_laravel.git )
+  INFO [4e8879f2] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [bd2f712d] Running /usr/bin/env git remote update --prune as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [bd2f712d] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [90b02ce8] 	Fetching origin
+  INFO [90b02ce8] Finished in 0.638 seconds with exit status 0 (successful).
+ DEBUG [c5020243] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c5020243] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [ec859a9b] Finished in 0.079 seconds with exit status 0 (successful).
+  INFO [1cd54ab2] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512195648 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1cd54ab2] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env mkdir -p /var/www/finance/releases/20190512195648 )
+  INFO [f8d825ff] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [f7578cc1] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/finance/releases/20190512195648 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f7578cc1] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/finance/releases/20190512195648 )
+  INFO [917c3d58] Finished in 0.500 seconds with exit status 0 (successful).
+ DEBUG [a3d30371] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a3d30371] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [5b0be7d8] Finished in 0.131 seconds with exit status 0 (successful).
+ DEBUG [13c91cbe] Running /usr/bin/env git rev-list --max-count=1 master as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [13c91cbe] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [1237b214] 	f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c
+ DEBUG [1237b214] Finished in 0.126 seconds with exit status 0 (successful).
+ DEBUG [4809d059] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4809d059] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [cd54cbad] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [0143ae90] Running /usr/bin/env echo "f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c" > REVISION as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [0143ae90] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env echo "f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c" > REVISION
+  INFO [552b2afc] Finished in 0.128 seconds with exit status 0 (successful).
+  INFO [de69ba24] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512195648 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [de69ba24] Command: /usr/bin/env mkdir -p /var/www/finance/releases/20190512195648
+  INFO [6a6eaf99] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [76b3e51b] Running [ -L /var/www/finance/releases/20190512195648/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [76b3e51b] Command: [ -L /var/www/finance/releases/20190512195648/.env ]
+ DEBUG [744c5993] Finished in 0.121 seconds with exit status 1 (failed).
+ DEBUG [dbd5f721] Running [ -f /var/www/finance/releases/20190512195648/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [dbd5f721] Command: [ -f /var/www/finance/releases/20190512195648/.env ]
+ DEBUG [eaf830c4] Finished in 0.124 seconds with exit status 1 (failed).
+  INFO [85594991] Running /usr/bin/env ln -s /var/www/finance/shared/.env /var/www/finance/releases/20190512195648/.env as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [85594991] Command: /usr/bin/env ln -s /var/www/finance/shared/.env /var/www/finance/releases/20190512195648/.env
+  INFO [f5fce678] Finished in 0.144 seconds with exit status 0 (successful).
+  INFO [81a980c2] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512195648 /var/www/finance/releases/20190512195648/storage/app /var/www/finance/releases/20190512195648/storage /var/www/finance/releases/20190512195648/storage/framework as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [81a980c2] Command: /usr/bin/env mkdir -p /var/www/finance/releases/20190512195648 /var/www/finance/releases/20190512195648/storage/app /var/www/finance/releases/20190512195648/storage /var/www/finance/releases/20190512195648/storage/framework
+  INFO [e51a0404] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [121b99ec] Running [ -L /var/www/finance/releases/20190512195648/vendor ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [121b99ec] Command: [ -L /var/www/finance/releases/20190512195648/vendor ]
+ DEBUG [e48224d0] Finished in 0.125 seconds with exit status 1 (failed).
+ DEBUG [7a54690b] Running [ -d /var/www/finance/releases/20190512195648/vendor ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [7a54690b] Command: [ -d /var/www/finance/releases/20190512195648/vendor ]
+ DEBUG [b6bab8ce] Finished in 0.121 seconds with exit status 1 (failed).
+  INFO [e7945314] Running /usr/bin/env ln -s /var/www/finance/shared/vendor /var/www/finance/releases/20190512195648/vendor as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e7945314] Command: /usr/bin/env ln -s /var/www/finance/shared/vendor /var/www/finance/releases/20190512195648/vendor
+  INFO [3ef99ea2] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [8184ef09] Running [ -L /var/www/finance/releases/20190512195648/node_modules ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [8184ef09] Command: [ -L /var/www/finance/releases/20190512195648/node_modules ]
+ DEBUG [78fd631a] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [49dc7896] Running [ -d /var/www/finance/releases/20190512195648/node_modules ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [49dc7896] Command: [ -d /var/www/finance/releases/20190512195648/node_modules ]
+ DEBUG [086980fc] Finished in 0.123 seconds with exit status 1 (failed).
+  INFO [45687384] Running /usr/bin/env ln -s /var/www/finance/shared/node_modules /var/www/finance/releases/20190512195648/node_modules as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [45687384] Command: /usr/bin/env ln -s /var/www/finance/shared/node_modules /var/www/finance/releases/20190512195648/node_modules
+  INFO [220d684c] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [f27096ef] Running [ -L /var/www/finance/releases/20190512195648/storage/app/public ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f27096ef] Command: [ -L /var/www/finance/releases/20190512195648/storage/app/public ]
+ DEBUG [83956c73] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [d596e2f8] Running [ -d /var/www/finance/releases/20190512195648/storage/app/public ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d596e2f8] Command: [ -d /var/www/finance/releases/20190512195648/storage/app/public ]
+ DEBUG [672ef292] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [1a560519] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1a560519] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/app/public
+  INFO [a1035e29] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [3f2a83c1] Running /usr/bin/env ln -s /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512195648/storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [3f2a83c1] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512195648/storage/app/public
+  INFO [892a6ecc] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [8b28aebb] Running [ -L /var/www/finance/releases/20190512195648/storage/app ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [8b28aebb] Command: [ -L /var/www/finance/releases/20190512195648/storage/app ]
+ DEBUG [6983a93f] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [225507f7] Running [ -d /var/www/finance/releases/20190512195648/storage/app ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [225507f7] Command: [ -d /var/www/finance/releases/20190512195648/storage/app ]
+ DEBUG [745c3f4b] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [4114629a] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4114629a] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/app
+  INFO [abbc04c4] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [092525b3] Running /usr/bin/env ln -s /var/www/finance/shared/storage/app /var/www/finance/releases/20190512195648/storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [092525b3] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/app /var/www/finance/releases/20190512195648/storage/app
+  INFO [afd69533] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [2fa70712] Running [ -L /var/www/finance/releases/20190512195648/storage/framework/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2fa70712] Command: [ -L /var/www/finance/releases/20190512195648/storage/framework/cache ]
+ DEBUG [0f613263] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [56e34408] Running [ -d /var/www/finance/releases/20190512195648/storage/framework/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [56e34408] Command: [ -d /var/www/finance/releases/20190512195648/storage/framework/cache ]
+ DEBUG [81721350] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [f55d42fc] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f55d42fc] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/framework/cache
+  INFO [604b0c4f] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [bcfd0966] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/cache /var/www/finance/releases/20190512195648/storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [bcfd0966] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/cache /var/www/finance/releases/20190512195648/storage/framework/cache
+  INFO [08dfeaf4] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [a131f2da] Running [ -L /var/www/finance/releases/20190512195648/storage/framework/sessions ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a131f2da] Command: [ -L /var/www/finance/releases/20190512195648/storage/framework/sessions ]
+ DEBUG [c3930456] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [41bb740e] Running [ -d /var/www/finance/releases/20190512195648/storage/framework/sessions ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [41bb740e] Command: [ -d /var/www/finance/releases/20190512195648/storage/framework/sessions ]
+ DEBUG [1812cf7b] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [29ee80f8] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [29ee80f8] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/framework/sessions
+  INFO [3a111333] Finished in 0.129 seconds with exit status 0 (successful).
+  INFO [807ffcaf] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/sessions /var/www/finance/releases/20190512195648/storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [807ffcaf] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/sessions /var/www/finance/releases/20190512195648/storage/framework/sessions
+  INFO [4b161e61] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [0a9c9b0b] Running [ -L /var/www/finance/releases/20190512195648/storage/framework/views ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [0a9c9b0b] Command: [ -L /var/www/finance/releases/20190512195648/storage/framework/views ]
+ DEBUG [18e674cd] Finished in 0.120 seconds with exit status 1 (failed).
+ DEBUG [83a16704] Running [ -d /var/www/finance/releases/20190512195648/storage/framework/views ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [83a16704] Command: [ -d /var/www/finance/releases/20190512195648/storage/framework/views ]
+ DEBUG [89a64d7d] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [1add2add] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1add2add] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/framework/views
+  INFO [336659d7] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [d4630a42] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/views /var/www/finance/releases/20190512195648/storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d4630a42] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/views /var/www/finance/releases/20190512195648/storage/framework/views
+  INFO [ca58a087] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [aa99d5d0] Running [ -L /var/www/finance/releases/20190512195648/storage/logs ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [aa99d5d0] Command: [ -L /var/www/finance/releases/20190512195648/storage/logs ]
+ DEBUG [06b0fd48] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [53f92299] Running [ -d /var/www/finance/releases/20190512195648/storage/logs ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [53f92299] Command: [ -d /var/www/finance/releases/20190512195648/storage/logs ]
+ DEBUG [10607324] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [26529f24] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [26529f24] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195648/storage/logs
+  INFO [0d004d57] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [ce7285be] Running /usr/bin/env ln -s /var/www/finance/shared/storage/logs /var/www/finance/releases/20190512195648/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ce7285be] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/logs /var/www/finance/releases/20190512195648/storage/logs
+  INFO [760e02f4] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [936266a3] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [936266a3] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [36b581ae] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [468e05fe] Running /usr/bin/env mkdir -p bootstrap/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [468e05fe] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p bootstrap/cache
+  INFO [dc2d20d1] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [22cf33fc] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [22cf33fc] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [c53a2968] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [d43d7c6b] Running /usr/bin/env mkdir -p storage as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d43d7c6b] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p storage
+  INFO [b7f15d5c] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [9074ab14] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9074ab14] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [73d360e6] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [6a1f184e] Running /usr/bin/env mkdir -p storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [6a1f184e] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p storage/app
+  INFO [53ab9143] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [e1e77d7c] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e1e77d7c] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [b2e98c15] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [7796b986] Running /usr/bin/env mkdir -p storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [7796b986] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p storage/app/public
+  INFO [42fe4f4a] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [58ee77a8] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [58ee77a8] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [f65ee49f] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO [11263bbb] Running /usr/bin/env mkdir -p storage/framework as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [11263bbb] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p storage/framework
+  INFO [9f12fe05] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [363d3b16] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [363d3b16] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [20acff37] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [9638ff05] Running /usr/bin/env mkdir -p storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9638ff05] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p storage/framework/cache
+  INFO [75f876da] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [746569fa] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [746569fa] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [9aa759dc] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [9bfada7b] Running /usr/bin/env mkdir -p storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9bfada7b] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p storage/framework/sessions
+  INFO [42cf0cff] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [69d8abd0] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [69d8abd0] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [bbe7368d] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [3d8e8b5e] Running /usr/bin/env mkdir -p storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [3d8e8b5e] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p storage/framework/views
+  INFO [f2f61a53] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [6cfbde9f] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [6cfbde9f] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [a14e055f] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [f21cfb20] Running /usr/bin/env mkdir -p storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f21cfb20] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env mkdir -p storage/logs
+  INFO [daa3083a] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [200d591b] Running if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [200d591b] Command: if test ! -d /var/www/finance/releases/20190512195648; then echo "Directory does not exist '/var/www/finance/releases/20190512195648'" 1>&2; false; fi
+ DEBUG [60f7e6b4] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [1481ef5e] Running /usr/bin/env composer install --no-dev --prefer-dist --no-interaction --quiet --optimize-autoloader as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1481ef5e] Command: cd /var/www/finance/releases/20190512195648 && /usr/bin/env composer install --no-dev --prefer-dist --no-interaction --quiet --optimize-autoloader
+ DEBUG [d026617e] 	Your requirements could not be resolved to an installable set of packages.
+ DEBUG [d026617e] 	
+  INFO ---------------------------------------------------------------------------
+  INFO START 2019-05-12 19:59:04 +0000 cap production deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [80c32468] Running /usr/bin/env mkdir -p /tmp as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [80c32468] Command: /usr/bin/env mkdir -p /tmp
+  INFO [244130c1] Finished in 1.933 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 0.0%
+  INFO Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 100.0%
+  INFO [50177879] Running /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [50177879] Command: /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh
+  INFO [faffac92] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [58a07cef] Running /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [58a07cef] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git ls-remote git@github.com:guifabrin/tracker_system_laravel.git HEAD )
+ DEBUG [12192fb9] 	f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c	HEAD
+  INFO [12192fb9] Finished in 0.925 seconds with exit status 0 (successful).
+  INFO [5737483c] Running /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [5737483c] Command: /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases
+  INFO [e090a766] Finished in 0.084 seconds with exit status 0 (successful).
+  INFO [7afa55c4] Running /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public /var/www/finance/shared/storage/app /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [7afa55c4] Command: /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public /var/www/finance/shared/storage/app /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs
+  INFO [3f08f1db] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [56cfa271] Running /usr/bin/env mkdir -p /var/www/finance/shared as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [56cfa271] Command: /usr/bin/env mkdir -p /var/www/finance/shared
+  INFO [10c787bc] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [c3d03b88] Running [ -f /var/www/finance/shared/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c3d03b88] Command: [ -f /var/www/finance/shared/.env ]
+ DEBUG [1eb4b528] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [1cefa15e] Running [ -f /var/www/finance/current/REVISION ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1cefa15e] Command: [ -f /var/www/finance/current/REVISION ]
+ DEBUG [d4053cf7] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [68eac428] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [68eac428] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [f2ab35fe] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [2a8f88e3] Running /usr/bin/env mkdir -p vendor as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2a8f88e3] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p vendor
+  INFO [4a88a684] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [312f9772] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [312f9772] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [65ac7796] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [73c6117d] Running /usr/bin/env mkdir -p node_modules as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [73c6117d] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p node_modules
+  INFO [acf9e960] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [48d6d73a] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [48d6d73a] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [2d8387c2] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [2de01118] Running /usr/bin/env mkdir -p storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2de01118] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/app/public
+  INFO [c6b7b939] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [4bba8f45] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4bba8f45] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [a51eb701] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [fe3e86f0] Running /usr/bin/env mkdir -p storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [fe3e86f0] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/app
+  INFO [63ec969f] Finished in 0.128 seconds with exit status 0 (successful).
+ DEBUG [2b1ebfae] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2b1ebfae] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [36ec1b03] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [5bb1a17d] Running /usr/bin/env mkdir -p storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [5bb1a17d] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/cache
+  INFO [9f1b1a96] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [fd571346] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [fd571346] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [5c4f14ee] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [ccb2c9b3] Running /usr/bin/env mkdir -p storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ccb2c9b3] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/sessions
+  INFO [62c5872f] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [285b8fba] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [285b8fba] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [bc2d928d] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [b0f57d4a] Running /usr/bin/env mkdir -p storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b0f57d4a] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/views
+  INFO [29799011] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [ba3a7291] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ba3a7291] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [bb4ebd96] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [75ffecec] Running /usr/bin/env mkdir -p storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [75ffecec] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/logs
+  INFO [4b276d5a] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [4652afa7] Running [ -f /var/www/finance/repo/HEAD ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4652afa7] Command: [ -f /var/www/finance/repo/HEAD ]
+ DEBUG [a861ee35] Finished in 0.118 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/finance/repo
+ DEBUG [2149bdb9] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2149bdb9] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [5cb479d1] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [579953da] Running /usr/bin/env git remote set-url origin git@github.com:guifabrin/tracker_system_laravel.git as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [579953da] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git remote set-url origin git@github.com:guifabrin/tracker_system_laravel.git )
+  INFO [f5e0c5f8] Finished in 0.226 seconds with exit status 0 (successful).
+  INFO [adb1a0cd] Running /usr/bin/env git remote update --prune as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [adb1a0cd] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [42c27442] 	Fetching origin
+  INFO [42c27442] Finished in 0.681 seconds with exit status 0 (successful).
+ DEBUG [d995be72] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d995be72] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [7ad7b718] Finished in 0.078 seconds with exit status 0 (successful).
+  INFO [569360f1] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512195910 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [569360f1] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env mkdir -p /var/www/finance/releases/20190512195910 )
+  INFO [adfdb103] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [d4c06d13] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/finance/releases/20190512195910 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d4c06d13] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/finance/releases/20190512195910 )
+  INFO [546349e0] Finished in 0.393 seconds with exit status 0 (successful).
+ DEBUG [770b3895] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [770b3895] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [8d32e93d] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [b9482d52] Running /usr/bin/env git rev-list --max-count=1 master as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b9482d52] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [9770cbaa] 	f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c
+ DEBUG [9770cbaa] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [8041f4fc] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [8041f4fc] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [d7220ff0] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [7a36e7c2] Running /usr/bin/env echo "f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c" > REVISION as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [7a36e7c2] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env echo "f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c" > REVISION
+  INFO [1151ef36] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [7bcd34df] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512195910 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [7bcd34df] Command: /usr/bin/env mkdir -p /var/www/finance/releases/20190512195910
+  INFO [89432f9a] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [06dbf871] Running [ -L /var/www/finance/releases/20190512195910/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [06dbf871] Command: [ -L /var/www/finance/releases/20190512195910/.env ]
+ DEBUG [24bea5e5] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [93e51cb7] Running [ -f /var/www/finance/releases/20190512195910/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [93e51cb7] Command: [ -f /var/www/finance/releases/20190512195910/.env ]
+ DEBUG [9449b4fb] Finished in 0.120 seconds with exit status 1 (failed).
+  INFO [9b2f1b51] Running /usr/bin/env ln -s /var/www/finance/shared/.env /var/www/finance/releases/20190512195910/.env as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9b2f1b51] Command: /usr/bin/env ln -s /var/www/finance/shared/.env /var/www/finance/releases/20190512195910/.env
+  INFO [26e2580f] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [86793f30] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512195910 /var/www/finance/releases/20190512195910/storage/app /var/www/finance/releases/20190512195910/storage /var/www/finance/releases/20190512195910/storage/framework as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [86793f30] Command: /usr/bin/env mkdir -p /var/www/finance/releases/20190512195910 /var/www/finance/releases/20190512195910/storage/app /var/www/finance/releases/20190512195910/storage /var/www/finance/releases/20190512195910/storage/framework
+  INFO [e9ff5deb] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [dfc036fd] Running [ -L /var/www/finance/releases/20190512195910/vendor ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [dfc036fd] Command: [ -L /var/www/finance/releases/20190512195910/vendor ]
+ DEBUG [99b3c730] Finished in 0.121 seconds with exit status 1 (failed).
+ DEBUG [a4e0e6d4] Running [ -d /var/www/finance/releases/20190512195910/vendor ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a4e0e6d4] Command: [ -d /var/www/finance/releases/20190512195910/vendor ]
+ DEBUG [e157d0ef] Finished in 0.120 seconds with exit status 1 (failed).
+  INFO [06147609] Running /usr/bin/env ln -s /var/www/finance/shared/vendor /var/www/finance/releases/20190512195910/vendor as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [06147609] Command: /usr/bin/env ln -s /var/www/finance/shared/vendor /var/www/finance/releases/20190512195910/vendor
+  INFO [f918673a] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [2b30c92a] Running [ -L /var/www/finance/releases/20190512195910/node_modules ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2b30c92a] Command: [ -L /var/www/finance/releases/20190512195910/node_modules ]
+ DEBUG [a7f0c33f] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [c39ef698] Running [ -d /var/www/finance/releases/20190512195910/node_modules ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c39ef698] Command: [ -d /var/www/finance/releases/20190512195910/node_modules ]
+ DEBUG [24da3b0b] Finished in 0.118 seconds with exit status 1 (failed).
+  INFO [ab8ad57a] Running /usr/bin/env ln -s /var/www/finance/shared/node_modules /var/www/finance/releases/20190512195910/node_modules as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ab8ad57a] Command: /usr/bin/env ln -s /var/www/finance/shared/node_modules /var/www/finance/releases/20190512195910/node_modules
+  INFO [fbee5e11] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [01f1db45] Running [ -L /var/www/finance/releases/20190512195910/storage/app/public ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [01f1db45] Command: [ -L /var/www/finance/releases/20190512195910/storage/app/public ]
+ DEBUG [1e51d6ab] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [6c8fa158] Running [ -d /var/www/finance/releases/20190512195910/storage/app/public ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [6c8fa158] Command: [ -d /var/www/finance/releases/20190512195910/storage/app/public ]
+ DEBUG [68b29eeb] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [8fffc742] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [8fffc742] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/app/public
+  INFO [4bd5cc49] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [9496b449] Running /usr/bin/env ln -s /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512195910/storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9496b449] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512195910/storage/app/public
+  INFO [961c00c4] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [247db20b] Running [ -L /var/www/finance/releases/20190512195910/storage/app ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [247db20b] Command: [ -L /var/www/finance/releases/20190512195910/storage/app ]
+ DEBUG [b3b9748f] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [bc213f1f] Running [ -d /var/www/finance/releases/20190512195910/storage/app ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [bc213f1f] Command: [ -d /var/www/finance/releases/20190512195910/storage/app ]
+ DEBUG [d95308fd] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [020c2586] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [020c2586] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/app
+  INFO [9ce54bb3] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [73cb0004] Running /usr/bin/env ln -s /var/www/finance/shared/storage/app /var/www/finance/releases/20190512195910/storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [73cb0004] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/app /var/www/finance/releases/20190512195910/storage/app
+  INFO [9d135328] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [f696cf35] Running [ -L /var/www/finance/releases/20190512195910/storage/framework/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f696cf35] Command: [ -L /var/www/finance/releases/20190512195910/storage/framework/cache ]
+ DEBUG [3944dc6e] Finished in 0.123 seconds with exit status 1 (failed).
+ DEBUG [055588c6] Running [ -d /var/www/finance/releases/20190512195910/storage/framework/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [055588c6] Command: [ -d /var/www/finance/releases/20190512195910/storage/framework/cache ]
+ DEBUG [c7962185] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [f42a99ef] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f42a99ef] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/framework/cache
+  INFO [a620ddff] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [ef42950c] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/cache /var/www/finance/releases/20190512195910/storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ef42950c] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/cache /var/www/finance/releases/20190512195910/storage/framework/cache
+  INFO [6b496816] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [37b992ce] Running [ -L /var/www/finance/releases/20190512195910/storage/framework/sessions ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [37b992ce] Command: [ -L /var/www/finance/releases/20190512195910/storage/framework/sessions ]
+ DEBUG [6a498b3d] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [79a6524b] Running [ -d /var/www/finance/releases/20190512195910/storage/framework/sessions ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [79a6524b] Command: [ -d /var/www/finance/releases/20190512195910/storage/framework/sessions ]
+ DEBUG [4da4a023] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [0c2aaf2b] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [0c2aaf2b] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/framework/sessions
+  INFO [be3f6c4f] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [0fa141a4] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/sessions /var/www/finance/releases/20190512195910/storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [0fa141a4] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/sessions /var/www/finance/releases/20190512195910/storage/framework/sessions
+  INFO [23cab21a] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [85f46929] Running [ -L /var/www/finance/releases/20190512195910/storage/framework/views ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [85f46929] Command: [ -L /var/www/finance/releases/20190512195910/storage/framework/views ]
+ DEBUG [4f5c6e35] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [dc014ede] Running [ -d /var/www/finance/releases/20190512195910/storage/framework/views ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [dc014ede] Command: [ -d /var/www/finance/releases/20190512195910/storage/framework/views ]
+ DEBUG [28b27f65] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [ce9ac429] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ce9ac429] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/framework/views
+  INFO [95a0e169] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [36b11694] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/views /var/www/finance/releases/20190512195910/storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [36b11694] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/views /var/www/finance/releases/20190512195910/storage/framework/views
+  INFO [b105c5b5] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [13d6c0bb] Running [ -L /var/www/finance/releases/20190512195910/storage/logs ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [13d6c0bb] Command: [ -L /var/www/finance/releases/20190512195910/storage/logs ]
+ DEBUG [221b463f] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [f05b9b9f] Running [ -d /var/www/finance/releases/20190512195910/storage/logs ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f05b9b9f] Command: [ -d /var/www/finance/releases/20190512195910/storage/logs ]
+ DEBUG [c693fcb8] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [042fd492] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [042fd492] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195910/storage/logs
+  INFO [a48a2634] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [bdacddfe] Running /usr/bin/env ln -s /var/www/finance/shared/storage/logs /var/www/finance/releases/20190512195910/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [bdacddfe] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/logs /var/www/finance/releases/20190512195910/storage/logs
+  INFO [1fd4cf3e] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [50f4161e] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [50f4161e] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [ace8cd33] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [cc8067fb] Running /usr/bin/env mkdir -p bootstrap/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [cc8067fb] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p bootstrap/cache
+  INFO [a827bd01] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [510f90e1] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [510f90e1] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [ce4ecfc3] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [37caa551] Running /usr/bin/env mkdir -p storage as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [37caa551] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p storage
+  INFO [289ecf65] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [33f3244b] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [33f3244b] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [9d9c267b] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [b6a48f20] Running /usr/bin/env mkdir -p storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b6a48f20] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p storage/app
+  INFO [bb328f06] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [cc44d413] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [cc44d413] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [0abcae36] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [b0831887] Running /usr/bin/env mkdir -p storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b0831887] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p storage/app/public
+  INFO [bf21b7d4] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [532c819c] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [532c819c] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [aeb3f3a4] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [33e22360] Running /usr/bin/env mkdir -p storage/framework as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [33e22360] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p storage/framework
+  INFO [8d6825d9] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [c2e4f03d] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c2e4f03d] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [9874ddd4] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [f35a7471] Running /usr/bin/env mkdir -p storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f35a7471] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p storage/framework/cache
+  INFO [dcd4c5a0] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [ee237cee] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ee237cee] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [0102bb8b] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [3129507b] Running /usr/bin/env mkdir -p storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [3129507b] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p storage/framework/sessions
+  INFO [edc68a08] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [ca8ea83b] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ca8ea83b] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [6183ab16] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [9badb40d] Running /usr/bin/env mkdir -p storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9badb40d] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p storage/framework/views
+  INFO [61a26bf5] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [769a5439] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [769a5439] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [60edbe67] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [ef8e3ec4] Running /usr/bin/env mkdir -p storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ef8e3ec4] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env mkdir -p storage/logs
+  INFO [04b9bc71] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [b103a4ee] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b103a4ee] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [70e6e4a9] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [66c31e5d] Running /usr/bin/env composer install --no-dev --prefer-dist --no-interaction --quiet --optimize-autoloader as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [66c31e5d] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env composer install --no-dev --prefer-dist --no-interaction --quiet --optimize-autoloader
+  INFO [799b7714] Finished in 1.825 seconds with exit status 0 (successful).
+ DEBUG [b42e4ba9] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b42e4ba9] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [efe588bb] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [e2c3a84e] Running /usr/bin/env php artisan storage:link --env=production as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e2c3a84e] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env php artisan storage:link --env=production
+ DEBUG [4f4226f7] 	The [public/storage] directory has been linked.
+  INFO [4f4226f7] Finished in 0.268 seconds with exit status 0 (successful).
+ DEBUG [f589b718] Running if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f589b718] Command: if test ! -d /var/www/finance/releases/20190512195910; then echo "Directory does not exist '/var/www/finance/releases/20190512195910'" 1>&2; false; fi
+ DEBUG [63696cc1] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [b0a9636b] Running /usr/bin/env php artisan optimize --force --env=production as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b0a9636b] Command: cd /var/www/finance/releases/20190512195910 && /usr/bin/env php artisan optimize --force --env=production
+ DEBUG [7eb24907] 	Configuration cache cleared!
+ DEBUG [7eb24907] 	Configuration cached successfully!
+ DEBUG [7eb24907] 	Route cache cleared!
+ DEBUG [7eb24907] 	Routes cached successfully!
+ DEBUG [7eb24907] 	Files cached successfully!
+  INFO [7eb24907] Finished in 0.302 seconds with exit status 0 (successful).
+ DEBUG [0d3da6f4] Running [ -d /var/www/finance/releases/20190512195910/bootstrap/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [0d3da6f4] Command: [ -d /var/www/finance/releases/20190512195910/bootstrap/cache ]
+ DEBUG [d55a2109] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [1c651781] Running [ -d /var/www/finance/releases/20190512195910/storage ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1c651781] Command: [ -d /var/www/finance/releases/20190512195910/storage ]
+ DEBUG [1f3772d4] Finished in 0.119 seconds with exit status 0 (successful).
+ DEBUG [dacd1605] Running [ -d /var/www/finance/shared/storage/app ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [dacd1605] Command: [ -d /var/www/finance/shared/storage/app ]
+ DEBUG [b57b393a] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [9a4e10f0] Running [ -d /var/www/finance/shared/storage/app/public ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [9a4e10f0] Command: [ -d /var/www/finance/shared/storage/app/public ]
+ DEBUG [28e49f53] Finished in 0.119 seconds with exit status 0 (successful).
+ DEBUG [a6ce24ce] Running [ -d /var/www/finance/releases/20190512195910/storage/framework ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a6ce24ce] Command: [ -d /var/www/finance/releases/20190512195910/storage/framework ]
+ DEBUG [5f9ded37] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [894629e9] Running [ -d /var/www/finance/shared/storage/framework/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [894629e9] Command: [ -d /var/www/finance/shared/storage/framework/cache ]
+ DEBUG [e05b58a8] Finished in 0.119 seconds with exit status 0 (successful).
+ DEBUG [69227c92] Running [ -d /var/www/finance/shared/storage/framework/sessions ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [69227c92] Command: [ -d /var/www/finance/shared/storage/framework/sessions ]
+ DEBUG [d4fb3152] Finished in 0.119 seconds with exit status 0 (successful).
+ DEBUG [786ea821] Running [ -d /var/www/finance/shared/storage/framework/views ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [786ea821] Command: [ -d /var/www/finance/shared/storage/framework/views ]
+ DEBUG [d3fe2cfd] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [5e11a2bd] Running [ -d /var/www/finance/shared/storage/logs ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [5e11a2bd] Command: [ -d /var/www/finance/shared/storage/logs ]
+ DEBUG [b2bb74bb] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [145e2cd0] Running /usr/bin/env setfacl -Rn -m u:www-data:rwX -m u:guilherme_fabrin:rwX /var/www/finance/releases/20190512195910/bootstrap/cache /var/www/finance/releases/20190512195910/storage /var/www/finance/shared/storage/app /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512195910/storage/framework /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [145e2cd0] Command: /usr/bin/env setfacl -Rn -m u:www-data:rwX -m u:guilherme_fabrin:rwX /var/www/finance/releases/20190512195910/bootstrap/cache /var/www/finance/releases/20190512195910/storage /var/www/finance/shared/storage/app /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512195910/storage/framework /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs
+  INFO [b04e7764] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [8220800e] Running /usr/bin/env setfacl -dRn -m u:www-data:rwX -m u:guilherme_fabrin:rwX /var/www/finance/releases/20190512195910/bootstrap/cache /var/www/finance/releases/20190512195910/storage /var/www/finance/shared/storage/app /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512195910/storage/framework /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [8220800e] Command: /usr/bin/env setfacl -dRn -m u:www-data:rwX -m u:guilherme_fabrin:rwX /var/www/finance/releases/20190512195910/bootstrap/cache /var/www/finance/releases/20190512195910/storage /var/www/finance/shared/storage/app /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512195910/storage/framework /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs
+  INFO [d7ff5f13] Finished in 0.116 seconds with exit status 0 (successful).
+  INFO [5f4eca01] Running /usr/bin/env ln -s /var/www/finance/releases/20190512195910 /var/www/finance/releases/current as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [5f4eca01] Command: /usr/bin/env ln -s /var/www/finance/releases/20190512195910 /var/www/finance/releases/current
+  INFO [7680a4c1] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [1263d095] Running /usr/bin/env mv /var/www/finance/releases/current /var/www/finance as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1263d095] Command: /usr/bin/env mv /var/www/finance/releases/current /var/www/finance
+  INFO [83a6ff7d] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [602a9b4b] Running /usr/bin/env ls -x /var/www/finance/releases as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [602a9b4b] Command: /usr/bin/env ls -x /var/www/finance/releases
+ DEBUG [84ce5d66] 	20190512195648	20190512195910
+ DEBUG [84ce5d66] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO Keeping 2 of 2 deployed releases on guifabrin.ddns.net
+ DEBUG [f924bd44] Running [ -d /var/www/finance/current ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f924bd44] Command: [ -d /var/www/finance/current ]
+ DEBUG [6a56301b] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [cfa8c576] Running /usr/bin/env readlink /var/www/finance/current as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [cfa8c576] Command: /usr/bin/env readlink /var/www/finance/current
+ DEBUG [81d3bbc3] 	/var/www/finance/releases/20190512195910
+ DEBUG [81d3bbc3] Finished in 0.127 seconds with exit status 0 (successful).
+  INFO No old releases (keeping newest 2) on guifabrin.ddns.net
+ DEBUG [a6b54d1f] Running if test ! -d /var/www/finance/releases; then echo "Directory does not exist '/var/www/finance/releases'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a6b54d1f] Command: if test ! -d /var/www/finance/releases; then echo "Directory does not exist '/var/www/finance/releases'" 1>&2; false; fi
+ DEBUG [839558ed] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [fc8917b6] Running /usr/bin/env echo "Branch master (at f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c) deployed as release 20190512195910 by gitpod" >> /var/www/finance/revisions.log as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [fc8917b6] Command: cd /var/www/finance/releases && /usr/bin/env echo "Branch master (at f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c) deployed as release 20190512195910 by gitpod" >> /var/www/finance/revisions.log
+  INFO [3206e228] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2019-05-12 20:00:56 +0000 cap production deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [484fdbef] Running /usr/bin/env mkdir -p /tmp as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [484fdbef] Command: /usr/bin/env mkdir -p /tmp
+  INFO [0c57d21c] Finished in 0.991 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 0.0%
+  INFO Uploading /tmp/git-ssh-Dracma-production-gitpod.sh 100.0%
+  INFO [c2477550] Running /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c2477550] Command: /usr/bin/env chmod 700 /tmp/git-ssh-Dracma-production-gitpod.sh
+  INFO [8e7afb43] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [47dc0f35] Running /usr/bin/env git ls-remote git@github.com:guifabrin/finance_laravel.git HEAD as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [47dc0f35] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git ls-remote git@github.com:guifabrin/finance_laravel.git HEAD )
+ DEBUG [f9e7cbe2] 	103d5a36e9b915df91335f5f8285b5e79f40cd8b	HEAD
+  INFO [f9e7cbe2] Finished in 0.609 seconds with exit status 0 (successful).
+  INFO [062f17af] Running /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [062f17af] Command: /usr/bin/env mkdir -p /var/www/finance/shared /var/www/finance/releases
+  INFO [490d5822] Finished in 0.085 seconds with exit status 0 (successful).
+  INFO [1a5eff2f] Running /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public /var/www/finance/shared/storage/app /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1a5eff2f] Command: /usr/bin/env mkdir -p /var/www/finance/shared/vendor /var/www/finance/shared/node_modules /var/www/finance/shared/storage/app/public /var/www/finance/shared/storage/app /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs
+  INFO [c0e6a9c1] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [c813612c] Running /usr/bin/env mkdir -p /var/www/finance/shared as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c813612c] Command: /usr/bin/env mkdir -p /var/www/finance/shared
+  INFO [ca593136] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [b4d7586c] Running [ -f /var/www/finance/shared/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b4d7586c] Command: [ -f /var/www/finance/shared/.env ]
+ DEBUG [1cb2fd1f] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [66c6d251] Running [ -f /var/www/finance/current/REVISION ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [66c6d251] Command: [ -f /var/www/finance/current/REVISION ]
+ DEBUG [1f87f822] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [535dd993] Running /usr/bin/env cat /var/www/finance/current/REVISION 2>/dev/null as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [535dd993] Command: /usr/bin/env cat /var/www/finance/current/REVISION 2>/dev/null
+ DEBUG [0b5d7f4b] 	f6b06cb94adbe97a4113ce1b5b43b5566d51fd1c
+ DEBUG [0b5d7f4b] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [c298881c] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c298881c] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [909cc08c] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [36b5462e] Running /usr/bin/env mkdir -p vendor as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [36b5462e] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p vendor
+  INFO [fb9fed80] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [a5baebdf] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a5baebdf] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [d988180e] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [01bbab3d] Running /usr/bin/env mkdir -p node_modules as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [01bbab3d] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p node_modules
+  INFO [7a96b3dc] Finished in 0.129 seconds with exit status 0 (successful).
+ DEBUG [3af57198] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [3af57198] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [a9a3365c] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [0a67824d] Running /usr/bin/env mkdir -p storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [0a67824d] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/app/public
+  INFO [be41a3b2] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [dec3fd6a] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [dec3fd6a] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [944e209a] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [f9438b7d] Running /usr/bin/env mkdir -p storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f9438b7d] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/app
+  INFO [cbd69165] Finished in 0.130 seconds with exit status 0 (successful).
+ DEBUG [7eee4393] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [7eee4393] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [bf30c99a] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [744ca8a1] Running /usr/bin/env mkdir -p storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [744ca8a1] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/cache
+  INFO [e9b3cb96] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [00bcead3] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [00bcead3] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [30d5f4fe] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [4b48bf0b] Running /usr/bin/env mkdir -p storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4b48bf0b] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/sessions
+  INFO [6063d5a6] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [4834d469] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4834d469] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [0ff6949d] Finished in 0.127 seconds with exit status 0 (successful).
+  INFO [329e8a68] Running /usr/bin/env mkdir -p storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [329e8a68] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/framework/views
+  INFO [4d5dcd20] Finished in 0.127 seconds with exit status 0 (successful).
+ DEBUG [53981967] Running if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [53981967] Command: if test ! -d /var/www/finance/shared; then echo "Directory does not exist '/var/www/finance/shared'" 1>&2; false; fi
+ DEBUG [0f303a58] Finished in 0.129 seconds with exit status 0 (successful).
+  INFO [f59a74d6] Running /usr/bin/env mkdir -p storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f59a74d6] Command: cd /var/www/finance/shared && /usr/bin/env mkdir -p storage/logs
+  INFO [b34f5aac] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [552aada6] Running [ -f /var/www/finance/repo/HEAD ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [552aada6] Command: [ -f /var/www/finance/repo/HEAD ]
+ DEBUG [f534755f] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/finance/repo
+ DEBUG [70a87942] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [70a87942] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [1899a910] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [db9ef276] Running /usr/bin/env git remote set-url origin git@github.com:guifabrin/finance_laravel.git as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [db9ef276] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git remote set-url origin git@github.com:guifabrin/finance_laravel.git )
+  INFO [bd8018eb] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [1147457b] Running /usr/bin/env git remote update --prune as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1147457b] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [5fe1fcad] 	Fetching origin
+ DEBUG [5fe1fcad] 	From github.com:guifabrin/finance_laravel
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/1/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/10/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/11/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/12/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/13/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/14/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/15/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/16/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/17/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/18/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/19/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/2/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/20/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/21/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/22/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/23/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/24/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/25/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/26/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/27/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/28/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/3/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/4/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/5/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/6/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/7/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/8/head
+ DEBUG [5fe1fcad] 	 - [deleted]         (none)     -> refs/pull/9/head
+ DEBUG [5fe1fcad] 	warning: no common commits
+ DEBUG [5fe1fcad] 	 + f6b06cb...103d5a3 master            -> master  (forced update)
+ DEBUG [5fe1fcad] 	 * [new ref]         refs/pull/40/head -> refs/pull/40/head
+ DEBUG [5fe1fcad] 	 * [new ref]         refs/pull/41/head -> refs/pull/41/head
+ DEBUG [5fe1fcad] 	 * [new ref]         refs/pull/42/head -> refs/pull/42/head
+ DEBUG [5fe1fcad] 	 * [new ref]         refs/pull/43/head -> refs/pull/43/head
+ DEBUG [5fe1fcad] 	 * [new ref]         refs/pull/44/head -> refs/pull/44/head
+  INFO [5fe1fcad] Finished in 3.098 seconds with exit status 0 (successful).
+ DEBUG [b716fd95] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b716fd95] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [00118d62] Finished in 0.080 seconds with exit status 0 (successful).
+  INFO [b9104c1e] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512200101 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b9104c1e] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env mkdir -p /var/www/finance/releases/20190512200101 )
+  INFO [6e1c1010] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [dfa198e0] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/finance/releases/20190512200101 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [dfa198e0] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/finance/releases/20190512200101 )
+  INFO [062a7c42] Finished in 0.166 seconds with exit status 0 (successful).
+ DEBUG [b94c5c28] Running if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b94c5c28] Command: if test ! -d /var/www/finance/repo; then echo "Directory does not exist '/var/www/finance/repo'" 1>&2; false; fi
+ DEBUG [846f900c] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [e93ad886] Running /usr/bin/env git rev-list --max-count=1 master as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e93ad886] Command: cd /var/www/finance/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-Dracma-production-gitpod.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [32a9964e] 	103d5a36e9b915df91335f5f8285b5e79f40cd8b
+ DEBUG [32a9964e] Finished in 0.127 seconds with exit status 0 (successful).
+ DEBUG [81164839] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [81164839] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [852487b4] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [c3a6d08e] Running /usr/bin/env echo "103d5a36e9b915df91335f5f8285b5e79f40cd8b" > REVISION as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c3a6d08e] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env echo "103d5a36e9b915df91335f5f8285b5e79f40cd8b" > REVISION
+  INFO [36a050de] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [c630cd76] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512200101 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c630cd76] Command: /usr/bin/env mkdir -p /var/www/finance/releases/20190512200101
+  INFO [8323e061] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [0e293a8a] Running [ -L /var/www/finance/releases/20190512200101/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [0e293a8a] Command: [ -L /var/www/finance/releases/20190512200101/.env ]
+ DEBUG [b1516950] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [29c01c74] Running [ -f /var/www/finance/releases/20190512200101/.env ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [29c01c74] Command: [ -f /var/www/finance/releases/20190512200101/.env ]
+ DEBUG [1df3d53b] Finished in 0.123 seconds with exit status 1 (failed).
+  INFO [4f37ff22] Running /usr/bin/env ln -s /var/www/finance/shared/.env /var/www/finance/releases/20190512200101/.env as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4f37ff22] Command: /usr/bin/env ln -s /var/www/finance/shared/.env /var/www/finance/releases/20190512200101/.env
+  INFO [3bc828ff] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [7c02ce6d] Running /usr/bin/env mkdir -p /var/www/finance/releases/20190512200101 /var/www/finance/releases/20190512200101/storage/app /var/www/finance/releases/20190512200101/storage /var/www/finance/releases/20190512200101/storage/framework as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [7c02ce6d] Command: /usr/bin/env mkdir -p /var/www/finance/releases/20190512200101 /var/www/finance/releases/20190512200101/storage/app /var/www/finance/releases/20190512200101/storage /var/www/finance/releases/20190512200101/storage/framework
+  INFO [1caa2ac8] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [edfd883a] Running [ -L /var/www/finance/releases/20190512200101/vendor ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [edfd883a] Command: [ -L /var/www/finance/releases/20190512200101/vendor ]
+ DEBUG [6f773f55] Finished in 0.123 seconds with exit status 1 (failed).
+ DEBUG [11907c61] Running [ -d /var/www/finance/releases/20190512200101/vendor ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [11907c61] Command: [ -d /var/www/finance/releases/20190512200101/vendor ]
+ DEBUG [baf78406] Finished in 0.123 seconds with exit status 1 (failed).
+  INFO [f86eb328] Running /usr/bin/env ln -s /var/www/finance/shared/vendor /var/www/finance/releases/20190512200101/vendor as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f86eb328] Command: /usr/bin/env ln -s /var/www/finance/shared/vendor /var/www/finance/releases/20190512200101/vendor
+  INFO [10c840d5] Finished in 0.127 seconds with exit status 0 (successful).
+ DEBUG [811d0659] Running [ -L /var/www/finance/releases/20190512200101/node_modules ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [811d0659] Command: [ -L /var/www/finance/releases/20190512200101/node_modules ]
+ DEBUG [7f4c5fe6] Finished in 0.123 seconds with exit status 1 (failed).
+ DEBUG [25a3bd2c] Running [ -d /var/www/finance/releases/20190512200101/node_modules ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [25a3bd2c] Command: [ -d /var/www/finance/releases/20190512200101/node_modules ]
+ DEBUG [7a90b875] Finished in 0.124 seconds with exit status 1 (failed).
+  INFO [afaa6b3e] Running /usr/bin/env ln -s /var/www/finance/shared/node_modules /var/www/finance/releases/20190512200101/node_modules as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [afaa6b3e] Command: /usr/bin/env ln -s /var/www/finance/shared/node_modules /var/www/finance/releases/20190512200101/node_modules
+  INFO [619ab5ef] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [f2a930b9] Running [ -L /var/www/finance/releases/20190512200101/storage/app/public ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f2a930b9] Command: [ -L /var/www/finance/releases/20190512200101/storage/app/public ]
+ DEBUG [e9f54a49] Finished in 0.121 seconds with exit status 1 (failed).
+ DEBUG [2a491423] Running [ -d /var/www/finance/releases/20190512200101/storage/app/public ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2a491423] Command: [ -d /var/www/finance/releases/20190512200101/storage/app/public ]
+ DEBUG [c7988ab4] Finished in 0.137 seconds with exit status 0 (successful).
+  INFO [56145ddb] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [56145ddb] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/app/public
+  INFO [8d3ea177] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [29f240dd] Running /usr/bin/env ln -s /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512200101/storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [29f240dd] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512200101/storage/app/public
+  INFO [60170756] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [1e665294] Running [ -L /var/www/finance/releases/20190512200101/storage/app ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1e665294] Command: [ -L /var/www/finance/releases/20190512200101/storage/app ]
+ DEBUG [af5ad298] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [58cd016c] Running [ -d /var/www/finance/releases/20190512200101/storage/app ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [58cd016c] Command: [ -d /var/www/finance/releases/20190512200101/storage/app ]
+ DEBUG [cd060943] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [98e9347e] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [98e9347e] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/app
+  INFO [19b3239e] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [790802f2] Running /usr/bin/env ln -s /var/www/finance/shared/storage/app /var/www/finance/releases/20190512200101/storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [790802f2] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/app /var/www/finance/releases/20190512200101/storage/app
+  INFO [71cfbfb0] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [a9c190ec] Running [ -L /var/www/finance/releases/20190512200101/storage/framework/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a9c190ec] Command: [ -L /var/www/finance/releases/20190512200101/storage/framework/cache ]
+ DEBUG [67a259cd] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [d25e2f58] Running [ -d /var/www/finance/releases/20190512200101/storage/framework/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d25e2f58] Command: [ -d /var/www/finance/releases/20190512200101/storage/framework/cache ]
+ DEBUG [0d0549b5] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [bba0bf5d] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [bba0bf5d] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/framework/cache
+  INFO [8a1e93e5] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [74438f94] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/cache /var/www/finance/releases/20190512200101/storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [74438f94] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/cache /var/www/finance/releases/20190512200101/storage/framework/cache
+  INFO [e39f276d] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [d4e4ce6c] Running [ -L /var/www/finance/releases/20190512200101/storage/framework/sessions ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d4e4ce6c] Command: [ -L /var/www/finance/releases/20190512200101/storage/framework/sessions ]
+ DEBUG [8caf31ed] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [12f07cb7] Running [ -d /var/www/finance/releases/20190512200101/storage/framework/sessions ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [12f07cb7] Command: [ -d /var/www/finance/releases/20190512200101/storage/framework/sessions ]
+ DEBUG [5e93455d] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [2ac24b26] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2ac24b26] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/framework/sessions
+  INFO [9f7ff850] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [7af66f40] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/sessions /var/www/finance/releases/20190512200101/storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [7af66f40] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/sessions /var/www/finance/releases/20190512200101/storage/framework/sessions
+  INFO [db98ce5c] Finished in 0.126 seconds with exit status 0 (successful).
+ DEBUG [4d9c0e77] Running [ -L /var/www/finance/releases/20190512200101/storage/framework/views ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4d9c0e77] Command: [ -L /var/www/finance/releases/20190512200101/storage/framework/views ]
+ DEBUG [7a886d47] Finished in 0.123 seconds with exit status 1 (failed).
+ DEBUG [decdc5fc] Running [ -d /var/www/finance/releases/20190512200101/storage/framework/views ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [decdc5fc] Command: [ -d /var/www/finance/releases/20190512200101/storage/framework/views ]
+ DEBUG [513404ae] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [00d45e13] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [00d45e13] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/framework/views
+  INFO [c8b7682b] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [f750cc3c] Running /usr/bin/env ln -s /var/www/finance/shared/storage/framework/views /var/www/finance/releases/20190512200101/storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f750cc3c] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/framework/views /var/www/finance/releases/20190512200101/storage/framework/views
+  INFO [e30340a6] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [519988c1] Running [ -L /var/www/finance/releases/20190512200101/storage/logs ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [519988c1] Command: [ -L /var/www/finance/releases/20190512200101/storage/logs ]
+ DEBUG [5b96178f] Finished in 0.122 seconds with exit status 1 (failed).
+ DEBUG [d00ff27e] Running [ -d /var/www/finance/releases/20190512200101/storage/logs ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d00ff27e] Command: [ -d /var/www/finance/releases/20190512200101/storage/logs ]
+ DEBUG [2bee990f] Finished in 0.134 seconds with exit status 0 (successful).
+  INFO [4ccbd287] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [4ccbd287] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512200101/storage/logs
+  INFO [898b505b] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [eb1c04d8] Running /usr/bin/env ln -s /var/www/finance/shared/storage/logs /var/www/finance/releases/20190512200101/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [eb1c04d8] Command: /usr/bin/env ln -s /var/www/finance/shared/storage/logs /var/www/finance/releases/20190512200101/storage/logs
+  INFO [4673040d] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [a6d561b6] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a6d561b6] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [d4268cea] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [fc676cde] Running /usr/bin/env mkdir -p bootstrap/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [fc676cde] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p bootstrap/cache
+  INFO [f6588948] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [a5da923a] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a5da923a] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [4f09af4e] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [86262a7c] Running /usr/bin/env mkdir -p storage as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [86262a7c] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p storage
+  INFO [e320f7c2] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [09ded870] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [09ded870] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [273512b3] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [b3a662b8] Running /usr/bin/env mkdir -p storage/app as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b3a662b8] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p storage/app
+  INFO [707754fa] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [2b733307] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [2b733307] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [e7f71db7] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [47087fd3] Running /usr/bin/env mkdir -p storage/app/public as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [47087fd3] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p storage/app/public
+  INFO [bd581e2e] Finished in 0.128 seconds with exit status 0 (successful).
+ DEBUG [5c83a6ae] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [5c83a6ae] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [d6665819] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [907cf797] Running /usr/bin/env mkdir -p storage/framework as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [907cf797] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p storage/framework
+  INFO [697d0798] Finished in 0.128 seconds with exit status 0 (successful).
+ DEBUG [491ea418] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [491ea418] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [23803f0e] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [5330e71f] Running /usr/bin/env mkdir -p storage/framework/cache as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [5330e71f] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p storage/framework/cache
+  INFO [41d2da31] Finished in 0.126 seconds with exit status 0 (successful).
+ DEBUG [1eb532c3] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [1eb532c3] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [de284d17] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [90531ca0] Running /usr/bin/env mkdir -p storage/framework/sessions as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [90531ca0] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p storage/framework/sessions
+  INFO [f11c8e92] Finished in 0.128 seconds with exit status 0 (successful).
+ DEBUG [15b6e99d] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [15b6e99d] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [b8cc6af9] Finished in 0.126 seconds with exit status 0 (successful).
+  INFO [474eebf4] Running /usr/bin/env mkdir -p storage/framework/views as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [474eebf4] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p storage/framework/views
+  INFO [3618879d] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [f08d102e] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [f08d102e] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [0eccec07] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [ddb511cf] Running /usr/bin/env mkdir -p storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ddb511cf] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env mkdir -p storage/logs
+  INFO [22843dc3] Finished in 0.128 seconds with exit status 0 (successful).
+ DEBUG [77b64e43] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [77b64e43] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [eb8cfd61] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [685b294e] Running /usr/bin/env composer install --no-dev --prefer-dist --no-interaction --quiet --optimize-autoloader as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [685b294e] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env composer install --no-dev --prefer-dist --no-interaction --quiet --optimize-autoloader
+  INFO [4f58b26d] Finished in 7.543 seconds with exit status 0 (successful).
+ DEBUG [5fc47709] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [5fc47709] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [9ad07b3b] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [961f6e22] Running /usr/bin/env php artisan storage:link --env=production as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [961f6e22] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env php artisan storage:link --env=production
+ DEBUG [5cfb5f26] 	The [public/storage] directory has been linked.
+  INFO [5cfb5f26] Finished in 0.292 seconds with exit status 0 (successful).
+ DEBUG [0fadd099] Running if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [0fadd099] Command: if test ! -d /var/www/finance/releases/20190512200101; then echo "Directory does not exist '/var/www/finance/releases/20190512200101'" 1>&2; false; fi
+ DEBUG [2cd96152] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [288002ce] Running /usr/bin/env php artisan optimize --force --env=production as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [288002ce] Command: cd /var/www/finance/releases/20190512200101 && /usr/bin/env php artisan optimize --force --env=production
+  INFO [500318b6] Finished in 0.277 seconds with exit status 0 (successful).
+ DEBUG [d2cfb159] Running [ -d /var/www/finance/releases/20190512200101/bootstrap/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [d2cfb159] Command: [ -d /var/www/finance/releases/20190512200101/bootstrap/cache ]
+ DEBUG [633ac8a9] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [cd8e85c5] Running [ -d /var/www/finance/releases/20190512200101/storage ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [cd8e85c5] Command: [ -d /var/www/finance/releases/20190512200101/storage ]
+ DEBUG [4ffd74bb] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [6fb716f0] Running [ -d /var/www/finance/shared/storage/app ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [6fb716f0] Command: [ -d /var/www/finance/shared/storage/app ]
+ DEBUG [65c3759f] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [a96664ff] Running [ -d /var/www/finance/shared/storage/app/public ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a96664ff] Command: [ -d /var/www/finance/shared/storage/app/public ]
+ DEBUG [9ab6f50c] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [5c540258] Running [ -d /var/www/finance/releases/20190512200101/storage/framework ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [5c540258] Command: [ -d /var/www/finance/releases/20190512200101/storage/framework ]
+ DEBUG [16493c35] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [b859164d] Running [ -d /var/www/finance/shared/storage/framework/cache ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [b859164d] Command: [ -d /var/www/finance/shared/storage/framework/cache ]
+ DEBUG [bfe5e85e] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [a50ac4ca] Running [ -d /var/www/finance/shared/storage/framework/sessions ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [a50ac4ca] Command: [ -d /var/www/finance/shared/storage/framework/sessions ]
+ DEBUG [2b2009a6] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [6a97be1a] Running [ -d /var/www/finance/shared/storage/framework/views ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [6a97be1a] Command: [ -d /var/www/finance/shared/storage/framework/views ]
+ DEBUG [651174fd] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [df3a9d1b] Running [ -d /var/www/finance/shared/storage/logs ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [df3a9d1b] Command: [ -d /var/www/finance/shared/storage/logs ]
+ DEBUG [b9b4b136] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [55ca0d23] Running /usr/bin/env setfacl -Rn -m u:www-data:rwX -m u:guilherme_fabrin:rwX /var/www/finance/releases/20190512200101/bootstrap/cache /var/www/finance/releases/20190512200101/storage /var/www/finance/shared/storage/app /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512200101/storage/framework /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [55ca0d23] Command: /usr/bin/env setfacl -Rn -m u:www-data:rwX -m u:guilherme_fabrin:rwX /var/www/finance/releases/20190512200101/bootstrap/cache /var/www/finance/releases/20190512200101/storage /var/www/finance/shared/storage/app /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512200101/storage/framework /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs
+  INFO [59318053] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [6e1d0c58] Running /usr/bin/env setfacl -dRn -m u:www-data:rwX -m u:guilherme_fabrin:rwX /var/www/finance/releases/20190512200101/bootstrap/cache /var/www/finance/releases/20190512200101/storage /var/www/finance/shared/storage/app /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512200101/storage/framework /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [6e1d0c58] Command: /usr/bin/env setfacl -dRn -m u:www-data:rwX -m u:guilherme_fabrin:rwX /var/www/finance/releases/20190512200101/bootstrap/cache /var/www/finance/releases/20190512200101/storage /var/www/finance/shared/storage/app /var/www/finance/shared/storage/app/public /var/www/finance/releases/20190512200101/storage/framework /var/www/finance/shared/storage/framework/cache /var/www/finance/shared/storage/framework/sessions /var/www/finance/shared/storage/framework/views /var/www/finance/shared/storage/logs
+  INFO [f70091a3] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [cca12c7a] Running /usr/bin/env ln -s /var/www/finance/releases/20190512200101 /var/www/finance/releases/current as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [cca12c7a] Command: /usr/bin/env ln -s /var/www/finance/releases/20190512200101 /var/www/finance/releases/current
+  INFO [1b9a27bb] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [e7cdd93c] Running /usr/bin/env mv /var/www/finance/releases/current /var/www/finance as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e7cdd93c] Command: /usr/bin/env mv /var/www/finance/releases/current /var/www/finance
+  INFO [bdf2a3db] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [e6f35d5f] Running /usr/bin/env ls -x /var/www/finance/releases as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [e6f35d5f] Command: /usr/bin/env ls -x /var/www/finance/releases
+ DEBUG [d26021da] 	20190512195648	20190512195910	20190512200101
+ DEBUG [d26021da] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO Keeping 2 of 3 deployed releases on guifabrin.ddns.net
+ DEBUG [ce872398] Running [ -d /var/www/finance/current ] as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [ce872398] Command: [ -d /var/www/finance/current ]
+ DEBUG [3c1f5895] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [09208e06] Running /usr/bin/env readlink /var/www/finance/current as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [09208e06] Command: /usr/bin/env readlink /var/www/finance/current
+ DEBUG [62f4dc98] 	/var/www/finance/releases/20190512200101
+ DEBUG [62f4dc98] Finished in 0.125 seconds with exit status 0 (successful).
+  INFO [98f199de] Running /usr/bin/env rm -rf /var/www/finance/releases/20190512195648 as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [98f199de] Command: /usr/bin/env rm -rf /var/www/finance/releases/20190512195648
+  INFO [71074805] Finished in 0.135 seconds with exit status 0 (successful).
+ DEBUG [867666b5] Running if test ! -d /var/www/finance/releases; then echo "Directory does not exist '/var/www/finance/releases'" 1>&2; false; fi as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [867666b5] Command: if test ! -d /var/www/finance/releases; then echo "Directory does not exist '/var/www/finance/releases'" 1>&2; false; fi
+ DEBUG [94765d61] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [c8740575] Running /usr/bin/env echo "Branch master (at 103d5a36e9b915df91335f5f8285b5e79f40cd8b) deployed as release 20190512200101 by gitpod" >> /var/www/finance/revisions.log as guilherme_fabrin@guifabrin.ddns.net
+ DEBUG [c8740575] Command: cd /var/www/finance/releases && /usr/bin/env echo "Branch master (at 103d5a36e9b915df91335f5f8285b5e79f40cd8b) deployed as release 20190512200101 by gitpod" >> /var/www/finance/revisions.log
+  INFO [c0b57e9a] Finished in 0.125 seconds with exit status 0 (successful).
