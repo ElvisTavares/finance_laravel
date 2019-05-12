@@ -1,4 +1,4 @@
-<table class="table" style="margin-top:10px;">
+<table class="{{config('constants.classes.table')}}" style="margin-top:10px;">
     <thead>
     <tr>
         <th>{{ __('common.id') }}</th>
@@ -18,7 +18,7 @@
                 {{ $transaction->id }}
             </td>
             <td>
-                {{formatDate($transaction->date) }}
+                {{_e_date($transaction->date) }}
             </td>
             <td>
                 @if ($transaction->account->is_credit_card && $transaction->invoice)
@@ -38,40 +38,38 @@
                 @endif
             </td>
             <td class="text-right">
-                {!! formatMoney($transaction->value) !!}
+                {!! _e_money($transaction->value) !!}
             </td>
             <td class="text-center">
-                @if (!$transaction->account->is_credit_card)
-                    <div class="checkbox">
-                        <label style="margin-bottom: 0px;">
-                            <input style="vertical-align: middle;" disabled="true"
-                                   type="checkbox" {!! $transaction->paid?"checked='true'":"" !!}/>
-                        </label>
-                    </div>
-                @endif
+                <div class="checkbox">
+                    <label style="margin-bottom: 0px;">
+                        <input style="vertical-align: middle;" disabled="true"
+                                type="checkbox" {!! $transaction->isPaid() ? "checked='true'" : "" !!}/>
+                    </label>
+                </div>
             </td>
             <td class="text-center">
                 <a class="btn btn-list" title="{{ __('common.repeat') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/repeat".$query) }}">
+                   href="{{ route('transactions.repeat', [$account->id, $transaction]) }}">
                     <i class="fas fa-redo-alt"></i>
                 </a>
             </td>
             <td class="text-center">
                 <a class="btn btn-edit" title="{{ __('common.edit') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/edit".$query) }}">
+                   href="{{ route('transactions.edit', [$account->id, $transaction]) }}">
                     <i class="fa fa-edit"></i>
                 </a>
             </td>
             <td class="text-center">
                 <a class="btn btn-remove" title="{{ __('common.remove') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/confirm".$query) }}">
+                   href="{{ route('transactions.confirm', [$account->id, $transaction]) }}">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>
         </tr>
     @endforeach
     </tbody>
-    @if ($transactions->links()!='')
+    @if (!empty($transactions->links()))
         <tfoot>
         <tr>
             <td colspan="11">

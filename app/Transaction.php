@@ -3,14 +3,13 @@
 namespace App;
 
 use Auth;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Transaction extends Model
+class Transaction extends ApplicationModel
 {
 
     protected $fillable = [
-        'description', 'value', 'date', 'paid'
+        'description', 'value', 'date', 'paid', 'account_id', 'invoice_id', 'account_id_transfer'
     ];
 
     /**
@@ -61,8 +60,11 @@ class Transaction extends Model
      */
     public function updateCategories($categories = [])
     {
-        foreach (array_map('strtoupper', $categories) as $categoryDescription) {
-            $category = Category::firstOrCreate(['user_id' => Auth::user()->id, 'description' => $categoryDescription]);
+        foreach (array_map('strtoupper', $categories) as $description) {
+            $category = Category::firstOrCreate([
+                'user_id' => $this->account->user_id,
+                'description' => $description
+            ]);
             CategoryTransaction::firstOrCreate([
                 'category_id' => $category->id,
                 'transaction_id' => $this->id
@@ -70,27 +72,6 @@ class Transaction extends Model
         }
     }
 
-    /**
-     * Method to update transaction by request
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function updateByRequest(Request $request)
-    {
-        $this->date = $request->date;
-        $this->description = $request->description;
-        $this->value = $request->value * (isset($request->is_credit) && $request->is_credit ? -1 : 1);
-        $this->paid = isset($request->paid) ? $request->paid : false;
-        if (isset($request->is_transfer) && $request->is_transfer) {
-            $this->accountTransfer()->associate($request->account_transfer);
-        }
-        if (isset($request->invoice_id)) {
-            $this->invoice_id = $request->invoice_id;
-        }
-        $this->save();
-        $this->updateCategories(explode(',', $request->categories));
-    }
     /**
      * Scope a query to only include transactions which positive values.
      *
@@ -114,6 +95,28 @@ class Transaction extends Model
     }
 
     /**
+     * Scope a query to only include transactions which negative values.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePaid($query, $paid)
+    {
+        return $query->where('paid', $paid);
+    }
+
+    /**
+     * Scope a query to only include transactions which negative values.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDateMinus($query, $date)
+    {
+        return $query->where('date', '<=', $date);
+    }
+
+    /**
      * Scope a query to only include transactions of user.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -122,17 +125,40 @@ class Transaction extends Model
      */
     public function scopeOfUser($query, User $user)
     {
-        return $query->whereIn('account_id', $user->accoutsId());
+        return $query->whereIn('account_id', $user->accounts->map(function($account){ return $account->id; }));
     }
 
-    /**
-     * Function to return stringfy imploded with ',' of categorie's transaction
-     *
-     * @return string
-     */
-    public function categoriesString(){
-        return $this->categories->map(function ($categoryTransaction) {
-            return $categoryTransaction->category->description;
-        })->implode(',');
+    public function scopeDescription($query, $description)
+    {
+        $description = iconv('UTF-8', 'ASCII//TRANSLIT', strtolower($description));
+        return $query->whereRaw("replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace( lower(description), 'á','a'), 'ã','a'), 'â','a'), 'é','e'), 'ê','e'), 'í','i'),'ó','o') ,'õ','o') ,'ô','o'),'ú','u'), 'ç','c') LIKE '%{$description}%'");
     }
+
+    public function scopeBetweenDates($query, $dateInit, $dateEnd){
+        return $query->whereBetween('date', [$dateInit, $dateEnd]);
+    }
+
+    public function clone(){
+        $new = new Transaction;
+        $new->account()->associate($this->account);
+        $new->description = $this->description;
+        $new->value = $this->value;
+        if ($this->account->is_credit_card && $this->invoice) {
+            $new->invoice->associate($this->invoice);
+        }
+        return $new;
+    }
+
+    public function isPaid(){
+        return ($this->account && $this->account->is_credit_card) || $this->paid;
+    }
+
+    public function isCredit(){
+        return $this->value < 0.0;
+    }
+
+    public function isTransfer(){
+        return isset($this->account_id_transfer);
+    }
+
 }

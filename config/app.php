@@ -179,7 +179,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\TranslationManager\TranslationServiceProvider::class,
         Barryvdh\TranslationManager\ManagerServiceProvider::class,
-        Sentry\Laravel\ServiceProvider::class
+        Sentry\Laravel\ServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
     ],
 
     /*

@@ -23,42 +23,53 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('accounts', 'AccountController');
-Route::get('/transactions', 'TransactionController@index');
-Route::get('/transactions/charts', 'TransactionController@charts');
-Route::get('/transactions/create', 'TransactionController@create');
-Route::put('/transactions/addCategories', 'TransactionController@addCategories');
-Route::group(['middleware' => ['account']], function () {
-    Route::get('accounts/{account}/confirm', 'AccountController@confirm');
-    Route::get('account/{account}/transactions', 'TransactionController@index');
-    Route::get('account/{account}/transaction/create', 'TransactionController@create');
-    Route::post('account/{account}/transaction', 'TransactionController@store');
-    Route::post('account/{account}/upload/ofx', 'UploadController@ofx');
-    Route::post('account/{account}/upload/csv', 'UploadController@csv');
+Route::get('account/{account}/confirm', 'AccountController@confirm')->name('accounts.confirm');
+Route::get('account/{account}/invoices', 'InvoiceController@index')->name('accounts.invoices');
+Route::post('account/{account}/invoices', 'InvoiceController@store')->name('invoices.store');
+Route::get('account/{account}/invoices/create', 'InvoiceController@create')->name('invoices.create');
+Route::get('account/{account}/invoice/{invoice}/edit', 'InvoiceController@edit')->name('invoices.edit');
+Route::get('account/{account}/invoice/{invoice}/confirm', 'InvoiceController@confirm')->name('invoices.confirm');
+Route::get('account/{account}/invoice/{invoice}/transactions', 'TransactionController@index')->name('invoices.transactions');
+Route::get('account/{account}/invoice/{invoice}/transaction/create', 'TransactionController@create')->name('invoices.transactions.create');
 
-    Route::get('account/{account}/invoices', 'InvoiceController@index');
-    Route::get('account/{account}/invoice/create', 'InvoiceController@create');
-    Route::post('account/{account}/invoice', 'InvoiceController@store');
-    Route::put('account/{account}/transactions/addCategories', 'TransactionController@addCategories');
-});
-Route::group(['middleware' => ['account', 'transaction']], function () {
-    Route::get('account/{account}/transaction/{transaction}/edit', 'TransactionController@edit');
-    Route::get('account/{account}/transaction/{transaction}/confirm', 'TransactionController@confirm');
-    Route::put('account/{account}/transaction/{transaction}', 'TransactionController@update');
-    Route::delete('account/{account}/transaction/{transaction}', 'TransactionController@destroy');
-    Route::get('account/{account}/transaction/{transaction}/repeat', 'TransactionController@repeat');
-    Route::post('account/{account}/transaction/{transaction}/confirmRepeat', 'TransactionController@confirmRepeat');
-});
-Route::group(['middleware' => ['account', 'invoice']], function () {
-    Route::get('account/{account}/invoice/{invoice}/edit', 'InvoiceController@edit');
-    Route::get('account/{account}/invoice/{invoice}/confirm', 'InvoiceController@confirm');
-    Route::put('account/{account}/invoice/{invoice}', 'InvoiceController@update');
-    Route::delete('account/{account}/invoice/{invoice}', 'InvoiceController@destroy');
-    Route::post('account/{account}/invoice/{invoice}/upload/ofx', 'UploadController@ofx');
-    Route::post('account/{account}/invoice/{invoice}/upload/csv', 'UploadController@csv');
+Route::post('account/{account}/upload/ofx', 'UploadController@ofx')->name('accounts.import.ofx');
+Route::post('account/{account}/upload/csv', 'UploadController@csv')->name('accounts.import.csv');
+
+Route::put('account/{account}/invoice/{invoice}', 'InvoiceController@update')->name('invoices.update');
+Route::delete('account/{account}/invoice/{invoice}', 'InvoiceController@destroy')->name('invoices.destroy');
+Route::post('account/{account}/transactions/category/', 'TransactionController@category')->name('accounts.transactions.categories');
+Route::post('account/{account}/invoice/{invoice}/transactions/category/', 'TransactionController@category')->name('invoices.transactions.categories');
+Route::post('account/{account}/invoice/{invoice}/upload/ofx', 'UploadController@ofx');
+Route::post('account/{account}/invoice/{invoice}/upload/csv', 'UploadController@csv');
+
+
+Route::get('account/{account}/transaction/{transaction}/repeat', function(Request $request, $accountId, $transactionId){
+    return view('transactions.repeat', [
+        'account' => Auth::user()->accounts()->findOrFail($accountId),
+        'transaction' => Auth::user()->transactions($accountId)->findOrFail($transactionId)
+    ]);
 });
 
-Route::get('users/{id}/confirm', '\jeremykenedy\laravelusers\App\Http\Controllers\UsersManagementController@confirm');
+Route::get('account/{account}/transactions', 'TransactionController@index')->name('accounts.transactions');
+Route::get('account/{account}/transaction/create', 'TransactionController@create')->name('accounts.transactions.create');
+Route::post('account/{account}/transaction', 'TransactionController@store')->name('transactions.store');
+Route::get('account/{account}/transaction/{transaction}/edit', 'TransactionController@edit')->name('transactions.edit');
+Route::get('account/{account}/transaction/{transaction}/confirm', 'TransactionController@confirm')->name('transactions.confirm');
+Route::put('account/{account}/transaction/{transaction}', 'TransactionController@update')->name('transactions.update');
+Route::delete('account/{account}/transaction/{transaction}', 'TransactionController@destroy')->name('transactions.destroy');
+Route::post('account/{account}/transaction/{transaction}/repeat', 'TransactionController@repeat')->name('transactions.repeat');
+
+Route::get('users/{id}/confirm', 'UsersManagementController@confirm');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('users', 'UsersManagementController', [
+    'names' => [
+        'index'   => 'users',
+        'destroy' => 'user.destroy',
+    ],
+]);
 
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::post('search-users', 'UsersManagementController@search')->name('search-users');
+});

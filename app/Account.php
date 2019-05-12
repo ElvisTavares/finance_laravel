@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Helpers\Account\Formatter;
 
-class Account extends Model
+class Account extends ApplicationModel
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'description', 'is_credit_card', 'prefer_debit_account_id'
+        'description', 'is_credit_card', 'prefer_debit_account_id', 'user_id'
     ];
 
     /**
@@ -61,143 +61,41 @@ class Account extends Model
     }
 
     /**
-     * Method to return total of account.
-     * @param DateTime $maxDate
-     * @param bool $paid
+     * Method to return total of credit card of account.
+     * @param DateTime $date
      * @return double
      */
-    public function total($maxDate, $paid = false)
-    {
-        if ($this->is_credit_card){
-            $invoice = $this->invoices()->where('debit_date','<=', $maxDate)->orderBy('debit_date', 'desc')->first();
-            if (!isset($invoice)) {
-                return 0;
-            }
-            if ($paid && $invoice->total() > 0){
-                return $invoice->total();
-            } elseif (!$paid && $invoice->total() < 0){
-                return $invoice->total();
-            } else {
-                return 0;
-            }
-        } else {
-            return $this->transactions()->where('paid', $paid)->where('date', '<=', $maxDate)->sum('value') +
-                -1 * $this->totalTransfer($maxDate, $paid);
-        }
-    }
-
-    /**
-     * @param PeriodAccount|null $periodAccount
-     * @return \stdClass
-     */
-    public function format(PeriodAccount $periodAccount = null)
-    {
-        $periodAccount = $periodAccount ?: new PeriodAccount(date('Y'), 'table');
-        $formattedAccount = new \stdClass;
-        $formattedAccount->id = $this->id;
-        $formattedAccount->description = $this->description;
-        $formattedAccount->is_credit_card = $this->is_credit_card;
-        $formattedAccount->invoices = [];
-        if ($this->is_credit_card) {
-            for ($month = 0; $month < 12; $month++) {
-                $invoice = null;
-                if (isset($periodAccount)) {
-                    $invoiceIds = $this->invoices()
-                        ->whereBetween('debit_date', [
-                            $periodAccount->months[$month]->init,
-                            $periodAccount->months[$month]->end
-                        ])->get()->map(function ($invoice) {
-                        return $invoice->id;
-                    })->implode(';');
-
-                    if ($invoiceIds != '') {
-                        $invoice = new VirtualInvoice(sslEncrypt($invoiceIds));
-                    }
-                }
-                $formattedAccount->invoices[] = $invoice;
-            }
-        }
-        return $formattedAccount;
-    }
-
-    /**
-     * Method to update model by request
-     * @param Request $request
-     * @return void
-     */
-    public function updateByRequest($request){
-        $this->description = $request->description;
-        if ($this->is_credit_card && isset($request->prefer_debit_account)) {
-            $this->preferDebitAccount()->associate($request->prefer_debit_account);
-        }
-        $this->save();
+    public function totalCredit($date){
+        if (!$this->is_credit_card) throw new Exception('This is not a credit card.');
+        $invoice = $this->invoices()->where('debit_date','<=', $date)->orderBy('debit_date', 'desc')->first();
+        if (!isset($invoice)) return 0;
+        return $invoice->total();
     }
 
     /**
      * Method to return total of transfers of account.
-     * @param DateTime $maxDate
+     * @param DateTime $date
      * @param bool $paid
      * @return double
      */
-    private function totalTransfer($maxDate, $paid = false)
+    private function totalTransfer($date, $paid = false)
     {
-        return $this->transactionsTransfer()->where('paid', $paid)->where('date', '<=', $maxDate)->sum('value');
-    }
-
-
-    /**
-     * Function to get list of invoice's accounts
-     *
-     * @return array
-     */
-    public function createListInvoices()
-    {
-        $selectInovice = [];
-        $selectInovice[-1] = __('common.select');
-        foreach ($this->invoices()->get() as $invoice) {
-            $selectInovice[$invoice->id] = $invoice->id . "/" . $invoice->description;
-        }
-        return $selectInovice;
+        return $this->transactionsTransfer()->paid($paid)->dateMinus($date)->sum('value');
     }
 
     /**
-     * Function to get list of invoice's accounts
-     *
-     * @return array
+     * Method to return total of account.
+     * @param DateTime $date
+     * @param bool $paid
+     * @return double
      */
-    public function filterListInvoices()
+    public function totalDebit($date, $paid = false)
     {
-        $formattedAccount = $this->format();
-        $selectInovice = [];
-        $selectInovice[-1] = __('common.any');
-        foreach ($formattedAccount->invoices as $invoice) {
-            if (!isset($invoice)){
-                continue;
-            }
-            $selectInovice[$invoice->encryptedId()] = $invoice->description();
-        }
-        return $selectInovice;
+        return $this->transactions()->paid($paid)->dateMinus($date)->sum('value') +
+                -1 * $this->totalTransfer($date, $paid);
     }
 
-    /**
-     * Scope a query to only non credit card.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeNonCreditCard($query)
-    {
-        return $query->where('is_credit_card', false);
-    }
-
-    /**
-     * Scope a query to only credit card.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeCreditCards($query)
-    {
-        return $query->where('is_credit_card', true);
+    public function format($year = null){
+        return (new Formatter($this))->format($year ?: date('Y'));
     }
 }

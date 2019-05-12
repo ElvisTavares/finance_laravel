@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use App\Invoice;
-use App\VirtualInvoice;
+use App\Helpers\Invoice\Invoice as VirtualInvoice;
 use App\UserConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\TransactionSaveRequest;
+//use App\Http\Requests\AccountDestroyRequest;
 
-class TransactionController extends Controller
+class TransactionController extends ApplicationController
 {
     /**
      * Create a new controller instance.
@@ -23,102 +25,109 @@ class TransactionController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Create a query string to use in url
-     *
-     * @return string
-     */
-    private function query()
-    {
-        $dateInit = Input::get('date_init');
-        $dateEnd = Input::get('date_end');
-        $description = Input::get('description');
-        $accountId = Input::get('account_id');
-        return "?" . implode([(isset($accountId) ? 'account_id=' . $accountId : '') . (isset($description) ? 'description=' . $description : ''), (isset($dateInit) && isset($dateEnd) ? 'date_init=' . $dateInit . '&date_end=' . $dateEnd : '')], '&');
+    private function getInvoiceByRequest(Request $request, $invoiceId = null){
+        $invoiceId = isset($invoiceId) ? $invoiceId : $request->invoice_id;
+        return isset($invoiceId) ? VirtualInvoice::get($invoiceId) : null;
     }
 
-    private function getEloquentTransactions($request)
-    {
-        $dateInit = $request->input('date_init');
-        $dateEnd = $request->input('date_end');
-        $filterDate = true;
-        if (isset($request->invoice_id) && strcmp($request->invoice_id, '-1') != 0) {
-            $virtualInvoice = new VirtualInvoice($request->invoice_id);
-            $transactions = $virtualInvoice->transactions();
-        } else {
-            if (isset($request->account)) {
-                $transactions = $request->account->transactions();
-            } else {
-                $transactions = Transaction::whereIn('account_id', Auth::user()->accounts->map(function ($account) {
-                    return $account->id;
-                }));
-            }
-        }
-        if ($filterDate) {
-            if ($dateInit !== null && $dateEnd !== null) {
-                $transactions->whereBetween('date', [$dateInit, $dateEnd]);
-            }
-        }
+    private function getYearByRequest(Request $request, $invoice = null){
+        if ($invoice) return $invoice->getYear();
+        if ($request->date_init && $request->date_end)
+            return strtok($request->date_init , '-');
+        return date('Y');
+    }
 
-        $request->description = iconv('UTF-8', 'ASCII//TRANSLIT', strtolower($request->description));
-        $transactions = $transactions->whereRaw("replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace( lower(description), 'á','a'), 'ã','a'), 'â','a'), 'é','e'), 'ê','e'), 'í','i'),'ó','o') ,'õ','o') ,'ô','o'),'ú','u'), 'ç','c') LIKE '%{$request->description}%'")->orderBy('date')->orderBy('description');
+    private function getTransactionsByRequest(Request $request, $account, $invoice = null){
+        $transactions = ($invoice) ? $invoice->transactions() : $account->transactions();
+        if ($request->description)
+            $transactions = $transactions->description($request->description);
+        if ($request->date_init && $request->date_end)
+            $transactions = $transactions->betweenDates($request->date_init, $request->date_end);
         return $transactions;
     }
 
     /**
-     * Get mode view of accounts
-     * @param string $viewMode [card, table]
-     * @return string
-     */
-    private function modeView($viewMode)
-    {
-        $viewModeConfig = UserConfig::transactionsModeView(Auth::user()->id);
-        if (isset($viewMode)) {
-            $viewModeConfig->value = $viewMode;
-            $viewModeConfig->save();
-        }
-        return $viewModeConfig->value ?: 'table';
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $accountId, $invoiceId = null)
     {
-        $transactions = $this->getEloquentTransactions($request)->paginate(30)->appends(request()->input());
+        $account = Auth::user()->accounts()->findOrFail($accountId);
+        $invoice = $this->getInvoiceByRequest($request, $invoiceId);
+        $transactions = $this->getTransactionsByRequest($request, $account, $invoice);
+        $year = $this->getYearByRequest($request, $invoice);
         return view('transactions.index', [
-            'account' => $request->account,
-            'transactions' => $transactions,
-            'query' => $this->query(),
-            'viewMode' => $this->modeView($request->view_mode)
+            'account' => $account->format($year),
+            'invoice' => $invoice,
+            'transactions' => $transactions->paginate(30)->appends($request->all())
         ]);
     }
 
     /**
-     * Display a listing of the resource.
+     * Add categories to listed resource.
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function charts(Request $request)
+    public function category(Request $request, $accountId, $invoiceId = null)
     {
-        $transactions = $this->getEloquentTransactions($request)->get();
-        $categories = Auth::user()->categories;
-        $categoryTransactions = [];
-        $transactions->each(function ($transaction) use (&$categoryTransactions) {
-            $transaction->categories->each(function ($category) use (&$categoryTransactions) {
-                $categoryTransactions[] = $category;
-            });
-        });
-        return view('transactions.charts', [
-            'account' => $request->account,
-            'transactions' => $transactions,
-            'categories' => $categories,
-            'category_transactions' => $categoryTransactions
-        ]);
+        $account = Auth::user()->accounts()->findOrFail($accountId);
+        $invoice = $this->getInvoiceByRequest($request, $invoiceId);
+        $transactions = $this->getTransactionsByRequest($request, $account, $invoice);
+        $categories = explode(',', $request->categories);
+        foreach ($transactions->get() as $transaction)
+            $transaction->updateCategories($categories);
+        $route = route('accounts.transactions', [
+            'account' => $account,
+            'invoice_id' => $invoice ? $invoice->getId() : null,
+            http_build_query($request->except('invoice_id')
+        )]);
+        return redirect($route);
+    }
+
+    /**
+     * Repeat the specified resource from storage.
+     *
+     * @param Request $request
+     * @param  Integer $id
+     * @return \Illuminate\Http\Response
+     */
+    public function repeat(Request $request, $accountId, $transactionId)
+    {
+        $account = Auth::user()->accounts()->findOrFail($accountId);
+        $transaction = Auth::user()->transactions($accountId)->findOrFail($transactionId);
+        for ($months = 0; $months < $request->times; $months++) {
+            $new = $transaction->clone();
+            $new->paid = false;
+            $new->date = add_month_to_date($months + 1, $transaction->date);
+            $new->save();
+        }
+        $route = route('accounts.transactions', [
+            'account' => $account,
+            'invoice_id' => $transaction->invoice ? $transaction->invoice->getId() : null,
+            http_build_query($request->except('invoice_id')
+        )]);
+        return redirect($route);
+    }
+
+    private function selectInvoices($account){
+        $invoices = [];
+        foreach (Auth::user()->invoices($account->id)->get() as $invoice){
+            $invoices[$invoice->getId()] = $invoice->id . " / " . $invoice->description;
+        }
+        return $invoices;
+    }
+
+    private function selectAccountsTransfer($accountId){
+        $otherAccounts = Auth::user()->accounts()->where('id', '<>', $accountId)->get();
+        $accounts = [
+            -1 => __('common.select')
+        ];
+        foreach ($otherAccounts as $account)
+            $accounts[$account->id] = $account->id . " / " . $account->description;
+        return $accounts;
     }
 
     /**
@@ -127,62 +136,18 @@ class TransactionController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, $accountId, $virtualInvoiceId = null)
     {
-        $parameters = [
-            'action' => __('common.add'),
-            'query' => $this->query(),
-            'account' => null,
-            'accounts' => null
-        ];
-        if (isset($request->account) && $request->account != '-1') {
-            $parameters['account'] = Auth::user()->accounts->find($request->account);
-            $parameters['accounts'] = Auth::user()->accounts->where('id', '<>', $request->account);
-        }
-        return view('transactions.form', $parameters);
-    }
-
-
-    private function valid($request)
-    {
-        return Validator::make($request->all(), [
-            'description' => 'required|min:5|max:100',
-            'date' => 'required',
-            'value' => 'required'
-        ], [
-            'description.required' => __('common.description-required'),
-            'description.min' => __('common.description-min-5'),
-            'description.max' => __('common.description-max-100'),
-            'date.required' => __('common.date-required'),
-            'value.required' => __('common.value-required')
-        ])->after(function ($validator) use ($request) {
-            if ($request->account->is_credit_card) {
-                if ($request->invoice_id == null) {
-                    $validator->errors()->add('invoice_id', __('transactions.need-set-invoice'));
-                } elseif ($request->invoice_id == -1) {
-                    if ($request->invoice_description == null || strlen($request->invoice_description) < 5) {
-                        $validator->errors()->add('invoice_id', __('transactions.invoice-description-min-5'));
-                    } elseif ($request->invoice_date_init == null) {
-                        $validator->errors()->add('invoice_id', __('transactions.invoice-date-init-required'));
-                    }elseif ($request->invoice_date_end == null) {
-                        $validator->errors()->add('invoice_id', __('transactions.invoice-date-end-required'));
-                    } elseif ($request->invoice_debit_date == null) {
-                        $validator->errors()->add('invoice_id', __('transactions.invoice-debit-date-required'));
-                    } else {
-                        $invoice = new Invoice;
-                        $invoice->account()->associate($request->account);
-                        $invoice->description = $request->invoice_description;
-                        $invoice->date_init = $request->invoice_date_init;
-                        $invoice->date_end = $request->invoice_date_end;
-                        $invoice->debit_date = $request->invoice_debit_date;
-                        $invoice->save();
-                        $request->invoice = $invoice;
-                    }
-                } else {
-                    $request->invoice = Auth::user()->accounts->find($request->invoice);
-                }
-            }
-        })->validate();
+        $invoiceId = $virtualInvoiceId ? VirtualInvoice::get($virtualInvoiceId)->getFirstId() : null;
+        $account = Auth::user()->accounts()->findOrFail($accountId);
+        return view('transactions.form', [
+            'account' => $account,
+            'transaction' => new Transaction([
+                'invoice_id' => $invoiceId
+            ]),
+            'invoices' => $this->selectInvoices($account),
+            'accounts' => $this->selectAccountsTransfer($accountId)
+        ]);
     }
 
     /**
@@ -191,13 +156,31 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TransactionSaveRequest $request, $accountId)
     {
-        $this->valid($request);
+        $account = Auth::user()->accounts()->findOrFail($accountId);
         $transaction = new Transaction;
-        $transaction->account()->associate($request->account);
-        $transaction->updateByRequest($request);
-        return redirect('/account/' . $request->account->id . '/transactions' . $this->query());
+        $transaction->account()->associate($account);
+        if ($account->is_credit_card){
+            $virtualInvoice = VirtualInvoice::get($request->invoice_id);
+            $invoice = Auth::user()->invoices($accountId)->findOrFail($virtualInvoice->getFirstId());
+            $transaction->invoice()->associate($invoice);
+        }
+        if ($request->isTransfer()){
+            $accountTransfer = Auth::user()->accounts()->findOrFail($request->account_id_transfer);
+            $transaction->accountTransfer()->associate($accountTransfer);
+        }
+        $transaction->date = $request->date;
+        $transaction->paid = $request->isPaid($account);
+        $transaction->description = $request->description;
+        $transaction->value = $request->value * ($request->isCredit() ? -1 : 1);
+        $transaction->save();
+        $route = route('accounts.transactions', [
+            'account' => $account,
+            'invoice_id' => $transaction->invoice ? $transaction->invoice->getId() : null,
+            http_build_query($request->except('invoice_id')
+        )]);
+        return redirect($route);
     }
 
     /**
@@ -207,14 +190,14 @@ class TransactionController extends Controller
      * @param  Integer $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $accountId, $transactionId)
     {
+        $account = Auth::user()->accounts()->findOrFail($accountId);
         return view('transactions.form', [
-            'action' => __('common.edit'),
-            'account' => $request->account,
-            'transaction' => $request->transaction,
-            'query' => $this->query(),
-            'accounts' => Auth::user()->accounts
+            'account' => $account,
+            'transaction' => Auth::user()->transactions($accountId)->findOrFail($transactionId),
+            'invoices' => $this->selectInvoices($account),
+            'accounts' => $this->selectAccountsTransfer($accountId)
         ]);
     }
 
@@ -225,12 +208,30 @@ class TransactionController extends Controller
      * @param  Integer $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TransactionSaveRequest $request, $accountId, $transactionId)
     {
-        $this->valid($request);
-        $transaction = $request->transaction;
-        $transaction->updateByRequest($request);
-        return redirect('/account/' . $request->account->id . '/transactions' . $this->query());
+        $account = Auth::user()->accounts()->findOrFail($accountId);
+        $transaction = Auth::user()->transactions($accountId)->findOrFail($transactionId);
+        if ($account->is_credit_card){
+            $virtualInvoice = VirtualInvoice::get($request->invoice_id);
+            $invoice = Auth::user()->invoices($accountId)->findOrFail($virtualInvoice->getFirstId());
+            $transaction->invoice()->associate($invoice);
+        }
+        if ($request->isTransfer()){
+            $accountTransfer = Auth::user()->accounts()->findOrFail($request->account_id_transfer);
+            $transaction->accountTransfer()->associate($accountTransfer);
+        }
+        $transaction->date = $request->date;
+        $transaction->paid = $request->isPaid($account);
+        $transaction->description = $request->description;
+        $transaction->value = $request->value * ($request->isCredit() ? -1 : 1);
+        $transaction->save();
+        $route = route('accounts.transactions', [
+            'account' => $account,
+            'invoice_id' => $transaction->invoice ? $transaction->invoice->getId() : null,
+            http_build_query($request->except('invoice_id')
+        )]);
+        return redirect($route);
     }
 
     /**
@@ -240,11 +241,11 @@ class TransactionController extends Controller
      * @param int $id
      * @return Response
      */
-    public function confirm(Request $request)
+    public function confirm(Request $request, $accountId, $transactionId)
     {
         return view('transactions.confirm', [
-            'account' => $request->account,
-            'transaction' => $request->transaction
+            'account' => Auth::user()->accounts()->findOrFail($accountId),
+            'transaction' => Auth::user()->transactions($accountId)->findOrFail($transactionId)
         ]);
     }
 
@@ -254,66 +255,17 @@ class TransactionController extends Controller
      * @param  Integer $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $accountId, $transactionId)
     {
-        $request->transaction->delete();
-        return redirect('/account/' . $request->account->id . '/transactions' . $this->query());
-    }
-
-    /**
-     * Show view to repeat the specified resource from storage.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function repeat(Request $request)
-    {
-        return view('transactions.repeat', [
-            'account' => $request->account,
-            'transaction' => $request->transaction
-        ]);
-    }
-
-    /**
-     * Repeat the specified resource from storage.
-     *
-     * @param Request $request
-     * @param  Integer $id
-     * @return \Illuminate\Http\Response
-     */
-    public function confirmRepeat(Request $request, $id)
-    {
-        for ($i = 0; $i < $request->times; $i++) {
-            $transaction = new Transaction;
-            $requestTransaction = $request->transaction;
-            $newDate = strtotime("+" . ($i + 1) . " month", strtotime($requestTransaction->date));
-            $transaction->account()->associate($requestTransaction->account);
-            $transaction->date = date("Y-m-d\TH:i:s", $newDate);
-            $transaction->description = $requestTransaction->description;
-            $transaction->value = $requestTransaction->value;
-            $transaction->paid = false;
-            if ($request->account->is_credit_card && isset($requestTransaction->invoice_id)) {
-                $transaction->invoice->associate($requestTransaction->invoice);
-            }
-            $transaction->save();
-        }
-        return redirect('/account/' . $request->account->id . '/transactions' . $this->query());
-    }
-
-    /**
-     * Add categories to listed resource.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function addCategories(Request $request)
-    {
-        $categories = explode(',', $request->categories);
-        $transactions = $this->getEloquentTransactions($request)->get();
-        foreach ($transactions as $transaction) {
-            $transaction->updateCategories($categories);
-        }
-        $baseUrl = isset($request->account) ? '/account/' . $request->account->id : '';
-        return redirect( $baseUrl . '/transactions' . $this->query());
+        $account = Auth::user()->accounts()->findOrFail($accountId);
+        $transaction = Auth::user()->transactions($accountId)->findOrFail($transactionId);
+        $invoice = $transaction->invoice;
+        $transaction->delete();
+        $route = route('accounts.transactions', [
+            'account' => $account,
+            'invoice_id' => $invoice ? $invoice->getId() : null,
+            http_build_query($request->except('invoice_id')
+        )]);
+        return redirect($route);
     }
 }

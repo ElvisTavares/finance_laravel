@@ -1,17 +1,16 @@
 @extends('layouts.app')
 
-@section('title')
-    {{__('login.reset-password')}}
-@endsection
+@section('title', __('login.reset-password'))
+@section('class', config('constants.classes.form'))
 
 @section('content')
-    <div class="{{ config('constants.classes.form') }}">
-        <form role="form" method="POST" action="{{ url('/password/email') }}">
-            {!! csrf_field() !!}
-
-            {!! (new FormGroup(__('login.email'), new Field('email', 'email'), $errors))->html() !!}
-
-            @include('shared/submit', ['text'=>__('login.send-email-reset'), 'iconClass'=>'fas fa-sign-in-alt'])
-        </form>
-    </div>
+    {!! Form::open(['route' => 'password.email']) !!}
+        <div class="form-group">
+            {!! Form::label('email', __('login.email')) !!}
+            {!! Form::email('email', null, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::submit(__('login.send-email-reset'), ['class' => 'btn btn-success']); !!}
+        </div>
+    {!! Form::close() !!}
 @endsection
