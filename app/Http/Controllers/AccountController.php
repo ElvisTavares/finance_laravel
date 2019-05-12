@@ -31,10 +31,19 @@ class AccountController extends ApplicationController
         ]);
     }
 
+    private function selectDebitAccounts($accountId){
+        $accounts = [
+            -1 => __('common.select')
+        ];
+        foreach (Auth::user()->debitAccounts()->where('id', '<>', $accountId)->get() as $account)
+            $accounts[$account->id] = $account->id . " / " . $account->description;
+        return $accounts;
+    }
+
     private function form($account){
         return view('accounts.form', [
             'account' => $account,
-            'select' => Auth::user()->listed('debitAccounts')
+            'accounts' => $this->selectDebitAccounts($account->id)
         ]);
     }
 
@@ -67,8 +76,8 @@ class AccountController extends ApplicationController
         $account->user()->associate(Auth::user());
         $account->description = $request->description;
         $account->is_credit_card = $request->isCreditCard();
-        if ($account->is_credit_card && isset($request->prefer_debit_account)) {
-            $account->preferDebitAccount()->associate($request->prefer_debit_account);
+        if ($account->is_credit_card && $request->prefer_debit_account_id) {
+            $account->prefer_debit_account_id = $request->prefer_debit_account_id;
         }
         $account->save();
         return $this->rootRedirect();
@@ -85,8 +94,8 @@ class AccountController extends ApplicationController
     {
         $account = Auth::user()->accounts()->findOrFail($id);
         $account->description = $request->description;
-        if ($account->is_credit_card && isset($request->prefer_debit_account)) {
-            $account->preferDebitAccount()->associate($request->prefer_debit_account);
+        if ($account->is_credit_card && $request->prefer_debit_account_id) {
+            $account->prefer_debit_account_id = $request->prefer_debit_account_id;
         }
         $account->save();
         return $this->rootRedirect();
@@ -99,7 +108,7 @@ class AccountController extends ApplicationController
      * @param int $id
      * @return Response
      */
-    public function destroy(AccountDestroyRequest $request, $id)
+    public function destroy(Request $request, $id)
     {
         $account = Auth::user()->accounts()->findOrFail($id);
         foreach (Auth::user()->accounts as $oaccount) {

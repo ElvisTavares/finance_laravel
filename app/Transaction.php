@@ -73,26 +73,6 @@ class Transaction extends ApplicationModel
     }
 
     /**
-     * Method to update transaction by request
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function updateByRequest(Request $request)
-    {
-        $this->date = $request->date;
-        $this->description = $request->description;
-        $this->value = $request->value * (isset($request->is_credit) && $request->is_credit ? -1 : 1);
-        $this->paid = isset($request->paid) ? $request->paid : false;
-        if (isset($request->is_transfer) && $request->is_transfer)
-            $this->accountTransfer()->associate($request->account_transfer);
-        if (isset($request->invoice_id)) {
-            $this->invoice_id = $request->invoice_id;
-        }
-        $this->save();
-        $this->updateCategories(explode(',', $request->categories));
-    }
-    /**
      * Scope a query to only include transactions which positive values.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -145,7 +125,7 @@ class Transaction extends ApplicationModel
      */
     public function scopeOfUser($query, User $user)
     {
-        return $query->whereIn('account_id', $user->mapped('accounts', 'id'));
+        return $query->whereIn('account_id', $user->accounts->map(function($account){ return $account->id; }));
     }
 
     public function scopeDescription($query, $description)
@@ -156,6 +136,29 @@ class Transaction extends ApplicationModel
 
     public function scopeBetweenDates($query, $dateInit, $dateEnd){
         return $query->whereBetween('date', [$dateInit, $dateEnd]);
+    }
+
+    public function clone(){
+        $new = new Transaction;
+        $new->account()->associate($this->account);
+        $new->description = $this->description;
+        $new->value = $this->value;
+        if ($this->account->is_credit_card && $this->invoice) {
+            $new->invoice->associate($this->invoice);
+        }
+        return $new;
+    }
+
+    public function isPaid(){
+        return ($this->account && $this->account->is_credit_card) || $this->paid;
+    }
+
+    public function isCredit(){
+        return $this->value < 0.0;
+    }
+
+    public function isTransfer(){
+        return isset($this->account_id_transfer);
     }
 
 }

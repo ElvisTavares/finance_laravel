@@ -20,9 +20,9 @@
             </div>
         @endif
         @if (!$account->id || ($account->id && $account->is_credit_card))
-            <div class="form-group" {!!$account->is_credit_card ? '' : 'style="display: none;"'!!}>
+            <div class="form-group" {!! $account->is_credit_card ? '' : 'style="display: none;"' !!}>
                 {!! Form::label('prefer_debit_account_id', __('accounts.prefer-debit-account')) !!}
-                {!! Form::select('prefer_debit_account_id', $select, old('prefer_debit_account_id', $account->prefer_debit_account_id), ['class'=>'form-control']) !!}
+                {!! Form::select('prefer_debit_account_id', $accounts, old('prefer_debit_account_id', $account->prefer_debit_account_id), ['class'=>'form-control']) !!}
             </div>
         @endif
         <div class="form-group">

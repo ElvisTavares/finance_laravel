@@ -123,7 +123,7 @@ class InvoiceController extends ApplicationController
      * @param  Integer $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InvoiceDestroyRequest $request, $accountId, $invoiceId)
+    public function destroy(Request $request, $accountId, $invoiceId)
     {
         $account = Auth::user()->accounts()->findOrFail($accountId);
         $invoice = Auth::user()->invoices($accountId)->findOrFail($invoiceId);

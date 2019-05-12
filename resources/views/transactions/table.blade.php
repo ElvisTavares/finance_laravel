@@ -41,37 +41,35 @@
                 {!! _e_money($transaction->value) !!}
             </td>
             <td class="text-center">
-                @if (!$transaction->account->is_credit_card)
-                    <div class="checkbox">
-                        <label style="margin-bottom: 0px;">
-                            <input style="vertical-align: middle;" disabled="true"
-                                   type="checkbox" {!! $transaction->paid?"checked='true'":"" !!}/>
-                        </label>
-                    </div>
-                @endif
+                <div class="checkbox">
+                    <label style="margin-bottom: 0px;">
+                        <input style="vertical-align: middle;" disabled="true"
+                                type="checkbox" {!! $transaction->isPaid() ? "checked='true'" : "" !!}/>
+                    </label>
+                </div>
             </td>
             <td class="text-center">
                 <a class="btn btn-list" title="{{ __('common.repeat') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/repeat") }}">
+                   href="{{ route('transactions.repeat', [$account->id, $transaction]) }}">
                     <i class="fas fa-redo-alt"></i>
                 </a>
             </td>
             <td class="text-center">
                 <a class="btn btn-edit" title="{{ __('common.edit') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/edit") }}">
+                   href="{{ route('transactions.edit', [$account->id, $transaction]) }}">
                     <i class="fa fa-edit"></i>
                 </a>
             </td>
             <td class="text-center">
                 <a class="btn btn-remove" title="{{ __('common.remove') }} {{ __('transactions.transaction') }}"
-                   href="{{ url("/account/".$transaction->account_id."/transaction/".$transaction->id."/confirm") }}">
+                   href="{{ route('transactions.confirm', [$account->id, $transaction]) }}">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>
         </tr>
     @endforeach
     </tbody>
-    @if ($transactions->links()!='')
+    @if (!empty($transactions->links()))
         <tfoot>
         <tr>
             <td colspan="11">

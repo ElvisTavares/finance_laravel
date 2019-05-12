@@ -72,6 +72,16 @@ class User extends ApplicationModel implements AuthenticatableContract, Authoriz
      *
      * @return HasMany
      */
+    public function transactions($accountId)
+    {
+        return $this->accounts()->findOrFail($accountId)->transactions();
+    }
+
+    /**
+     * Get user's accounts
+     *
+     * @return HasMany
+     */
     public function debitAccounts() : HasMany
     {
         return $this->accounts()->where('is_credit_card', false);

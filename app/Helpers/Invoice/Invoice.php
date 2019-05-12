@@ -25,6 +25,12 @@ class Invoice
         }, $this->invoices)));
     }
 
+    public function getFirstId(){
+        $filtered = array_filter($this->invoices);
+        if (empty($filtered)) return null;
+        return $filtered[0]->id;
+    }
+
     public static function get($id){
         $decode = short_decode($id);
         $accountInvoicesIds = explode(";", $decode);
