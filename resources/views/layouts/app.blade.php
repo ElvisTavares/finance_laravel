@@ -18,18 +18,6 @@
 <div id="app">
     @include('layouts.nav')
     <div class="container-fluid ">
-        <div class="row title line-bottom">
-            <div class="col-md-8">
-                <h2>@yield('title')</h2>
-            </div>
-            <div class="col-md-4 title-buttons">
-                <div class="container-fluid">
-                    <div class="row">
-                        @yield('title-buttons')
-                    </div>
-                </div>
-            </div>
-        </div>
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -44,9 +32,29 @@
                 </ul>
             </div>
         @endif
-
-        <div class="container-fluid default-margin-top">
-                @yield('content')
+        <div class="container-fluid">
+            <div class="row">
+                <div class="@yield('class')">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="container-fluid card-header">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-8">
+                                        <h2 class="card-title">@yield('title')</h2>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4 text-right">
+                                        <a href="javascript:window.history.back();" class="btn btn-secondary">
+                                            <i class="fa fa-arrow-left"></i> {{__('common.back')}}
+                                        </a>
+                                        @yield('title-buttons')
+                                    </div>
+                                </div>
+                            </div>
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

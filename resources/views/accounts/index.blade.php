@@ -2,53 +2,37 @@
 @section('title')
     <i class="fas fa-piggy-bank"></i> {{__('accounts.title')}}
 @endsection
+@section('class', config('constants.classes.full'))
 @section('title-buttons')
-    @php
-    $nextViewMode = ($viewMode == "table" ? "card" : "table");
-    $urlViewMode = url("/accounts?view_mode=" . $nextViewMode);
-    $urlAdd = url("/accounts/create");
-    $links = [
-        new LinkResponsive(url("/"), 'btn btn-back', 'fa fa-arrow-left', __('common.back')),
-        new LinkResponsive($urlViewMode, 'btn btn-change', 'fas fa-exchange-alt', __('common.' . $nextViewMode)),
-        new LinkResponsive($urlAdd, 'btn btn-add', 'fa fa-plus', __('common.add'))
-    ];
-    @endphp
-    @include('shared/titleButtons', ['links'=>$links])
+    <a href="{{route('accounts.create')}}" class="btn btn-primary">
+        <i class="fa fa-plus"></i> {{__('common.add')}}
+    </a>
 @endsection
 @section('content')
-    <div class="row line-bottom default-padding">
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.avg-max')}}:</b>
-            {{__('common.money-type')}} {!!formatMoney($avg->max)!!}
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.avg-min')}}:</b>
-            {{__('common.money-type')}} {!!formatMoney($avg->min)!!}
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.avg-avg')}}:</b>
-            {{__('common.money-type')}} {!!formatMoney($avg->avg)!!}
-        </div>
-    </div>
-    <div class="row line-bottom default-padding default-margin-bottom">
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.totals-paid')}}:</b>
-            {{__('common.money-type')}} {!!formatMoney($totals->paid[$period->actual->month])!!}
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.totals-not-paid')}}:</b>
-            {{__('common.money-type')}} {!!formatMoney($totals->nonPaid[$period->actual->month])!!}
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4 col-lg-4 text-center">
-            <b>{{__('accounts.totals')}}:</b>
-            {{__('common.money-type')}} {!!formatMoney($totals->nonPaid[$period->actual->month]+$totals->paid[$period->actual->month])!!}
-        </div>
-    </div>
 
-    @include('accounts/mode_view/'.$viewMode)
+    @include('accounts/table')
+
+    <table class="table table-sm">
+        <tr>
+            <th>{{__('accounts.avg-max')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($avg->positive)!!}</td>
+            <th>{{__('accounts.avg-min')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($avg->negative)!!}</td>
+            <th>{{__('accounts.avg-avg')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($avg->all)!!}</td>
+        </tr>
+        <tr>
+            <th>{{__('accounts.totals-paid')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($values->totalPaidActualMonth())!!}</td>
+            <th>{{__('accounts.totals-not-paid')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($values->totalNonPaidActualMonth())!!}</td>
+            <th>{{__('accounts.totals')}}:</th>
+            <td>{{__('common.money-type')}} {!!_e_money($values->totalActualMonth())!!}</td>
+        </tr>
+    </table>
 
     @foreach($accounts as $account)
-        @include('accounts/import', ['id'=>$account->id])
+        @include('accounts/import', ['id' => $account->id])
     @endforeach
 @endsection
 

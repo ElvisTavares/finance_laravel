@@ -36,16 +36,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-        'account' => [
-            \App\Http\Middleware\CheckAccount::class
-        ],
-        'transaction' => [
-            \App\Http\Middleware\CheckTransaction::class
-        ],
-        'invoice' => [
-            \App\Http\Middleware\CheckInvoice::class
-        ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
@@ -65,7 +55,6 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'root_user' => \App\Http\Middleware\RootUser::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class
     ];
 }

@@ -1,16 +1,21 @@
 <?php
-
 namespace App;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use jeremykenedy\LaravelRoles\Models\Role;
+use App\Helpers\Account\Values;
 
-class User extends Authenticatable
+class User extends ApplicationModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
-    use Notifiable;
-    use HasRoleAndPermission;
+    use Authenticatable, Authorizable, CanResetPassword, Notifiable, HasRoleAndPermission;
 
     public static function boot()
     {
@@ -45,31 +50,59 @@ class User extends Authenticatable
     /**
      * Get user's accounts
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function accounts()
+    public function accounts() : HasMany
     {
         return $this->hasMany('App\Account');
     }
 
     /**
-     * get array of id accounts
+     * Get user's accounts
      *
-     * @return array
+     * @return HasMany
      */
-    public function accoutsId()
+    public function invoices($accountId)
     {
-        return $this->accounts->map(function ($account) {
-            return $account->id;
-        });
+        return $this->accounts()->findOrFail($accountId)->invoices();
+    }
+
+    /**
+     * Get user's accounts
+     *
+     * @return HasMany
+     */
+    public function transactions($accountId)
+    {
+        return $this->accounts()->findOrFail($accountId)->transactions();
+    }
+
+    /**
+     * Get user's accounts
+     *
+     * @return HasMany
+     */
+    public function debitAccounts() : HasMany
+    {
+        return $this->accounts()->where('is_credit_card', false);
+    }
+
+    /**
+     * Get user's accounts
+     *
+     * @return HasMany
+     */
+    public function creditAccounts() : HasMany
+    {
+        return $this->accounts()->where('is_credit_card', true);
     }
 
     /**
      * Get user's config
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function configs()
+    public function configs() : HasMany
     {
         return $this->hasMany('App\UserConfig');
     }
@@ -77,62 +110,50 @@ class User extends Authenticatable
     /**
      * Get user's categories
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function categories()
+    public function categories() : HasMany
     {
         return $this->hasMany('App\Category');
     }
 
-    /**
-     * Function to get list of user's accounts
-     *
-     * @return array
-     */
-    public function listAccounts()
-    {
-        $selectAccounts = [];
-        $selectAccounts[-1] = __('common.select');
-        foreach ($this->accounts()->get() as $account) {
-            $selectAccounts[$account->id] = $account->id . "/" . $account->description;
-        }
-        return $selectAccounts;
+    private function avgTransactionsPositive(){
+        return $this->avgTransactionsCalc(Transaction::ofUser($this)->positive());
     }
 
-    /**
-     * Function to get accounts aren't credit card
-     *
-     * @return array
-     */
-    public function listNonCreditCard()
-    {
-        $accounts = $this->accounts->where('is_credit_card', false);
-        $selectAccounts = [null => __('common.none')];
-        foreach ($accounts as $account) {
-            $selectAccounts[$account->id] = $account->id . "/" . $account->description;
-        }
-        return $selectAccounts;
+    private function avgTransactionsNegative(){
+        return $this->avgTransactionsCalc(Transaction::ofUser($this)->negative());
     }
 
-    /**
-     * @return \stdClass
-     */
+    private function avgTransactionsCalc($builder){
+        $division = $builder->count();
+        if ($division == 0) $division = 1;
+        return $builder->sum('value') / $division;
+    }
+
     public function avgTransactions()
     {
-        $result = new \stdClass;
-        $result->max = Transaction::ofUser($this)->positive();
-        $result->maxDivision = count($result->max->get());
-        if ($result->maxDivision == 0) {
-            $result->maxDivision = 1;
-        }
-        $result->max = $result->max->sum('value') / $result->maxDivision;
-        $result->min = Transaction::ofUser($this)->negative();
-        $result->minDivision = count($result->min->get());
-        if ($result->minDivision == 0) {
-            $result->minDivision = 1;
-        }
-        $result->min = $result->min->sum('value') / $result->minDivision;
-        $result->avg = $result->max + $result->min;
-        return $result;
+        $positive = $this->avgTransactionsPositive();
+        $negative = $this->avgTransactionsNegative();
+        return (object)[
+            'all' => $positive + $negative,
+            'positive' => $positive,
+            'negative' => $negative
+        ];
+    }
+
+    public function formattedAccounts($year)
+    {
+        return  $this->accounts->map(function($account) use ($year){
+            return $account->format($year);
+        });
+    }
+
+    public function resumeAccounts($year)
+    {
+        $values = new Values($year);
+        foreach ($this->accounts as $account)
+            $values->fillAccount($account);
+        return $values;
     }
 }

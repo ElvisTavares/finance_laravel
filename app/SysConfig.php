@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class SysConfig extends Model
+class SysConfig extends ApplicationModel
 {
     protected $table = 'configs';
     /**

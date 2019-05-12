@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Helpers\Invoice\Invoice as VirtualInvoice;
 
-class Invoice extends Model
+class Invoice extends ApplicationModel
 {
 
     /**
@@ -13,8 +13,13 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'description', 'date_init', 'date_end', 'debit_date', 'closed'
+        'id', 'account_id','description', 'date_init', 'date_end', 'debit_date', 'closed'
     ];
+
+    public function getId(){
+        if (!$this->account) return null;
+        return (new VirtualInvoice($this->account, [$this]))->getId();
+    }
 
     /**
      * Get account of invoice
@@ -37,16 +42,28 @@ class Invoice extends Model
     }
 
     /**
+     * Scope a query between two dates
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBetweenDates($query, $dateInit, $dateEnd)
+    {
+        return $query->whereBetween('debit_date', [$dateInit, $dateEnd]);
+    }
+
+    private function lastMe(){
+        return self::where('debit_date', '<', $this->debit_date)->orderBy('debit_date', 'desc')->first();
+    }
+
+    /**
      * Get total of invoice
      *
      * @return double
      */
     public function total(){
-        $lastInvoice = Invoice::where('debit_date', '<', $this->debit_date)->orderBy('debit_date', 'desc')->first();
-        return $this->transactions()->sum('value') + (isset($lastInvoice) ? $lastInvoice->total() : 0);
-    }
-
-    public function encryptedId(){
-        return sslEncrypt($this->id);
+        $lastMe = $this->lastMe();
+        $totalLast = isset($lastMe) ? $lastMe->total() : 0;
+        return $this->transactions()->sum('value') + $totalLast;
     }
 }

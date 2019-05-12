@@ -2,12 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Category extends Model
+class Category extends ApplicationModel
 {
     protected $table = 'categories';
-    
+
     /**
      * The attributes that are mass assignable.
      *

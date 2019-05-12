@@ -2,11 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class UserOauth extends Model
+class UserOauth extends ApplicationModel
 {
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,7 +16,7 @@ class UserOauth extends Model
 
     /**
      * Get user from user ouath's
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

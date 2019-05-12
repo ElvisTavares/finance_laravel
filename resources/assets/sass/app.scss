@@ -82,3 +82,28 @@ a {
     color: $change-color-hover;
   }
 }
+
+.table-sm th, .table-sm td {
+    padding: 0.1rem;
+}
+
+td.actual, th.actual{
+    background-color: $gray-little;
+}
+
+.hovered, td.actual.hovered, th.actual.hovered, .litte-hovered.hovered{
+    background-color: $gray-strong;
+}
+
+.litte-hovered{
+    background-color: $gray-littlest;
+}
+
+.card-title{
+    margin-bottom: 0;
+}
+
+.card-header{
+    margin-bottom: 0.75rem;
+    background-color: white;
+}
