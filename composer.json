@@ -9,10 +9,10 @@
         "asgrim/ofxparser": "1.2.2",
         "barryvdh/laravel-translation-manager": "0.4.2",
         "doctrine/dbal": "2.9.2",
-        "fideloper/proxy": "3.3.4",
+        "fideloper/proxy": "4.1.0",
         "guzzlehttp/guzzle": "6.3.3",
         "jeremykenedy/laravel-roles": "1.7.0",
-        "laravel/framework": "5.5.45",
+        "laravel/framework": "5.8.16",
         "laravel/socialite": "3.3.0",
         "laravel/tinker": "1.0.8",
         "laravelcollective/html": "5.5.4",
@@ -24,7 +24,7 @@
         "filp/whoops": "2.3.1",
         "fzaninotto/faker": "1.8.0",
         "mockery/mockery": "1.2.2",
-        "phpunit/phpunit": "6.5.14",
+        "phpunit/phpunit": "8.1.4",
         "symfony/thanks": "1.1.0"
     },
     "autoload": {
