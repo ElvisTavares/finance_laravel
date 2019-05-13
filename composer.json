@@ -9,7 +9,7 @@
         "asgrim/ofxparser": "1.2.2",
         "barryvdh/laravel-translation-manager": "0.4.2",
         "doctrine/dbal": "2.9.2",
-        "fideloper/proxy": "3.3.4",
+        "fideloper/proxy": "4.1.0",
         "guzzlehttp/guzzle": "6.3.3",
         "jeremykenedy/laravel-roles": "1.7.0",
         "laravel/framework": "5.8.16",
