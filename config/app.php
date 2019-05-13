@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        jeremykenedy\laravelusers\LaravelUsersServiceProvider::class,
         Barryvdh\TranslationManager\TranslationServiceProvider::class,
         Barryvdh\TranslationManager\ManagerServiceProvider::class,
         Sentry\Laravel\ServiceProvider::class,

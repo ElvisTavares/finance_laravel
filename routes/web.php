@@ -59,17 +59,6 @@ Route::put('account/{account}/transaction/{transaction}', 'TransactionController
 Route::delete('account/{account}/transaction/{transaction}', 'TransactionController@destroy')->name('transactions.destroy');
 Route::post('account/{account}/transaction/{transaction}/repeat', 'TransactionController@repeat')->name('transactions.repeat');
 
-Route::get('users/{id}/confirm', 'UsersManagementController@confirm');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('users', 'UsersManagementController', [
-    'names' => [
-        'index'   => 'users',
-        'destroy' => 'user.destroy',
-    ],
-]);
-
-Route::middleware(['web', 'auth'])->group(function () {
-    Route::post('search-users', 'UsersManagementController@search')->name('search-users');
-});
