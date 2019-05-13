@@ -18,7 +18,7 @@ class Values {
             $dateEnd = $this->period->months[$month]->end;
             if ($account->is_credit_card){
                 $this->paid[$account->id][$month] = $account->totalCredit($dateEnd);
-                $this->nonPaid[$account->id][$month] = $account->totalCredit($dateEnd);
+                $this->nonPaid[$account->id][$month] = 0;
             } else {
                 $this->paid[$account->id][$month] = $account->totalDebit($dateEnd, true);
                 $this->nonPaid[$account->id][$month] = $account->totalDebit($dateEnd);
