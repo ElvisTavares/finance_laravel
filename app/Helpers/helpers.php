@@ -8,7 +8,7 @@ function _money($value)
 {
     $value = round($value, 2);
     $number = number_format($value, 2, __('config.decimal-point'), __('config.thousand-point'));
-    return "<span class='".($value>=0?"positive":"negative")."'>".$number."</span>";
+    return "<font class='".($value>=0?"positive":"negative")."'>".$number."</font>";
 }
 
 /**
