@@ -32,7 +32,7 @@
                                 {{__('translations.title')}}
                             </a>
                             <a href="{{ url('users') }}" class="dropdown-item">
-                                {{__('users.show_title')}}
+                                {{__('common.users')}}
                             </a>
                         @endif
                         <div class="dropdown-divider"></div>

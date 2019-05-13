@@ -39,7 +39,8 @@ return array (
   'card' => 'Card',
   'any' => 'Qualquer',
   'name' => 'Nome',
-  'months' => 
+  'users' => 'Usuários',
+  'months' =>
   array (
     0 => 'Jan',
     1 => 'Fev',
