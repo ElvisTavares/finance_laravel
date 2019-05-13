@@ -17,7 +17,7 @@
         "laravel-mix": "4.0.15",
         "lodash": "4.17.11",
         "popper.js": "1.14.4",
-        "vue": "2.5.17"
+        "vue": "2.6.10"
     },
     "dependencies": {
         "ajv": "6.10.0",
