@@ -13,7 +13,7 @@
         "guzzlehttp/guzzle": "6.3.3",
         "jeremykenedy/laravel-roles": "1.7.0",
         "laravel/framework": "5.8.16",
-        "laravel/socialite": "3.3.0",
+        "laravel/socialite": "4.1.3",
         "laravel/tinker": "1.0.8",
         "laravelcollective/html": "5.8.0",
         "laravelnews/laravel-twbs4": "1.3.2",
