@@ -35,3 +35,9 @@ Configurar as seguintes chaves:
 ## Configuração .env em produção caso primeira instalação
 - Na pasta 'shared' após o primeiro deploy, criar o arquivo .env e adicionar a parte relacionada apenas ao Laravel.
 - Configurar apache para apontar para a pasta 'current' do deploy.
+
+# Sistema Online
+> Atualmente o sistema está dispível em [https://guifabrin.ddns.net/finance](https://guifabrin.ddns.net/finance) é gratuíto e você pode usar quando quiser.
+
+# Contribuições
+Toda contribuição é bem vinda.
