@@ -112,6 +112,13 @@ class TransactionController extends ApplicationController
         return redirect($route);
     }
 
+    public function repeatView(Request $request, $accountId, $transactionId){
+        return view('transactions.repeat', [
+            'account' => Auth::user()->accounts()->findOrFail($accountId),
+            'transaction' => Auth::user()->transactions($accountId)->findOrFail($transactionId)
+        ]);
+    }
+
     private function selectInvoices($account){
         $invoices = [];
         foreach (Auth::user()->invoices($account->id)->get() as $invoice){

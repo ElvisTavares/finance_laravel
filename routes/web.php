@@ -10,9 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('/home');
-});
+Route::get('/', 'PublicController@home');
 
 Route::get('privacy', 'PrivacyController@index');
 Route::get('terms', 'PrivacyController@terms');
@@ -43,12 +41,7 @@ Route::post('account/{account}/invoice/{invoice}/upload/ofx', 'UploadController@
 Route::post('account/{account}/invoice/{invoice}/upload/csv', 'UploadController@csv');
 
 
-Route::get('account/{account}/transaction/{transaction}/repeat', function(Request $request, $accountId, $transactionId){
-    return view('transactions.repeat', [
-        'account' => Auth::user()->accounts()->findOrFail($accountId),
-        'transaction' => Auth::user()->transactions($accountId)->findOrFail($transactionId)
-    ]);
-});
+Route::get('account/{account}/transaction/{transaction}/repeat', 'TransactionController@repeatView');
 
 Route::get('account/{account}/transactions', 'TransactionController@index')->name('accounts.transactions');
 Route::get('account/{account}/transaction/create', 'TransactionController@create')->name('accounts.transactions.create');
