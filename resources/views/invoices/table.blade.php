@@ -18,7 +18,7 @@
         <td>{{_date($invoice->date_init)}}</td>
         <td>{{_date($invoice->date_end)}}</td>
         <td>{{_date($invoice->debit_date)}}</td>
-        <td>{{_money($invoice->total())}}</td>
+        <td>{!!_money($invoice->total())!!}</td>
         <td>
           <a class="btn btn-import" title="{{__('common.import')}} {{__('accounts.account')}}"
             href="#" data-toggle="modal" data-target="#model_account_{{$invoice->id}}">
