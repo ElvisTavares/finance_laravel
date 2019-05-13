@@ -4,17 +4,18 @@
  * @param double $value
  * @return string
  */
-function _e_money($value)
+function _money($value)
 {
     $value = round($value, 2);
-    return number_format($value, 2, __('config.decimal-point'), __('config.thousand-point'));
+    $number = number_format($value, 2, __('config.decimal-point'), __('config.thousand-point'));
+    return "<span class='".($value>=0?"positive":"negative")."'>".$number."</span>";
 }
 
 /**
  * @param $date
  * @return false|string
  */
-function _e_date($date)
+function _date($date)
 {
     return date(__('config.date-format'), strtotime($date));
 }

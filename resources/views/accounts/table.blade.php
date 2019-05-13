@@ -44,7 +44,7 @@
                         </td>
                         <td class="{{ $values->isThisMonth($month) ? 'actual' : '' }} text-right"
                              data-account="a{{$account->id}}" data-month="m{{$month}}" title="{{ __('accounts.totals-paid') }}">
-                            {!! _e_money($values->getPaid($account, $month)) !!}
+                            {!! _money($values->getPaid($account, $month)) !!}
                         </td>
                     @endfor
                 </tr>
@@ -82,7 +82,7 @@
                     @for($month=0; $month<12; $month++)
                         <td class="{{ $values->isThisMonth($month) ? 'actual' : '' }} text-right"
                             title="{{ __('accounts.totals-not-paid') }}" data-account="a{{$account->id}}" data-month="m{{$month}}">
-                            {!! _e_money($values->getNonPaid($account, $month)) !!}
+                            {!! _money($values->getNonPaid($account, $month)) !!}
                         </td>
                     @endfor
                 </tr>
@@ -90,7 +90,7 @@
                     @for($month=0; $month<12; $month++)
                         <td class="{{ $values->isThisMonth($month) ? 'actual' : '' }} text-right"
                             title="{{ __('accounts.totals') }}" data-account="a{{$account->id}}" data-month="m{{$month}}">
-                            {!! _e_money($values->getTotal($account, $month)) !!}
+                            {!! _money($values->getTotal($account, $month)) !!}
                         </td>
                     @endfor
                 </tr>
@@ -103,7 +103,7 @@
                 </th>
                 @for($month=0; $month<12; $month++)
                     <th class="text-right" colspan="2" data-month="m{{$month}}">
-                        {!! _e_money($values->totalPaid($month)) !!}
+                        {!! _money($values->totalPaid($month)) !!}
                     </th>
                 @endfor
             </tr>
@@ -113,7 +113,7 @@
                 </th>
                 @for($month=0; $month<12; $month++)
                     <th class="text-right" colspan="2" data-month="m{{$month}}">
-                        {!!_e_money($values->totalNonPaid($month))!!}
+                        {!!_money($values->totalNonPaid($month))!!}
                     </th>
                 @endfor
             </tr>
@@ -123,7 +123,7 @@
                 </th>
                 @for($month=0; $month<12; $month++)
                     <th class="text-right" colspan="2" data-month="m{{$month}}">
-                        {!!_e_money($values->total($month))!!}
+                        {!!_money($values->total($month))!!}
                     </th>
                 @endfor
             </tr>

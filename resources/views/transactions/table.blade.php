@@ -18,7 +18,7 @@
                 {{ $transaction->id }}
             </td>
             <td>
-                {{_e_date($transaction->date) }}
+                {{_date($transaction->date) }}
             </td>
             <td>
                 @if ($transaction->account->is_credit_card && $transaction->invoice)
@@ -38,7 +38,7 @@
                 @endif
             </td>
             <td class="text-right">
-                {!! _e_money($transaction->value) !!}
+                {!! _money($transaction->value) !!}
             </td>
             <td class="text-center">
                 <div class="checkbox">

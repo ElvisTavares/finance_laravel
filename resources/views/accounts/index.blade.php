@@ -15,19 +15,19 @@
     <table class="table table-sm">
         <tr>
             <th>{{__('accounts.avg-max')}}:</th>
-            <td>{{__('common.money-type')}} {!!_e_money($avg->positive)!!}</td>
+            <td>{{__('common.money-type')}} {!!_money($avg->positive)!!}</td>
             <th>{{__('accounts.avg-min')}}:</th>
-            <td>{{__('common.money-type')}} {!!_e_money($avg->negative)!!}</td>
+            <td>{{__('common.money-type')}} {!!_money($avg->negative)!!}</td>
             <th>{{__('accounts.avg-avg')}}:</th>
-            <td>{{__('common.money-type')}} {!!_e_money($avg->all)!!}</td>
+            <td>{{__('common.money-type')}} {!!_money($avg->all)!!}</td>
         </tr>
         <tr>
             <th>{{__('accounts.totals-paid')}}:</th>
-            <td>{{__('common.money-type')}} {!!_e_money($values->totalPaidActualMonth())!!}</td>
+            <td>{{__('common.money-type')}} {!!_money($values->totalPaidActualMonth())!!}</td>
             <th>{{__('accounts.totals-not-paid')}}:</th>
-            <td>{{__('common.money-type')}} {!!_e_money($values->totalNonPaidActualMonth())!!}</td>
+            <td>{{__('common.money-type')}} {!!_money($values->totalNonPaidActualMonth())!!}</td>
             <th>{{__('accounts.totals')}}:</th>
-            <td>{{__('common.money-type')}} {!!_e_money($values->totalActualMonth())!!}</td>
+            <td>{{__('common.money-type')}} {!!_money($values->totalActualMonth())!!}</td>
         </tr>
     </table>
 
