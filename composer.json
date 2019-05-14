@@ -18,7 +18,7 @@
         "fideloper/proxy": "4.1.0",
         "guzzlehttp/guzzle": "6.3.3",
         "jeremykenedy/laravel-roles": "1.7.0",
-        "jeremykenedy/laravel-users": "dev-custom-controller-class",
+        "jeremykenedy/laravel-users": "dev-change_controller_extend",
         "laravel/framework": "5.8.17",
         "laravel/socialite": "4.1.3",
         "laravel/tinker": "1.0.8",
