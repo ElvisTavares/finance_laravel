@@ -43,7 +43,7 @@ class TransactionController extends ApplicationController
             $transactions = $transactions->description($request->description);
         if ($request->date_init && $request->date_end)
             $transactions = $transactions->betweenDates($request->date_init, $request->date_end);
-        return $transactions;
+        return $transactions->orderBy('date', 'DESC');
     }
 
     /**
